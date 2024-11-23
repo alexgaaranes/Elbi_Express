@@ -1,0 +1,6 @@
+------------------------------------------
+panes are instantiated and passed onto their corresponding scenes
+this way setting up panes for scenes are much cleaner and easier to change
+
+
+Different panes can contain the scene switching methods
