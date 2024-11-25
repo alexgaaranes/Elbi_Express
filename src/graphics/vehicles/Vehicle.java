@@ -84,5 +84,6 @@ public class Vehicle extends Graphics {
 
         gc.restore();
     }
+    /*Rotation reference: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#setTransform-double-double-double-double-double-double-*/
 
 }
