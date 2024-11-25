@@ -53,7 +53,7 @@ public class Vehicle extends Graphics {
         if(activeKeys.contains(KeyCode.W)){
             velocity = Math.min(velocity + acceleration, maxVelocity);
         } else if(activeKeys.contains(KeyCode.S)){
-            velocity = Math.max(velocity - acceleration, maxVelocity);
+            velocity = Math.min(velocity - acceleration, maxVelocity);
         } else {
             if(velocity > 0){
                 velocity = Math.max(velocity - acceleration, 0);
