@@ -17,7 +17,7 @@ public class Vehicle extends Graphics {
     private Set<KeyCode> activeKeys = new HashSet<>();
     private final Scene parentScene;
     private double velocity;
-    private double acceleration = 0.005;
+    private final double acceleration = 0.005;
     private final double maxVelocity = 1;
     private final double turningSpeed = 0.5;
 
@@ -53,7 +53,7 @@ public class Vehicle extends Graphics {
         if(activeKeys.contains(KeyCode.W)){
             velocity = Math.min(velocity + acceleration, maxVelocity);
         } else if(activeKeys.contains(KeyCode.S)){
-            velocity = Math.min(velocity - acceleration, maxVelocity);
+            velocity = Math.max(velocity - acceleration, -1*maxVelocity);
         } else {
             if(velocity > 0){
                 velocity = Math.max(velocity - acceleration, 0);
