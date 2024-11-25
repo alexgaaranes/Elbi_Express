@@ -1,6 +1,9 @@
 package game;
 
+import game.panes.AboutPane;
+import game.panes.DeveloperPane;
 import game.panes.MenuPane;
+import game.panes.PlayPane;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,6 +11,9 @@ import javafx.stage.Stage;
 public class Game {
     private final Stage stage;
     private final Scene menuScene;
+    private Scene playScene;
+    private Scene developerScene;
+    private Scene aboutScene;
 
     // STATIC Attributes
     // 720 Resolution TODO: Try dynamic scaling for diff viewport
@@ -18,9 +24,13 @@ public class Game {
         this.stage = stage;
 
         // SETUP MAIN MENU SCENE
-        MenuPane menuPane = new MenuPane(this.stage);
+        MenuPane menuPane = new MenuPane(this.stage, 10);
         this.menuScene = new Scene(menuPane, WINDOW_WIDTH, WINDOW_HEIGHT);
         menuPane.setParentScene(this.menuScene);
+
+        // SETUP OTHER SCENES
+        setUpScenes();
+        menuPane.setButtonScenes(this.developerScene, this.aboutScene, this.playScene);
     }
 
     // Methods
@@ -36,5 +46,19 @@ public class Game {
             System.out.println("Window closed: Ending all processes...");
             System.exit(0);
         });
+    }
+
+    private void setUpScenes(){
+        PlayPane playPane = new PlayPane(this.stage);
+        this.playScene = new Scene(playPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        playPane.setParentScene(this.playScene);
+
+        AboutPane aboutPane = new AboutPane(this.stage);
+        this.aboutScene = new Scene(aboutPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        aboutPane.setParentScene(this.aboutScene);
+
+        DeveloperPane developerPane = new DeveloperPane(this.stage);
+        this.developerScene = new Scene(developerPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        developerPane.setParentScene(this.developerScene);
     }
 }

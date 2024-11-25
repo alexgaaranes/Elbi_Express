@@ -4,11 +4,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class DeveloperPane extends Group implements gamePane{
+public class PlayPane extends Group implements gamePane{
     private final Stage stage;
     private Scene parentScene = null;
 
-    public DeveloperPane(Stage stage) {
+    public PlayPane(Stage stage) {
         this.stage = stage;
     }
 

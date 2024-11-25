@@ -7,7 +7,7 @@ package graphics;
 
 import javafx.scene.image.Image;
 
-public class Graphics {
+abstract public class Graphics {
     private Image image;
     private double xPos;
     private double yPos;
