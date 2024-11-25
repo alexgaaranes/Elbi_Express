@@ -39,6 +39,8 @@ public class MenuPane extends VBox implements gamePane{
 
         playBtn.setOnAction(event ->{
             stage.setScene(playScene);
+            PlayPane passedPlayPane = (PlayPane) playScene.getRoot();
+            passedPlayPane.startGame();
         });
 
         developerBtn.setOnAction(event ->{
