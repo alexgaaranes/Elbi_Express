@@ -9,12 +9,12 @@ package graphics;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-abstract public class Graphics {
+public class Graphics {
     protected Image image;
     protected double xPos;
     protected double yPos;
 
-    protected Graphics(Image image, double xPos, double yPos) {
+    public Graphics(Image image, double xPos, double yPos) {
         this.image = image;
         this.xPos = xPos;
         this.yPos = yPos;
