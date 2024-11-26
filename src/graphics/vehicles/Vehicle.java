@@ -63,10 +63,10 @@ public class Vehicle extends Graphics {
         }
 
         if (activeKeys.contains(KeyCode.A)) {
-            angle += turningSpeed;
+            angle -= turningSpeed;
         }
         if (activeKeys.contains(KeyCode.D)) {
-            angle -= turningSpeed;
+            angle += turningSpeed;
         }
 
         double radAngle = Math.toRadians(angle);
