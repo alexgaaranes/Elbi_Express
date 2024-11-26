@@ -17,8 +17,10 @@ public class Vehicle extends Graphic {
     private final Scene parentScene;
     private double velocity;
     private final double acceleration = 0.005;
-    private final double maxVelocity = 1;
-    private final double turningSpeed = 0.5;
+    private final double maxVelocity = 0.5;
+    private final double turningSpeed = 0.75;
+
+    private final double scale = 0.5;
 
     public Vehicle(Image image, double xPos, double yPos, int id, Scene parentScene) {
         super(image, xPos, yPos, id, true);
@@ -78,7 +80,12 @@ public class Vehicle extends Graphic {
         // Get Rotation and draw image
         Rotate r = new Rotate(this.angle, this.xPos, this.yPos);
         gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
-        gc.drawImage(this.image, xPos - this.image.getWidth() / 2, yPos - this.image.getHeight() / 2);
+        gc.drawImage(this.image,
+                xPos - (this.image.getWidth()*this.scale) / 2,
+                yPos - (this.image.getHeight()*this.scale) / 2,
+                this.image.getWidth()*this.scale,
+                this.image.getHeight()*this.scale
+                );
 
         gc.restore();
     }
