@@ -28,7 +28,7 @@ public class Vehicle extends Graphic {
     private final double acceleration = 0.005;
     private final double maxVelocity = 0.5;
     private final double turningSpeed = 0.75;
-    private final double scale = 0.25;
+    private final double scale = 0.5;
     private final Map map;
 
     public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map) {
@@ -113,6 +113,7 @@ public class Vehicle extends Graphic {
         int xGridPos = (int) (newX / map.getTileW());
         int yGridPos = (int) (newY / map.getTileH());
 
+        // Window bounds
         if(newX >= Game.WINDOW_WIDTH || newX <= 0 || newY >= Game.WINDOW_HEIGHT || newY <= 0) return true;
 
         return map.getMapMatrix()[yGridPos][xGridPos]==0;
