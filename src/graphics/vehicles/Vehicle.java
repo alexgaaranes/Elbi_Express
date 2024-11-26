@@ -22,7 +22,7 @@ public class Vehicle extends Graphics {
     private final double turningSpeed = 0.5;
 
     public Vehicle(Image image, double xPos, double yPos, int id, Scene parentScene) {
-        super(image, xPos, yPos);
+        super(image, xPos, yPos, true);
         this.id = id;
         this.parentScene = parentScene;
         this.angle = 0;

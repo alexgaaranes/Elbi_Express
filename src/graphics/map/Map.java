@@ -1,13 +1,21 @@
 package graphics.map;
 
+import game.Game;
 import graphics.Graphics;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Map {
+    private final Stage stage;
+    private final Scene parentScene;
+    private int row;
+    private int col;
+    private double tileH;
+    private double tileW;
 
     private final int[][] mapMatrix = new int[][] {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -31,15 +39,31 @@ public class Map {
     };
     ArrayList<Graphics> mapTiles = new ArrayList<>();
 
-    public Map() {
-        for(int i=0; i<mapMatrix.length; i++) {
-            for(int j=0; j<mapMatrix[0].length; j++) {
-                double xPos = 0; // TODO: Calculate for position base on index
-                double yPos = 0;
-                Graphics tileGraphic = new Graphics(new Image(""), xPos, yPos);
+    public Map(Stage stage, Scene parentScene) {
+        this.stage = stage;
+        this.parentScene = parentScene;
+        this.row = mapMatrix.length;
+        this.col = mapMatrix[0].length;
+
+        this.tileH = (double) Game.WINDOW_HEIGHT /row;
+        this.tileW = (double) Game.WINDOW_WIDTH /col;
+
+        for(int i=0; i<row; i++) {
+            for(int j=0; j<col; j++) {
+                double xPos = j*tileW;
+                double yPos = i*tileH;
+                Graphics tileGraphic = new Graphics(
+                        new Image(""), xPos, yPos,
+                        mapMatrix[i][j] == 0);
+                mapTiles.add(tileGraphic);
             }
         }
     }
 
+    public void drawMap(GraphicsContext gc){
+        for (Graphics tile : this.mapTiles){
+            tile.render(gc);
+        }
+    }
 
 }
