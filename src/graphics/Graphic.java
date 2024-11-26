@@ -10,16 +10,18 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class Graphics {
+public class Graphic {
     protected Image image;
+    protected int id;
     protected double xPos;
     protected double yPos;
     protected boolean hasCollision;
 
-    public Graphics(Image image, double xPos, double yPos, boolean hasCollision) {
+    public Graphic(Image image, double xPos, double yPos, int id, boolean hasCollision) {
         this.image = image;
         this.xPos = xPos;
         this.yPos = yPos;
+        this.id = id;
         this.hasCollision = hasCollision;
     }
 
@@ -31,7 +33,7 @@ public class Graphics {
         return new Rectangle2D(this.xPos, this.yPos, this.image.getWidth(), this.image.getHeight());
     }
 
-    public boolean collides(Graphics graphic){
+    public boolean collides(Graphic graphic){
         return graphic.getBounds().intersects(this.getBounds());
     }
 

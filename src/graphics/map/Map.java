@@ -1,7 +1,7 @@
 package graphics.map;
 
 import game.Game;
-import graphics.Graphics;
+import graphics.Graphic;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -37,7 +37,7 @@ public class Map {
             {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     };
-    ArrayList<Graphics> mapTiles = new ArrayList<>();
+    ArrayList<Graphic> mapTiles = new ArrayList<>();
 
     public Map(Stage stage, Scene parentScene) {
         this.stage = stage;
@@ -52,8 +52,8 @@ public class Map {
             for(int j=0; j<col; j++) {
                 double xPos = j*tileW;
                 double yPos = i*tileH;
-                Graphics tileGraphic = new Graphics(
-                        new Image(""), xPos, yPos,
+                Graphic tileGraphic = new Graphic(
+                        new Image(""), xPos, yPos, 3,
                         mapMatrix[i][j] == 0);
                 mapTiles.add(tileGraphic);
             }
@@ -61,7 +61,7 @@ public class Map {
     }
 
     public void drawMap(GraphicsContext gc){
-        for (Graphics tile : this.mapTiles){
+        for (Graphic tile : this.mapTiles){
             tile.render(gc);
         }
     }

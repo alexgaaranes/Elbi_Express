@@ -1,6 +1,6 @@
 package graphics.vehicles;
 
-import graphics.Graphics;
+import graphics.Graphic;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,8 +11,7 @@ import javafx.scene.transform.Rotate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Vehicle extends Graphics {
-    private int id;
+public class Vehicle extends Graphic {
     private double angle;
     private Set<KeyCode> activeKeys = new HashSet<>();
     private final Scene parentScene;
@@ -22,8 +21,7 @@ public class Vehicle extends Graphics {
     private final double turningSpeed = 0.5;
 
     public Vehicle(Image image, double xPos, double yPos, int id, Scene parentScene) {
-        super(image, xPos, yPos, true);
-        this.id = id;
+        super(image, xPos, yPos, id, true);
         this.parentScene = parentScene;
         this.angle = 0;
 
@@ -84,6 +82,7 @@ public class Vehicle extends Graphics {
 
         gc.restore();
     }
+
     /*Rotation reference: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#setTransform-double-double-double-double-double-double-*/
 
 }
