@@ -17,12 +17,11 @@ public class Graphic {
     protected double yPos;
     protected boolean hasCollision;
 
-    public Graphic(Image image, double xPos, double yPos, int id, boolean hasCollision) {
+    public Graphic(Image image, double xPos, double yPos, int id) {
         this.image = image;
         this.xPos = xPos;
         this.yPos = yPos;
         this.id = id;
-        this.hasCollision = hasCollision;
     }
 
     public void render(GraphicsContext gc) {

@@ -55,8 +55,7 @@ public class Map {
                 Graphic tileGraphic = new Graphic(
                         new Image(
                                 mapMatrix[i][j]==0?"file:src/assets/sprites/testGrass.png":"file:src/assets/sprites/testRoad.png"
-                        ), xPos, yPos, 3,
-                        mapMatrix[i][j] == 0);
+                        ), xPos, yPos, 3);
                 mapTiles.add(tileGraphic);
             }
         }
@@ -68,4 +67,16 @@ public class Map {
         }
     }
 
+    // Getter
+    public int[][] getMapMatrix(){
+        return this.mapMatrix;
+    }
+
+    public double getTileH(){
+        return this.tileH;
+    }
+
+    public double getTileW(){
+        return this.tileW;
+    }
 }

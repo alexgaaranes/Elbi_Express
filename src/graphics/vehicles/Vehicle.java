@@ -1,6 +1,7 @@
 package graphics.vehicles;
 
 import graphics.Graphic;
+import graphics.map.Map;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,12 +20,13 @@ public class Vehicle extends Graphic {
     private final double acceleration = 0.005;
     private final double maxVelocity = 0.5;
     private final double turningSpeed = 0.75;
+    private final double scale = 0.25;
+    private final Map map;
 
-    private final double scale = 0.5;
-
-    public Vehicle(Image image, double xPos, double yPos, int id, Scene parentScene) {
-        super(image, xPos, yPos, id, true);
+    public Vehicle(Image image, double xPos, double yPos, int id, Scene parentScene, Map map) {
+        super(image, xPos, yPos, id);
         this.parentScene = parentScene;
+        this.map = map;
         this.angle = 0;
 
         this.handleKeyOnPress();
@@ -49,7 +51,7 @@ public class Vehicle extends Graphic {
 
     protected void moveVehicle(){
         double newX = this.xPos;
-
+        double newY = this.yPos;
         if(activeKeys.contains(KeyCode.W)){
             velocity = Math.min(velocity + acceleration, maxVelocity);
         } else if(activeKeys.contains(KeyCode.S)){
@@ -70,8 +72,24 @@ public class Vehicle extends Graphic {
         }
 
         double radAngle = Math.toRadians(angle);
-        this.xPos += velocity * Math.cos(radAngle);
-        this.yPos += velocity * Math.sin(radAngle);
+        newX += velocity * Math.cos(radAngle);
+        newY += velocity * Math.sin(radAngle);
+
+        if(isColliding(newX, newY)){
+            this.velocity = 0;
+        } else {
+            this.xPos = newX;
+            this.yPos = newY;
+        }
+    }
+
+    // Wall Collision
+    private boolean isColliding(double newX, double newY){
+        // Get the position on grid (get tile uses the screen size so this is accurate)
+        int xGridPos = (int) (newX / map.getTileW());
+        int yGridPos = (int) (newY / map.getTileH());
+
+        return map.getMapMatrix()[yGridPos][xGridPos]==0;
     }
 
     @Override
