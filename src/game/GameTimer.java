@@ -13,20 +13,26 @@ import javafx.stage.Stage;
 public class GameTimer extends AnimationTimer {
     private final Stage stage;
     GraphicsContext gc;
-    private Vehicle vehicle;
+    private Vehicle v1;
+    private Vehicle v2;
     private Map map;
 
-    public GameTimer(Stage stage, GraphicsContext gc,Vehicle vehicle, Map map) {
+    public GameTimer(Stage stage, GraphicsContext gc, Map map) {
         this.stage = stage;
         this.gc = gc;
-        this.vehicle = vehicle;
         this.map = map;
+    }
+
+    public void setPlayers(Vehicle v1, Vehicle v2){
+        this.v1 = v1;
+        this.v2 = v2;
     }
 
     @Override
     public void handle(long l) {
         gc.clearRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         this.map.drawMap(gc);
-        this.vehicle.render(this.gc);
+        this.v1.render(this.gc);
+        this.v2.render(this.gc);
     }
 }

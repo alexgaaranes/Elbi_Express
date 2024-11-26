@@ -1,5 +1,6 @@
 package graphics.vehicles;
 
+import game.Game;
 import graphics.Graphic;
 import graphics.map.Map;
 import javafx.animation.AnimationTimer;
@@ -9,13 +10,20 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.transform.Rotate;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Vehicle extends Graphic {
-    private double angle;
-    private Set<KeyCode> activeKeys = new HashSet<>();
     private final Scene parentScene;
+    private final String playerID;
+    private static Set<KeyCode> activeKeys = new HashSet<>();
+    private HashMap<String, KeyCode> keyBinds = new HashMap<>();
+
+    public static final String PLAYER_ONE = "P1";
+    public static final String PLAYER_TWO = "P2";
+
+    private double angle;
     private double velocity;
     private final double acceleration = 0.005;
     private final double maxVelocity = 0.5;
@@ -23,13 +31,29 @@ public class Vehicle extends Graphic {
     private final double scale = 0.25;
     private final Map map;
 
-    public Vehicle(Image image, double xPos, double yPos, int id, Scene parentScene, Map map) {
-        super(image, xPos, yPos, id);
+    public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map) {
+        super(image, xPos, yPos);
         this.parentScene = parentScene;
+        this.playerID = id;
         this.map = map;
         this.angle = 0;
 
+        this.setKeyBinds();
         this.handleKeyOnPress();
+    }
+
+    private void setKeyBinds(){
+        if(this.playerID.equals(PLAYER_ONE)){
+            keyBinds.put("UP", KeyCode.W);
+            keyBinds.put("DOWN", KeyCode.S);
+            keyBinds.put("LEFT", KeyCode.A);
+            keyBinds.put("RIGHT", KeyCode.D);
+        } else if (this.playerID.equals(PLAYER_TWO)){
+            keyBinds.put("UP", KeyCode.UP);
+            keyBinds.put("DOWN", KeyCode.DOWN);
+            keyBinds.put("LEFT", KeyCode.LEFT);
+            keyBinds.put("RIGHT", KeyCode.RIGHT);
+        }
     }
 
 
@@ -50,9 +74,9 @@ public class Vehicle extends Graphic {
     }
 
     protected void moveVehicle(){
-        if(activeKeys.contains(KeyCode.W)){
+        if(activeKeys.contains(keyBinds.get("UP"))){
             velocity = Math.min(velocity + acceleration, maxVelocity);
-        } else if(activeKeys.contains(KeyCode.S)){
+        } else if(activeKeys.contains(keyBinds.get("DOWN"))){
             velocity = Math.max(velocity - acceleration, -1*maxVelocity);
         } else {
             if(velocity > 0){
@@ -62,10 +86,10 @@ public class Vehicle extends Graphic {
             }
         }
 
-        if (activeKeys.contains(KeyCode.A)) {
+        if (activeKeys.contains(keyBinds.get("LEFT"))) {
             angle -= turningSpeed;
         }
-        if (activeKeys.contains(KeyCode.D)) {
+        if (activeKeys.contains(keyBinds.get("RIGHT"))) {
             angle += turningSpeed;
         }
 
@@ -88,6 +112,8 @@ public class Vehicle extends Graphic {
         // Get the position on grid (get tile uses the screen size so this is accurate)
         int xGridPos = (int) (newX / map.getTileW());
         int yGridPos = (int) (newY / map.getTileH());
+
+        if(newX >= Game.WINDOW_WIDTH || newX <= 0 || newY >= Game.WINDOW_HEIGHT || newY <= 0) return true;
 
         return map.getMapMatrix()[yGridPos][xGridPos]==0;
     }

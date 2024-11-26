@@ -12,16 +12,14 @@ import javafx.scene.image.Image;
 
 public class Graphic {
     protected Image image;
-    protected int id;
     protected double xPos;
     protected double yPos;
     protected boolean hasCollision;
 
-    public Graphic(Image image, double xPos, double yPos, int id) {
+    public Graphic(Image image, double xPos, double yPos) {
         this.image = image;
         this.xPos = xPos;
         this.yPos = yPos;
-        this.id = id;
     }
 
     public void render(GraphicsContext gc) {

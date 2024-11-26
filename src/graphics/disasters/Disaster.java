@@ -8,6 +8,6 @@ import javafx.scene.image.Image;
 
 public class Disaster extends Graphic {
     protected Disaster(Image image, double xPos, double yPos) {
-        super(image, xPos, yPos, 2);
+        super(image, xPos, yPos);
     }
 }

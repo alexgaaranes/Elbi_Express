@@ -26,9 +26,12 @@ public class PlayPane extends Group implements gamePane{
 
     public void startGame(){
         Map map = new Map(stage, parentScene);
-        Vehicle vehicle = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
-                575,500,1,this.parentScene, map);
-        GameTimer gameTimer = new GameTimer(stage, gc, vehicle, map);
+        Vehicle vehicle1 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
+                575,500, Vehicle.PLAYER_TWO,this.parentScene, map);
+        Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
+                600,500, Vehicle.PLAYER_ONE,this.parentScene, map);
+        GameTimer gameTimer = new GameTimer(stage, gc, map);
+        gameTimer.setPlayers(vehicle1, vehicle2);
         gameTimer.start();
     }
 
