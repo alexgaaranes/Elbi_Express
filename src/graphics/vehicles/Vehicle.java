@@ -50,8 +50,6 @@ public class Vehicle extends Graphic {
     }
 
     protected void moveVehicle(){
-        double newX = this.xPos;
-        double newY = this.yPos;
         if(activeKeys.contains(KeyCode.W)){
             velocity = Math.min(velocity + acceleration, maxVelocity);
         } else if(activeKeys.contains(KeyCode.S)){
@@ -72,15 +70,17 @@ public class Vehicle extends Graphic {
         }
 
         double radAngle = Math.toRadians(angle);
-        newX += velocity * Math.cos(radAngle);
-        newY += velocity * Math.sin(radAngle);
+        double displaceX = velocity * Math.cos(radAngle);
+        double displaceY = velocity * Math.sin(radAngle);
 
-        if(isColliding(newX, newY)){
-            this.velocity = 0;
-        } else {
-            this.xPos = newX;
-            this.yPos = newY;
+        if(isColliding(this.xPos+displaceX, this.yPos)){
+            displaceX = 0;
         }
+        if(isColliding(this.xPos, this.yPos+displaceY)){
+            displaceY = 0;
+        }
+        this.xPos += displaceX;
+        this.yPos += displaceY;
     }
 
     // Wall Collision
