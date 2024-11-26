@@ -2,6 +2,7 @@ package game.panes;
 
 import game.Game;
 import game.GameTimer;
+import graphics.map.Map;
 import graphics.vehicles.Vehicle;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -26,7 +27,8 @@ public class PlayPane extends Group implements gamePane{
     public void startGame(){
         Vehicle vehicle = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
                 500,500,1,this.parentScene);
-        GameTimer gameTimer = new GameTimer(stage, gc, vehicle);
+        Map map = new Map(stage, parentScene);
+        GameTimer gameTimer = new GameTimer(stage, gc, vehicle, map);
         gameTimer.start();
     }
 

@@ -53,7 +53,9 @@ public class Map {
                 double xPos = j*tileW;
                 double yPos = i*tileH;
                 Graphic tileGraphic = new Graphic(
-                        new Image(""), xPos, yPos, 3,
+                        new Image(
+                                mapMatrix[i][j]==0?"file:src/assets/sprites/testGrass.png":"file:src/assets/sprites/testRoad.png"
+                        ), xPos, yPos, 3,
                         mapMatrix[i][j] == 0);
                 mapTiles.add(tileGraphic);
             }
