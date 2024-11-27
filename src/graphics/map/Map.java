@@ -43,7 +43,7 @@ public class Map {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     };
     ArrayList<Graphic> mapTiles = new ArrayList<>();
-    HashMap<String, Store> storeMap = new HashMap<>();
+    ArrayList<Store> storeList = new ArrayList<>();
 
     public Map(Stage stage, Scene parentScene) {
         this.stage = stage;
@@ -66,10 +66,7 @@ public class Map {
                 mapTiles.add(tileGraphic);
 
                 if(mapMatrix[i][j] == 2){
-                    this.storeMap.put(
-                            j+"-"+i,
-                            new Store(j, i)
-                    );
+                    this.storeList.add(new Store(j,i,this));
                 }
             }
         }
@@ -94,8 +91,8 @@ public class Map {
         return this.tileW;
     }
 
-    public HashMap<String, Store> getStoreMap(){
-        return this.storeMap;
+    public ArrayList<Store> getStoreList(){
+        return this.storeList;
     }
 }
 

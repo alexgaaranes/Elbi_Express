@@ -5,6 +5,7 @@
 package game;
 
 import graphics.map.Map;
+import graphics.map.Store;
 import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
@@ -26,6 +27,10 @@ public class GameTimer extends AnimationTimer {
     public void setPlayers(Vehicle v1, Vehicle v2){
         this.v1 = v1;
         this.v2 = v2;
+
+        for(Store store: map.getStoreList()){
+            store.trackVehicle(v1, v2);
+        }
     }
 
     @Override

@@ -116,12 +116,6 @@ public class Vehicle extends Graphic {
         // Window bounds
         if(newX >= Game.WINDOW_WIDTH || newX <= 0 || newY >= Game.WINDOW_HEIGHT || newY <= 0) return true;
 
-        // Store Area
-        if(map.getMapMatrix()[yGridPos][xGridPos] == 2){
-            map.getStoreMap().get(xGridPos+"-"+yGridPos).openObjective(this);
-            return false;
-        }
-
         return map.getMapMatrix()[yGridPos][xGridPos]==1;
     }
 
