@@ -4,6 +4,7 @@ import game.Game;
 import graphics.Graphic;
 import graphics.map.Map;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -133,6 +134,11 @@ public class Vehicle extends Graphic {
                 );
 
         gc.restore();
+    }
+
+    @Override
+    public Rectangle2D getBounds() {
+        return new Rectangle2D(this.xPos, this.yPos, this.image.getWidth()*scale/2, this.image.getHeight()*scale/2);
     }
 
     /*Rotation reference: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#setTransform-double-double-double-double-double-double-*/

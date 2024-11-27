@@ -66,7 +66,7 @@ public class Map {
                 mapTiles.add(tileGraphic);
 
                 if(mapMatrix[i][j] == 2){
-                    this.storeList.add(new Store(j,i,this));
+                    this.storeList.add(new Store(j, i,this));
                 }
             }
         }
