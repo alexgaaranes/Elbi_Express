@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Map {
     private final Stage stage;
@@ -25,7 +26,7 @@ public class Map {
     * */
     private final int[][] mapMatrix = new int[][] {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,1,1,0,1,0,1,1,0,1,0,1,1,0,1,0,1,1,0},
+            {0,1,1,2,1,2,1,1,0,1,0,1,1,2,1,2,1,1,0},
             {0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,0},
@@ -42,6 +43,7 @@ public class Map {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     };
     ArrayList<Graphic> mapTiles = new ArrayList<>();
+    HashMap<String, Store> storeMap = new HashMap<>();
 
     public Map(Stage stage, Scene parentScene) {
         this.stage = stage;
@@ -52,6 +54,7 @@ public class Map {
         this.tileH = (double) Game.WINDOW_HEIGHT /row;
         this.tileW = (double) Game.WINDOW_WIDTH /col;
 
+        // Apply textures
         for(int i=0; i<row; i++) {
             for(int j=0; j<col; j++) {
                 double xPos = j*tileW;
@@ -61,6 +64,13 @@ public class Map {
                                 mapMatrix[i][j]==1?"file:src/assets/sprites/testGrass.png":"file:src/assets/sprites/testRoad.png"
                         ), xPos, yPos);
                 mapTiles.add(tileGraphic);
+
+                if(mapMatrix[i][j] == 2){
+                    this.storeMap.put(
+                            j+"-"+i,
+                            new Store(j, i)
+                    );
+                }
             }
         }
     }
@@ -83,4 +93,9 @@ public class Map {
     public double getTileW(){
         return this.tileW;
     }
+
+    public HashMap<String, Store> getStoreMap(){
+        return this.storeMap;
+    }
 }
+

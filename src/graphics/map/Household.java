@@ -1,4 +1,11 @@
 package graphics.map;
 
-public class Household {
+import graphics.vehicles.Vehicle;
+
+public class Household implements Objective{
+
+    @Override
+    public void openObjective(Vehicle vehicle) {
+
+    }
 }
