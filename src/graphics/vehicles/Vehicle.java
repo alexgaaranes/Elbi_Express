@@ -116,7 +116,7 @@ public class Vehicle extends Graphic {
         // Window bounds
         if(newX >= Game.WINDOW_WIDTH || newX <= 0 || newY >= Game.WINDOW_HEIGHT || newY <= 0) return true;
 
-        return map.getMapMatrix()[yGridPos][xGridPos]==0;
+        return map.getMapMatrix()[yGridPos][xGridPos]==1;
     }
 
     @Override
