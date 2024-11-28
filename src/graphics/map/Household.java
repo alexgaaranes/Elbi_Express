@@ -3,15 +3,14 @@ package graphics.map;
 import graphics.vehicles.Vehicle;
 import javafx.geometry.Rectangle2D;
 
-public class Household implements Objective{
+public class Household extends Objective{
 
-    @Override
-    public void openObjective() {
-
+    Household(int xGridPos, int yGridPos, Map map) {
+        super(xGridPos, yGridPos, map);
     }
 
     @Override
-    public Rectangle2D getBounds() {
-        return null;
+    public void openObjective(){
+        System.out.println("In household: "+this.occupiedVehicle);
     }
 }

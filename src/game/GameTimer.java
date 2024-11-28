@@ -4,6 +4,7 @@
 
 package game;
 
+import graphics.map.Household;
 import graphics.map.Map;
 import graphics.map.Store;
 import graphics.vehicles.Vehicle;
@@ -28,8 +29,13 @@ public class GameTimer extends AnimationTimer {
         this.v1 = v1;
         this.v2 = v2;
 
+        // Setup detection for stores
         for(Store store: map.getStoreList()){
             store.trackVehicle(v1, v2);
+        }
+        // Setup detection for households
+        for(Household house: map.getHouseList()){
+            house.trackVehicle(v1,v2);
         }
     }
 
