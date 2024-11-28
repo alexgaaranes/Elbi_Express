@@ -72,6 +72,9 @@ public class Vehicle extends Graphic {
             private long prevTime = 0;
             @Override
             public void handle(long nanoTime) {
+                // Added delta as another factor for movement
+                // References: https://en.wikipedia.org/wiki/Delta_timing
+                // https://manual.gamemaker.io/lts/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Date_And_Time/delta_time.htm(Godot also uses delta)
                 if(prevTime > 0) {
                     double delta = (nanoTime - prevTime)/1000000000.0;
                     moveVehicle(delta);
