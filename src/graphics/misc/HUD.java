@@ -1,4 +1,8 @@
 package graphics.misc;
 
-public class HUD {
+import game.Timer;
+import graphics.Graphic;
+
+public class HUD{
+    private Timer gameTimer = new Timer(300);
 }

@@ -41,6 +41,7 @@ public class GameTimer extends AnimationTimer {
 
     @Override
     public void handle(long l) {
+        // Mostly for rendering and game checking only ( Avoid adding slow processes here )
         gc.clearRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         this.map.drawMap(gc);
         this.v1.render(this.gc);
