@@ -36,15 +36,16 @@ public class Store implements Objective{
                 if(bodyEnters(p1)){
                     if(occupiedVehicle == null){
                         setVehicle(p1);
+                        openObjective();
                     }
                 } else if(bodyEnters(p2)){
                     if(occupiedVehicle == null){
                         setVehicle(p2);
+                        openObjective();
                     }
                 } else {
                     occupiedVehicle = null;
                 }
-                openObjective();
             }
         }.start();
     }
@@ -59,7 +60,6 @@ public class Store implements Objective{
 
     @Override
     public void openObjective() {
-        if(occupiedVehicle == null){return;}
         System.out.println("In store"+occupiedVehicle);
     }
 }
