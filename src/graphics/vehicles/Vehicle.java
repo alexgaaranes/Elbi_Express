@@ -1,6 +1,7 @@
 package graphics.vehicles;
 
 import game.Game;
+import game.Timer;
 import graphics.Graphic;
 import graphics.map.Map;
 import javafx.animation.AnimationTimer;
@@ -26,8 +27,8 @@ public class Vehicle extends Graphic {
 
     private double angle;
     private double velocity;
-    private final double acceleration = 0.005;
-    private final double maxVelocity = 0.5;
+    private final double acceleration = 10;
+    private final double maxVelocity = 100;
     private final double turningSpeed = 0.75;
     private final double scale = 0.5;
     private final Map map;
@@ -68,13 +69,19 @@ public class Vehicle extends Graphic {
             System.out.println("Removed:"+event.getCode());
         });
         new AnimationTimer() {
+            private long prevTime = 0;
+            @Override
             public void handle(long nanoTime) {
-                moveVehicle();
+                if(prevTime > 0) {
+                    double delta = (nanoTime - prevTime)/1000000000.0;
+                    moveVehicle(delta);
+                }
+                this.prevTime = nanoTime;
             }
         }.start();
     }
 
-    protected void moveVehicle(){
+    protected void moveVehicle(double delta){
         if(activeKeys.contains(keyBinds.get("UP"))){
             velocity = Math.min(velocity + acceleration, maxVelocity);
         } else if(activeKeys.contains(keyBinds.get("DOWN"))){
@@ -95,8 +102,8 @@ public class Vehicle extends Graphic {
         }
 
         double radAngle = Math.toRadians(angle);
-        double displaceX = velocity * Math.cos(radAngle);
-        double displaceY = velocity * Math.sin(radAngle);
+        double displaceX = velocity * Math.cos(radAngle)*delta;
+        double displaceY = velocity * Math.sin(radAngle)*delta;
 
         if(isColliding(this.xPos+displaceX, this.yPos)){
             displaceX = 0;
