@@ -9,24 +9,32 @@ public class Timer extends AnimationTimer{
     boolean isRunning = false;
 
     public Timer(long endTimeinSec){
-        this.endTime = endTimeinSec/1000000000L;
+        this.endTime = endTimeinSec*1000000000L;
     }
 
     @Override
     public void handle(long l) {
         if(!isRunning){
             this.startTime = System.nanoTime();
-            isRunning = true;
+            this.isRunning = true;
+        }
+
+        if(elapsedTime >= endTime){
+            this.stop();
+            this.isRunning = false;
         }
 
         this.elapsedTime = l - this.startTime;
-
     }
     // Standalone timer class that keeps track of time on start (Can be use flexibly)
 
     // Methods
-    public long getTimeLeft(){
+    public long getTime(){
         return this.endTime - this.elapsedTime;
+    }
+
+    public long getTimeSec(){
+        return (this.endTime - this.elapsedTime)/1000000000;
     }
 }
 

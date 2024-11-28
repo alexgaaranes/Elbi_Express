@@ -3,7 +3,9 @@ package game.panes;
 import game.Game;
 import game.GameTimer;
 import graphics.map.Map;
+import graphics.misc.HUD;
 import graphics.vehicles.Vehicle;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -31,6 +33,10 @@ public class PlayPane extends Group implements gamePane{
         Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
                 600,500, Vehicle.PLAYER_ONE,this.parentScene, map);
         GameTimer gameTimer = new GameTimer(stage, gc, map);
+        HUD gameHUD = new HUD(300, 5);
+        this.getChildren().add(gameHUD);
+        gameHUD.setTranslateX(100);
+        gameHUD.startHUDAutoUpdate();
         gameTimer.setPlayers(vehicle1, vehicle2);
         gameTimer.start();
     }
