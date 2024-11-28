@@ -14,16 +14,19 @@ public class Graphic {
     protected Image image;
     protected double xPos;
     protected double yPos;
+    protected double width, height;
     protected boolean hasCollision;
 
-    public Graphic(Image image, double xPos, double yPos) {
+    public Graphic(Image image, double xPos, double yPos, double width, double height) {
         this.image = image;
         this.xPos = xPos;
         this.yPos = yPos;
+        this.width = width;
+        this.height = height;
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage(this.image, this.xPos, this.yPos);
+        gc.drawImage(this.image, this.xPos, this.yPos, this.width, this.width);
     }
 
     public Rectangle2D getBounds() {

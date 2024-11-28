@@ -52,9 +52,9 @@ public class Map {
         this.parentScene = parentScene;
         this.row = mapMatrix.length;
         this.col = mapMatrix[0].length;
-
-        this.tileH = (double) Game.WINDOW_HEIGHT /row;
-        this.tileW = (double) Game.WINDOW_WIDTH /col;
+        
+        this.tileH = (double) (Game.WINDOW_HEIGHT /row);
+        this.tileW = (double) (Game.WINDOW_WIDTH /col);
 
         // Apply textures
         for(int i=0; i<row; i++) {
@@ -63,8 +63,8 @@ public class Map {
                 double yPos = i*tileH;
                 Graphic tileGraphic = new Graphic(
                         new Image(
-                                mapMatrix[i][j]==1?"file:src/assets/sprites/testGrass.png":"file:src/assets/sprites/testRoad.png"
-                        ), xPos, yPos);
+                                mapMatrix[i][j]==1?"file:src/assets/sprites/Grass_02_Green_1.png":"file:src/assets/sprites/Cobblestones_01_White_1.png"
+                        ), xPos, yPos, tileW, tileH);
                 mapTiles.add(tileGraphic);
 
                 if(mapMatrix[i][j] == 2){

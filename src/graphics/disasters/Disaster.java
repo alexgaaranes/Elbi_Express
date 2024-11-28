@@ -7,7 +7,7 @@ import graphics.Graphic;
 import javafx.scene.image.Image;
 
 public class Disaster extends Graphic {
-    protected Disaster(Image image, double xPos, double yPos) {
-        super(image, xPos, yPos);
+    protected Disaster(Image image, double xPos, double yPos, double width, double height) {
+        super(image, xPos, yPos, width, height);
     }
 }

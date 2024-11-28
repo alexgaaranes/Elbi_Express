@@ -22,7 +22,7 @@ public class Game {
 
     public Game(Stage stage) {
         this.stage = stage;
-
+        
         // SETUP MAIN MENU SCENE
         MenuPane menuPane = new MenuPane(this.stage, 10);
         this.menuScene = new Scene(menuPane, WINDOW_WIDTH, WINDOW_HEIGHT);

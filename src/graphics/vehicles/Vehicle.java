@@ -32,8 +32,8 @@ public class Vehicle extends Graphic {
     private final double scale = 0.5;
     private final Map map;
 
-    public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map) {
-        super(image, xPos, yPos);
+    public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height) {
+        super(image, xPos, yPos, width, height);
         this.parentScene = parentScene;
         this.playerID = id;
         this.map = map;
