@@ -53,10 +53,12 @@ public class Map {
         this.row = mapMatrix.length;
         this.col = mapMatrix[0].length;
         
-        this.tileH = (double) (Game.WINDOW_HEIGHT /row);
-        this.tileW = (double) (Game.WINDOW_WIDTH /col);
+        this.tileH = (double) Game.WINDOW_HEIGHT /row;
+        this.tileW = (double) Game.WINDOW_WIDTH /col;
 
         // Apply textures
+        String[] names = {"Jollibee", "Domino's Pizza", "Burger King", "Dairy Queen"};
+        int index = 0;
         for(int i=0; i<row; i++) {
             for(int j=0; j<col; j++) {
                 double xPos = j*tileW;
@@ -68,7 +70,9 @@ public class Map {
                 mapTiles.add(tileGraphic);
 
                 if(mapMatrix[i][j] == 2){
-                    this.storeList.add(new Store(j, i,this));
+                    this.storeList.add(new Store(j, i,this, names[index]));
+                    index++;
+                    
                 } else if (mapMatrix[i][j] == 3){
                     this.houseList.add(new Household(j, i,this));
                 }

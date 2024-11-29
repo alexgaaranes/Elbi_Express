@@ -25,6 +25,14 @@ public class Vehicle extends Graphic {
     public static final String PLAYER_ONE = "P1";
     public static final String PLAYER_TWO = "P2";
 
+    private int score = 0; //Delivery made
+    private int capacity;
+    private int store1 = 0;
+    private int store2 = 0;
+    private int store3 = 0;
+    private int store4 = 0;
+    private int onHand = this.getStore1() + this.getStore2() + this.getStore3() + this.getStore4();
+    
     private double angle;
     private double velocity;
     private final double acceleration = 10;
@@ -33,12 +41,13 @@ public class Vehicle extends Graphic {
     private final double scale = 0.5;
     private final Map map;
 
-    public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height) {
+    public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height, int capacity) {
         super(image, xPos, yPos, width, height);
         this.parentScene = parentScene;
         this.playerID = id;
         this.map = map;
         this.angle = 0;
+        this.capacity = capacity;
 
         this.setKeyBinds();
         this.handleKeyOnPress();
@@ -145,11 +154,75 @@ public class Vehicle extends Graphic {
 
         gc.restore();
     }
-
+    
+    public boolean isFull() {
+    	return this.capacity == this.onHand;
+    }
+    
+    protected boolean isEmpty() {
+    	return this.onHand == 0;
+    }
+    
     @Override
     public Rectangle2D getBounds() {
         return new Rectangle2D(this.xPos, this.yPos, this.image.getWidth()*scale/2, this.image.getHeight()*scale/2);
     }
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getOnHand() {
+		return onHand;
+	}
+
+	public void setOnHand(int onHand) {
+		this.onHand = onHand;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public int getStore1() {
+		return store1;
+	}
+
+	public void setStore1(int store1) {
+		this.store1 = store1;
+	}
+
+	public int getStore2() {
+		return store2;
+	}
+
+	public void setStore2(int store2) {
+		this.store2 = store2;
+	}
+
+	public int getStore3() {
+		return store3;
+	}
+
+	public void setStore3(int store3) {
+		this.store3 = store3;
+	}
+
+	public int getStore4() {
+		return store4;
+	}
+
+	public void setStore4(int store4) {
+		this.store4 = store4;
+	}
 
     /*Rotation reference: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#setTransform-double-double-double-double-double-double-*/
 

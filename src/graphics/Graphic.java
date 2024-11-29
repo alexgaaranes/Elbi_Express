@@ -26,11 +26,11 @@ public class Graphic {
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage(this.image, this.xPos, this.yPos, this.width, this.width);
+        gc.drawImage(this.image, this.xPos, this.yPos, this.width, this.height);
     }
 
     public Rectangle2D getBounds() {
-        return new Rectangle2D(this.xPos, this.yPos, this.image.getWidth(), this.image.getHeight());
+        return new Rectangle2D(this.xPos, this.yPos, this.width, this.height);
     }
 
     public boolean collides(Graphic graphic){
