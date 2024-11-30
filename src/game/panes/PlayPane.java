@@ -27,14 +27,17 @@ public class PlayPane extends Group implements gamePane{
     }
 
     public void startGame(){
-        Map map = new Map(stage, parentScene);
+        // SETUP ELEMENTS
+        Map map = new Map(stage, parentScene, gc);
         Vehicle vehicle1 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
                 575,500, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50, 3);
         Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
                 600,500, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
         GameTimer gameTimer = new GameTimer(stage, gc, map);
+
         HUD gameHUD = new HUD(300, 5);
         this.getChildren().add(gameHUD);
+
         gameHUD.setTranslateX(100);
         gameHUD.startHUDAutoUpdate();
         gameTimer.setPlayers(vehicle1, vehicle2);

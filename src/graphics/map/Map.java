@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Map {
     private final Stage stage;
     private final Scene parentScene;
+    private final GraphicsContext parentGC;
     private int row;
     private int col;
     private double tileH;
@@ -46,9 +47,10 @@ public class Map {
     ArrayList<Store> storeList = new ArrayList<>();
     ArrayList<Household> houseList = new ArrayList<>();
 
-    public Map(Stage stage, Scene parentScene) {
+    public Map(Stage stage, Scene parentScene, GraphicsContext parentGC) {
         this.stage = stage;
         this.parentScene = parentScene;
+        this.parentGC = parentGC;
         this.row = mapMatrix.length;
         this.col = mapMatrix[0].length;
         
@@ -68,10 +70,10 @@ public class Map {
 
                 // Create instances of objectives on map
                 if(mapMatrix[i][j] == 2){
-                    this.storeList.add(new Store(j, i,Store.STORE_NAMES[storeList.size()], this));
+                    this.storeList.add(new Store(j, i,Store.STORE_NAMES[storeList.size()], this, this.parentGC));
 
                 } else if (mapMatrix[i][j] == 3){
-                    this.houseList.add(new Household(j, i,this));
+                    this.houseList.add(new Household(j, i,this, this.parentGC));
                 }
             }
         }

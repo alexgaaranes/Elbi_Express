@@ -34,7 +34,7 @@ public class Vehicle extends Graphic {
     private double velocity;
     private final double acceleration = 10;
     private final double maxVelocity = 200;
-    private final double turningSpeed = 0.75;
+    private final double turningSpeed = 200;
     private final double scale = 0.5;
     private final Map map;
 
@@ -104,10 +104,10 @@ public class Vehicle extends Graphic {
         }
 
         if (activeKeys.contains(keyBinds.get("LEFT"))) {
-            angle -= turningSpeed;
+            angle -= turningSpeed*delta;
         }
         if (activeKeys.contains(keyBinds.get("RIGHT"))) {
-            angle += turningSpeed;
+            angle += turningSpeed*delta;
         }
 
         double radAngle = Math.toRadians(angle);
@@ -158,6 +158,14 @@ public class Vehicle extends Graphic {
 
     public int getScore(){
         return this.score;
+    }
+
+    public String getPlayerID(){
+        return this.playerID;
+    }
+
+    public static Set<KeyCode> getActiveKeys(){
+        return Vehicle.activeKeys;
     }
 
     // VISUAL AND BOUNDS

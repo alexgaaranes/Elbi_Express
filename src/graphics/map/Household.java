@@ -3,37 +3,44 @@ package graphics.map;
 import java.util.HashMap;
 import java.util.Random;
 import graphics.vehicles.Vehicle;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Household extends Objective{
 	private String order;
 	private boolean hasActiveOrder = false;
 
-    Household(int xGridPos, int yGridPos, Map map) {
-        super(xGridPos, yGridPos, map);
+    Household(int xGridPos, int yGridPos, Map map, GraphicsContext gc) {
+		super(xGridPos, yGridPos, map, gc);
     }
 
     @Override
     public void openObjective(){
         //System.out.println("In household: "+this.occupiedVehicle);
-        getDeliver(this.occupiedVehicle);
+		if(this.hasActiveOrder && this.occupiedVehicle.getStoreOrder().containsKey(this.order)){
+			this.showPrompt();
+		}
     }
-    
-    public void getDeliver(Vehicle vehicle) {
-    	if(this.hasActiveOrder) {
-			HashMap<String, Integer> vehicleStoreOrder = vehicle.getStoreOrder();
 
-			if(vehicleStoreOrder.containsKey(this.order)) {
-				if(vehicleStoreOrder.get(this.order) > 1) {
-					vehicleStoreOrder.put(this.order, vehicleStoreOrder.get(this.order) - 1);	// Reduce the vehicle load of the order
-				} else {
-					vehicleStoreOrder.remove(this.order);	// Remove the load if all are unloaded
-				}
-				vehicle.updateLoad(-1);
-				vehicle.updateScore(1);
-				System.out.println("Order Delivered by "+ vehicle);
+	@Override
+	protected void doProcess(){
+		this.getDeliver(this.occupiedVehicle);
+	}
+
+	// Special process to be called by doProcess after successful prompts
+    private void getDeliver(Vehicle vehicle) {
+		HashMap<String, Integer> vehicleStoreOrder = vehicle.getStoreOrder();
+
+		if(vehicleStoreOrder.containsKey(this.order)) {
+			if(vehicleStoreOrder.get(this.order) > 1) {
+				vehicleStoreOrder.put(this.order, vehicleStoreOrder.get(this.order) - 1);	// Reduce the vehicle load of the order
+			} else {
+				vehicleStoreOrder.remove(this.order);	// Remove the load if all are unloaded
 			}
-			this.hasActiveOrder = false;
-    	}
+			vehicle.updateLoad(-1);
+			vehicle.updateScore(1);
+			System.out.println("Order Delivered by "+ vehicle);
+		}
+		this.hasActiveOrder = false;
     }
 
 	// Will be called when activeOrder is false and at a random time stamp
