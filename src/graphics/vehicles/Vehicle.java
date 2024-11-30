@@ -1,7 +1,6 @@
 package graphics.vehicles;
 
 import game.Game;
-import game.Timer;
 import graphics.Graphic;
 import graphics.map.Map;
 import javafx.animation.AnimationTimer;
@@ -25,18 +24,16 @@ public class Vehicle extends Graphic {
     public static final String PLAYER_ONE = "P1";
     public static final String PLAYER_TWO = "P2";
 
-    private int score = 0; //Delivery made
-    private int capacity;
-    private int store1 = 0;
-    private int store2 = 0;
-    private int store3 = 0;
-    private int store4 = 0;
-    private int onHand = this.getStore1() + this.getStore2() + this.getStore3() + this.getStore4();
-    
+    private HashMap<String, Integer> orderPerStore = new HashMap<>();
+
+    private int score = 0;  // Score tracked per vehicle
+    private int currentLoad = 0;
+    private final int MAX_CAPACITY;
+
     private double angle;
     private double velocity;
     private final double acceleration = 10;
-    private final double maxVelocity = 100;
+    private final double maxVelocity = 200;
     private final double turningSpeed = 0.75;
     private final double scale = 0.5;
     private final Map map;
@@ -47,12 +44,13 @@ public class Vehicle extends Graphic {
         this.playerID = id;
         this.map = map;
         this.angle = 0;
-        this.capacity = capacity;
+        this.MAX_CAPACITY = capacity;
 
         this.setKeyBinds();
         this.handleKeyOnPress();
     }
 
+    // MOVEMENT METHODS
     private void setKeyBinds(){
         if(this.playerID.equals(PLAYER_ONE)){
             keyBinds.put("UP", KeyCode.W);
@@ -67,15 +65,14 @@ public class Vehicle extends Graphic {
         }
     }
 
-
     private void handleKeyOnPress(){
         parentScene.setOnKeyPressed(event -> {
             activeKeys.add(event.getCode());
-            System.out.println(event.getCode());
+            //System.out.println(event.getCode());
         });
         parentScene.setOnKeyReleased(event -> {
             activeKeys.remove(event.getCode());
-            System.out.println("Removed:"+event.getCode());
+            //System.out.println("Removed:"+event.getCode());
         });
         new AnimationTimer() {
             private long prevTime = 0;
@@ -127,7 +124,6 @@ public class Vehicle extends Graphic {
         this.yPos += displaceY;
     }
 
-    // Wall Collision
     private boolean isColliding(double newX, double newY){
         // Get the position on grid (get tile uses the screen size so this is accurate)
         int xGridPos = (int) (newX / map.getTileW());
@@ -139,6 +135,32 @@ public class Vehicle extends Graphic {
         return map.getMapMatrix()[yGridPos][xGridPos]==1;
     }
 
+    // ORDERING METHODS
+    public boolean isFull() {
+        return this.currentLoad == this.MAX_CAPACITY;
+    }
+
+    public boolean isEmpty() {
+        return this.currentLoad == 0;
+    }
+
+    public void updateLoad(int val){
+        this.currentLoad += val;
+    }
+
+    public HashMap<String, Integer> getStoreOrder(){
+        return this.orderPerStore;
+    }
+
+    public void updateScore(int val){
+        this.score += val;
+    }
+
+    public int getScore(){
+        return this.score;
+    }
+
+    // VISUAL AND BOUNDS
     @Override
     public void render(GraphicsContext gc) {
         gc.save();
@@ -154,76 +176,11 @@ public class Vehicle extends Graphic {
 
         gc.restore();
     }
-    
-    public boolean isFull() {
-    	return this.capacity == this.onHand;
-    }
-    
-    protected boolean isEmpty() {
-    	return this.onHand == 0;
-    }
-    
+
     @Override
     public Rectangle2D getBounds() {
         return new Rectangle2D(this.xPos, this.yPos, this.image.getWidth()*scale/2, this.image.getHeight()*scale/2);
     }
 
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public int getOnHand() {
-		return onHand;
-	}
-
-	public void setOnHand(int onHand) {
-		this.onHand = onHand;
-	}
-
-	public int getCapacity() {
-		return capacity;
-	}
-
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}
-
-	public int getStore1() {
-		return store1;
-	}
-
-	public void setStore1(int store1) {
-		this.store1 = store1;
-	}
-
-	public int getStore2() {
-		return store2;
-	}
-
-	public void setStore2(int store2) {
-		this.store2 = store2;
-	}
-
-	public int getStore3() {
-		return store3;
-	}
-
-	public void setStore3(int store3) {
-		this.store3 = store3;
-	}
-
-	public int getStore4() {
-		return store4;
-	}
-
-	public void setStore4(int store4) {
-		this.store4 = store4;
-	}
-
     /*Rotation reference: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#setTransform-double-double-double-double-double-double-*/
-
 }

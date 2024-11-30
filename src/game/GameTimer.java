@@ -36,6 +36,7 @@ public class GameTimer extends AnimationTimer {
         // Setup detection for households
         for(Household house: map.getHouseList()){
             house.trackVehicle(v1,v2);
+            house.setActiveOrder(); // TODO: this is to be commented out (used for testing the order process)
         }
     }
 

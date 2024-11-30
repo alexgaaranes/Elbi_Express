@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Map {
     private final Stage stage;
@@ -57,8 +56,6 @@ public class Map {
         this.tileW = (double) Game.WINDOW_WIDTH /col;
 
         // Apply textures
-        String[] names = {"Jollibee", "Domino's Pizza", "Burger King", "Dairy Queen"};
-        int index = 0;
         for(int i=0; i<row; i++) {
             for(int j=0; j<col; j++) {
                 double xPos = j*tileW;
@@ -69,10 +66,10 @@ public class Map {
                         ), xPos, yPos, tileW, tileH);
                 mapTiles.add(tileGraphic);
 
+                // Create instances of objectives on map
                 if(mapMatrix[i][j] == 2){
-                    this.storeList.add(new Store(j, i,this, names[index]));
-                    index++;
-                    
+                    this.storeList.add(new Store(j, i,Store.STORE_NAMES[storeList.size()], this));
+
                 } else if (mapMatrix[i][j] == 3){
                     this.houseList.add(new Household(j, i,this));
                 }

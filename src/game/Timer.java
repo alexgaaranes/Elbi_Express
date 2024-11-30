@@ -5,11 +5,11 @@ import javafx.animation.AnimationTimer;
 public class Timer extends AnimationTimer{
     private long startTime;
     private long elapsedTime;
-    private long endTime;
+    private final long endTime;
     public boolean isRunning = false;
 
-    public Timer(long endTimeinSec){
-        this.endTime = endTimeinSec*1000000000L;
+    public Timer(long endTimeInSec){
+        this.endTime = endTimeInSec*1000000000L;
     }
 
     @Override
