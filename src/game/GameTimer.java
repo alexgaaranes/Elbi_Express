@@ -12,6 +12,9 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class GameTimer extends AnimationTimer {
     private final Stage stage;
     GraphicsContext gc;
@@ -25,7 +28,7 @@ public class GameTimer extends AnimationTimer {
         this.map = map;
     }
 
-    public void setPlayers(Vehicle v1, Vehicle v2){
+    public void setUpGame(Vehicle v1, Vehicle v2){
         this.v1 = v1;
         this.v2 = v2;
 
@@ -36,8 +39,11 @@ public class GameTimer extends AnimationTimer {
         // Setup detection for households
         for(Household house: map.getHouseList()){
             house.trackVehicle(v1,v2);
-            house.setActiveOrder(); // TODO: this is to be commented out (used for testing the order process)
         }
+
+        // Initial Order
+        randomOrder();
+        this.randomOrderTimer(); // Send order every 15 sec TODO: Can be changed to random
     }
 
     @Override
@@ -47,5 +53,37 @@ public class GameTimer extends AnimationTimer {
         this.map.drawMap(gc);
         this.v1.render(this.gc);
         this.v2.render(this.gc);
+    }
+
+    private void randomOrderTimer(){
+        new AnimationTimer() {
+            long startTime = System.nanoTime();
+            @Override
+            public void handle(long l) {
+                if(l - startTime >=15000000000L){
+                    randomOrder();
+                    startTime = l;
+                };
+            }
+        }.start();
+    }
+
+
+    private void randomOrder(){
+        Random r = new Random();
+        ArrayList<Household> houses = map.getHouseList();
+        try{
+            new AnimationTimer(){
+                Household house;
+                @Override
+                public void handle(long l) {
+                    house = houses.get(r.nextInt(houses.size()));
+                    if(house.getHasActiveOrder()){return;}
+
+                    house.setActiveOrder();
+                    this.stop();
+                }
+            }.start();
+        } catch(Exception e){e.printStackTrace();}
     }
 }

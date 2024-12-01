@@ -5,7 +5,6 @@ import game.GameTimer;
 import graphics.map.Map;
 import graphics.misc.HUD;
 import graphics.vehicles.Vehicle;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -40,7 +39,7 @@ public class PlayPane extends Group implements gamePane{
 
         gameHUD.setTranslateX(100);
         gameHUD.startHUDAutoUpdate();
-        gameTimer.setPlayers(vehicle1, vehicle2);
+        gameTimer.setUpGame(vehicle1, vehicle2);
         gameTimer.start();
     }
 

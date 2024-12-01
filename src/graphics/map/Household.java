@@ -2,7 +2,10 @@ package graphics.map;
 
 import java.util.HashMap;
 import java.util.Random;
+
+import game.Timer;
 import graphics.vehicles.Vehicle;
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Household extends Objective{
@@ -52,10 +55,28 @@ public class Household extends Objective{
         this.order = storeToOrder.getName();	// Get the store name where the household wants the order from
 		storeToOrder.addOrder(1);
 
-		System.out.println("Order Set "+this.order+"from"+this);
+		System.out.println("Order Set "+this.order+" from "+this);
 
-		/*
-		* 	START THE TIMER FOR THE ORDER
-		* */
+		// Timer for order
+		Timer orderTimer = new Timer(30);
+		orderTimer.start();
+		new AnimationTimer(){
+			@Override
+			public void handle(long l) {
+				if(!hasActiveOrder) {this.stop();}
+				if(!orderTimer.getStatus()){
+					System.out.println("House "+this+" is angry");
+					/*
+					*  LOGIC FOR DMG OVER TIME
+					* */
+					this.stop();
+				}
+			}
+		}.start();
+
+	}
+
+	public boolean getHasActiveOrder() {
+		return this.hasActiveOrder;
 	}
 }

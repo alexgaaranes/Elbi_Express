@@ -6,7 +6,7 @@ public class Timer extends AnimationTimer{
     private long startTime;
     private long elapsedTime;
     private final long endTime;
-    public boolean isRunning = false;
+    private boolean isRunning = false;
 
     public Timer(long endTimeInSec){
         this.endTime = endTimeInSec*1000000000L;
@@ -35,6 +35,10 @@ public class Timer extends AnimationTimer{
 
     public long getTimeSec(){
         return (this.endTime - this.elapsedTime)/1000000000;
+    }
+
+    public boolean getStatus(){
+        return this.isRunning;
     }
 }
 
