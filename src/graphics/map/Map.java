@@ -105,5 +105,9 @@ public class Map {
     public ArrayList<Household> getHouseList(){
         return this.houseList;
     }
+
+    public Scene getMapScene(){
+        return this.parentScene;
+    }
 }
 
