@@ -10,7 +10,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -18,9 +17,14 @@ public class Household extends Objective{
 	private String order;
 	private boolean hasActiveOrder = false;
 	private final static int orderInterval = 30;
+
+	// Bar Attributes
 	private Group timeBar = new Group();
-	private Rectangle redBar = new Rectangle(100,10, Color.RED);
-	private Rectangle greenBar = new Rectangle(100,10,Color.GREEN);
+	public final static float barHeight = 15f;
+	public final static float barWidth = 100f;
+	private Rectangle redBar = new Rectangle(Household.barWidth,Household.barHeight, Color.valueOf("8a1538"));
+	private Rectangle greenBar = new Rectangle(Household.barWidth,Household.barHeight,Color.valueOf("00573f"));
+	private Rectangle barBorder = new Rectangle(Household.barWidth,Household.barHeight);
 	private Scene parentScene;
 
     Household(int xGridPos, int yGridPos, Map map, GraphicsContext gc) {
@@ -61,22 +65,16 @@ public class Household extends Objective{
 	// Will be called when activeOrder is false and at a random time stamp
 	public void setActiveOrder() {
 		// Set Up bar
-		try {
-			PlayPane playPane = (PlayPane) this.parentScene.getRoot();
-			playPane.getChildren().add(this.timeBar);
-			timeBar.getChildren().addAll(redBar, greenBar);
-			Image barFrame = new Image("file:src/assets/sprites/bars/barFrame.png");
-			this.timeBar.setTranslateX(this.xPos - map.getTileW() / 2);
-			this.timeBar.setTranslateY(this.yPos + map.getTileH());
-			gc.drawImage(barFrame,
-					this.xPos + 10, this.yPos + 10, barFrame.getWidth(), barFrame.getHeight()
-			);
-			this.hasActiveOrder = true;
-		} catch (Exception e) {
-			System.out.println("Encountered duplicate but hopefully resolved.");
-			e.printStackTrace();
-			return;	// Stop from proceeding
-		}
+		PlayPane playPane = (PlayPane) this.parentScene.getRoot();
+		playPane.getChildren().add(this.timeBar);
+		barBorder.setFill(Color.TRANSPARENT);
+		barBorder.setStroke(Color.valueOf("ffb81c"));
+		timeBar.getChildren().addAll(redBar, greenBar, barBorder);
+		this.timeBar.setTranslateX(this.xPos + map.getTileH()/2 - Household.barWidth/2);
+		this.timeBar.setTranslateY(this.yPos + map.getTileH());
+
+		// SetUp Order
+		this.hasActiveOrder = true;
 		Random r = new Random();
         int randomOrder = r.nextInt(Store.NUM_OF_STORES);
 		Store storeToOrder = map.storeList.get(randomOrder);
@@ -90,18 +88,20 @@ public class Household extends Objective{
 		orderTimer.start();
 
 		new AnimationTimer(){
+			boolean isAngry = false;
 			@Override
 			public void handle(long l) {
 				if(!hasActiveOrder) {
-					timeBar.getChildren().removeAll(redBar, greenBar);
+					timeBar.getChildren().removeAll(redBar, greenBar, barBorder);
+					playPane.getChildren().removeAll(timeBar);
 					this.stop();
 				}
-				if(!orderTimer.getStatus()){
+				if(!this.isAngry && !orderTimer.getStatus()){
 					System.out.println("House "+this+" is angry");
+					this.isAngry = true;
 					/*
 					*  LOGIC FOR DMG OVER TIME
 					* */
-					this.stop();
 				}
 				// Update green bar width base on the time left by getting the percentage
 				greenBar.setWidth(100 - (((double) (Household.orderInterval - orderTimer.getTimeSec()) /
