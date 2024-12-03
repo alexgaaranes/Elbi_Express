@@ -6,13 +6,14 @@ import graphics.vehicles.Vehicle;
 import java.util.HashMap;
 
 public class Scoreboard {
-    private int happinessLvl = MAX_HAPPINESS_LVL;
-    private int totalScore = 0;
+    private int happinessLvl;
+    private int totalScore;
 
-    public static final int MAX_HAPPINESS_LVL = 100;
+    public static final int MAX_HAPPINESS_LVL = 10;
 
-    Scoreboard() {
-
+    public Scoreboard() {
+        this.totalScore = 0;
+        this.happinessLvl = MAX_HAPPINESS_LVL;
     }
 
     // Methods
@@ -20,9 +21,9 @@ public class Scoreboard {
         this.totalScore += score;
     }
 
-    public void updateHappinessLvl(int val) {
-        if(this.happinessLvl+val <= MAX_HAPPINESS_LVL) this.happinessLvl += val;
-        else this.happinessLvl = MAX_HAPPINESS_LVL;
+    public void reduceHappiness(int val) {
+        if(this.happinessLvl <= val) {this.happinessLvl = 0; return;}
+        this.happinessLvl -= val;
     }
 
     public int getHappinessLvl() {

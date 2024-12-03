@@ -3,6 +3,7 @@ package graphics.map;
 import java.util.HashMap;
 import java.util.Random;
 
+import game.Scoreboard;
 import game.Timer;
 import game.panes.PlayPane;
 import graphics.vehicles.Vehicle;
@@ -20,11 +21,11 @@ public class Household extends Objective{
 
 	// Bar Attributes
 	private Group timeBar = new Group();
-	public final static float barHeight = 15f;
-	public final static float barWidth = 100f;
-	private Rectangle redBar = new Rectangle(Household.barWidth,Household.barHeight, Color.valueOf("8a1538"));
-	private Rectangle greenBar = new Rectangle(Household.barWidth,Household.barHeight,Color.valueOf("00573f"));
-	private Rectangle barBorder = new Rectangle(Household.barWidth,Household.barHeight);
+	public final static float BAR_HEIGHT = 15f;
+	public final static float BAR_WIDTH = 100f;
+	private Rectangle redBar = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT, Color.valueOf("8a1538"));
+	private Rectangle greenBar = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT,Color.valueOf("00573f"));
+	private Rectangle barBorder = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT);
 	private Scene parentScene;
 
     Household(int xGridPos, int yGridPos, Map map, GraphicsContext gc) {
@@ -57,6 +58,7 @@ public class Household extends Objective{
 			}
 			vehicle.updateLoad(-1);
 			vehicle.updateScore(1);
+			map.getScoreboard().updateScore(1);
 			System.out.println("Order Delivered by "+ vehicle);
 		}
 		this.hasActiveOrder = false;
@@ -70,7 +72,7 @@ public class Household extends Objective{
 		barBorder.setFill(Color.TRANSPARENT);
 		barBorder.setStroke(Color.valueOf("ffb81c"));
 		timeBar.getChildren().addAll(redBar, greenBar, barBorder);
-		this.timeBar.setTranslateX(this.xPos + map.getTileH()/2 - Household.barWidth/2);
+		this.timeBar.setTranslateX(this.xPos + map.getTileH()/2 - Household.BAR_WIDTH/2);
 		this.timeBar.setTranslateY(this.yPos + map.getTileH());
 
 		// SetUp Order
@@ -99,16 +101,30 @@ public class Household extends Objective{
 				if(!this.isAngry && !orderTimer.getStatus()){
 					System.out.println("House "+this+" is angry");
 					this.isAngry = true;
-					/*
-					*  LOGIC FOR DMG OVER TIME
-					* */
+					angryDamage();
 				}
 				// Update green bar width base on the time left by getting the percentage
-				greenBar.setWidth(100 - (((double) (Household.orderInterval - orderTimer.getTimeSec()) /
-						Household.orderInterval)*100));
+				greenBar.setWidth(BAR_WIDTH - (((double) (Household.orderInterval - orderTimer.getTimeSec()) /
+						Household.orderInterval)*BAR_WIDTH));
 			}
 		}.start();
 
+	}
+
+	private void angryDamage(){
+		Scoreboard scoreboard = map.getScoreboard();
+		scoreboard.reduceHappiness(1);
+		new AnimationTimer(){
+			long startTime = System.nanoTime();
+			@Override
+			public void handle(long l) {	// IF angry, reduce happiness by 1 every 3 sec
+				if(!hasActiveOrder) {this.stop();}
+				if(l - startTime >= 3000000000L){
+					scoreboard.reduceHappiness(1);
+					startTime = l;
+				}
+			}
+		}.start();
 	}
 
 	public boolean getHasActiveOrder() {

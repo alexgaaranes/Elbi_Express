@@ -1,6 +1,7 @@
 package graphics.map;
 
 import game.Game;
+import game.Scoreboard;
 import graphics.Graphic;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,6 +14,7 @@ public class Map {
     private final Stage stage;
     private final Scene parentScene;
     private final GraphicsContext parentGC;
+    private Scoreboard scoreboard;
     private int row;
     private int col;
     private double tileH;
@@ -47,10 +49,11 @@ public class Map {
     ArrayList<Store> storeList = new ArrayList<>();
     ArrayList<Household> houseList = new ArrayList<>();
 
-    public Map(Stage stage, Scene parentScene, GraphicsContext parentGC) {
+    public Map(Stage stage, Scene parentScene, GraphicsContext parentGC, Scoreboard scoreboard) {
         this.stage = stage;
         this.parentScene = parentScene;
         this.parentGC = parentGC;
+        this.scoreboard = scoreboard;
         this.row = mapMatrix.length;
         this.col = mapMatrix[0].length;
         
@@ -109,5 +112,10 @@ public class Map {
     public Scene getMapScene(){
         return this.parentScene;
     }
+
+    public Scoreboard getScoreboard(){
+        return this.scoreboard;
+    }
+
 }
 
