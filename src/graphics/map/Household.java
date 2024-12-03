@@ -113,14 +113,14 @@ public class Household extends Objective{
 
 	private void angryDamage(){
 		Scoreboard scoreboard = map.getScoreboard();
-		scoreboard.reduceHappiness(1);
+		scoreboard.reduceHappiness(0.01F);
 		new AnimationTimer(){
 			long startTime = System.nanoTime();
 			@Override
 			public void handle(long l) {	// IF angry, reduce happiness by 1 every 3 sec
 				if(!hasActiveOrder) {this.stop();}
-				if(l - startTime >= 3000000000L){
-					scoreboard.reduceHappiness(1);
+				if(l - startTime >= 50000000L){
+					scoreboard.reduceHappiness(0.01F);
 					startTime = l;
 				}
 			}
