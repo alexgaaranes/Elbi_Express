@@ -32,8 +32,8 @@ public class Vehicle extends Graphic {
 
     private double angle;
     private double velocity;
-    private final double acceleration = 10;
-    private final double maxVelocity = 200;
+    private double acceleration = 10;
+    private double maxVelocity = 200;
     private final double turningSpeed = 200;
     private final double scale = 0.5;
     private final Map map;
@@ -183,6 +183,14 @@ public class Vehicle extends Graphic {
             keyBinds.put("LEFT", KeyCode.RIGHT);
             keyBinds.put("RIGHT", KeyCode.LEFT);
         }
+    }
+
+    public void thunderstormEffect(){
+        this.maxVelocity *= 4;
+    }
+
+    public void defaultMaxVelocity(){
+        this.maxVelocity /= 4;
     }
 
     // VISUAL AND BOUNDS

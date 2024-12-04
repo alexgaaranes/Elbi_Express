@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 abstract class Disaster {
-    final static int minRandTime = 60;
+    final static int minRandTime = 15; // can be changed
     final static int maxRandTime = 120;
 
     protected Stage stage;
