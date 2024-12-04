@@ -203,6 +203,13 @@ public class Vehicle extends Graphic {
         onEffect = true;
     }
 
+    public double getxPos() {
+        return xPos;
+    }
+
+    public double getyPos() {
+        return yPos;
+    }
     // VISUAL AND BOUNDS
     @Override
     public void render(GraphicsContext gc) {
