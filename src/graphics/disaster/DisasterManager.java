@@ -35,7 +35,6 @@ public class DisasterManager {
                     int spawnChance = r.nextInt(10);
                     if(spawnChance%4==0){
                         int index = r.nextInt(disasterList.length);
-                        index=2;
                         disasterList[index].spawnDisaster();
                         spawnTimer.restart();
                     }
