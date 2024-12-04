@@ -15,14 +15,14 @@ public class Earthquake extends Disaster {
     public void spawnDisaster() {
         System.out.println("Earthquake spawned");
         long startTime = System.nanoTime();
-        this.v1.earthquakeEffect();
-        this.v2.earthquakeEffect();
+        this.v1.earthquakeToggleEffect();
+        this.v2.earthquakeToggleEffect();
         new AnimationTimer() {
             @Override
             public void handle(long l) {
                 if(l-startTime >= 3000000000L){
-                    v1.defaultKeyBinds();
-                    v2.defaultKeyBinds();
+                    v1.earthquakeToggleEffect();
+                    v2.earthquakeToggleEffect();
                     this.stop();
                 }
             }

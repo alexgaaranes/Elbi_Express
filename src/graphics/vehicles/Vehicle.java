@@ -38,6 +38,8 @@ public class Vehicle extends Graphic {
     private final double scale = 0.5;
     private final Map map;
 
+    private boolean onEffect = false;
+
     public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height, int capacity) {
         super(image, xPos, yPos, width, height);
         this.parentScene = parentScene;
@@ -171,7 +173,12 @@ public class Vehicle extends Graphic {
 
     // Disaster Effect Methods
     // EARTHQUAKE
-    public void earthquakeEffect(){
+    public void earthquakeToggleEffect(){
+        if(onEffect){
+            onEffect = false;
+            this.defaultKeyBinds();
+            return;
+        }
         if(this.playerID.equals(PLAYER_ONE)){
             keyBinds.put("UP", KeyCode.S);
             keyBinds.put("DOWN", KeyCode.W);
@@ -183,14 +190,17 @@ public class Vehicle extends Graphic {
             keyBinds.put("LEFT", KeyCode.RIGHT);
             keyBinds.put("RIGHT", KeyCode.LEFT);
         }
+        onEffect = true;
     }
 
-    public void thunderstormEffect(){
+    public void thunderstormToggleEffect(){
+        if(onEffect){
+            onEffect = false;
+            this.maxVelocity /= 4;
+            return;
+        }
         this.maxVelocity *= 4;
-    }
-
-    public void defaultMaxVelocity(){
-        this.maxVelocity /= 4;
+        onEffect = true;
     }
 
     // VISUAL AND BOUNDS

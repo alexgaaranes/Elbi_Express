@@ -15,14 +15,14 @@ public class Thunderstorm extends Disaster {
     protected void spawnDisaster() {
         System.out.println("Thunderstorm spawned");
         long startTime = System.nanoTime();
-        this.v1.thunderstormEffect();
-        this.v2.thunderstormEffect();
+        this.v1.thunderstormToggleEffect();
+        this.v2.thunderstormToggleEffect();
         new AnimationTimer(){
             @Override
             public void handle(long l) {
-                if(l-startTime >= 10000000000L){
-                    v1.defaultMaxVelocity();
-                    v2.defaultMaxVelocity();
+                if(l-startTime >= 5000000000L){
+                    v1.thunderstormToggleEffect();
+                    v2.thunderstormToggleEffect();
                     this.stop();
                 }
             }
