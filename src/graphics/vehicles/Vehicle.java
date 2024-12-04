@@ -46,12 +46,12 @@ public class Vehicle extends Graphic {
         this.angle = 0;
         this.MAX_CAPACITY = capacity;
 
-        this.setKeyBinds();
+        this.defaultKeyBinds();
         this.handleKeyOnPress();
     }
 
     // MOVEMENT METHODS
-    private void setKeyBinds(){
+    public void defaultKeyBinds(){
         if(this.playerID.equals(PLAYER_ONE)){
             keyBinds.put("UP", KeyCode.W);
             keyBinds.put("DOWN", KeyCode.S);
@@ -152,6 +152,7 @@ public class Vehicle extends Graphic {
         return this.orderPerStore;
     }
 
+    // Score and Getters
     public void updateScore(int val){
         this.score += val;
     }
@@ -166,6 +167,22 @@ public class Vehicle extends Graphic {
 
     public static Set<KeyCode> getActiveKeys(){
         return Vehicle.activeKeys;
+    }
+
+    // Disaster Effect Methods
+    // EARTHQUAKE
+    public void earthquakeEffect(){
+        if(this.playerID.equals(PLAYER_ONE)){
+            keyBinds.put("UP", KeyCode.S);
+            keyBinds.put("DOWN", KeyCode.W);
+            keyBinds.put("LEFT", KeyCode.D);
+            keyBinds.put("RIGHT", KeyCode.A);
+        } else if(this.playerID.equals(PLAYER_TWO)){
+            keyBinds.put("UP", KeyCode.DOWN);
+            keyBinds.put("DOWN", KeyCode.UP);
+            keyBinds.put("LEFT", KeyCode.RIGHT);
+            keyBinds.put("RIGHT", KeyCode.LEFT);
+        }
     }
 
     // VISUAL AND BOUNDS

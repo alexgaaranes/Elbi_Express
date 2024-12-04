@@ -44,6 +44,7 @@ public class Map {
             {0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,3,0},
             {0,1,3,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
     };
     ArrayList<Graphic> mapTiles = new ArrayList<>();
     ArrayList<Store> storeList = new ArrayList<>();

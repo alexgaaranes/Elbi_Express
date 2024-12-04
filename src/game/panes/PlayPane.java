@@ -3,6 +3,7 @@ package game.panes;
 import game.Game;
 import game.GameTimer;
 import game.Scoreboard;
+import graphics.disaster.DisasterManager;
 import graphics.map.Map;
 import graphics.misc.HUD;
 import graphics.vehicles.Vehicle;
@@ -35,6 +36,10 @@ public class PlayPane extends Group implements gamePane{
         Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
                 600,500, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
         GameTimer gameTimer = new GameTimer(stage, gc, map);
+
+        // SETUP DISASTERS
+        DisasterManager disasterManager = new DisasterManager(stage, parentScene, vehicle1, vehicle2);
+        disasterManager.autoRandomDisaster();
 
         // SETUP HUD
         HUD gameHUD = new HUD(300, scoreboard);

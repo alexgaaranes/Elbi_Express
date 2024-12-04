@@ -33,8 +33,16 @@ public class Timer extends AnimationTimer{
         return this.endTime - this.elapsedTime;
     }
 
+    public void restart(){
+        this.startTime = System.nanoTime();
+    }
+
     public long getTimeSec(){
         return (this.endTime - this.elapsedTime)/1000000000;
+    }
+
+    public long getElapsedTimeInSec(){
+        return this.elapsedTime/1000000000L;
     }
 
     public boolean getStatus(){
