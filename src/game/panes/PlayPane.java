@@ -3,6 +3,7 @@ package game.panes;
 import game.Game;
 import game.GameTimer;
 import game.Scoreboard;
+import graphics.Graphic;
 import graphics.disaster.DisasterManager;
 import graphics.map.Map;
 import graphics.misc.HUD;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 public class PlayPane extends Group implements gamePane{
     private final Stage stage;
     private Scene parentScene = null;
+    private int xSize = (Game.WINDOW_WIDTH/40);
+    private int ySize = (Game.WINDOW_HEIGHT/30);
 
     Canvas playCanvas = new Canvas(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
     GraphicsContext gc;
@@ -32,9 +35,18 @@ public class PlayPane extends Group implements gamePane{
         Scoreboard scoreboard = new Scoreboard();
         Map map = new Map(stage, parentScene, gc, scoreboard);
         Vehicle vehicle1 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
-                575,500, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50, 3);
+                xSize*18, ySize*15, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50, 3);
         Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
-                600,500, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
+        		xSize*22, ySize*15, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
+        
+        //Might transfer this to other class later
+        Canvas houseCanvas = new Canvas(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        GraphicsContext houseGC = houseCanvas.getGraphicsContext2D();
+        Graphic house = new Graphic(new Image("file:src/assets/sprites/house.png"),
+                0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        house.render(houseGC);
+        this.getChildren().add(houseCanvas);
+        
         GameTimer gameTimer = new GameTimer(stage, gc, map);
 
         // SETUP DISASTERS

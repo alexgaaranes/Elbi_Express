@@ -34,7 +34,7 @@ abstract public class Objective {
     }
 
     public Rectangle2D getBounds() {
-        return new Rectangle2D(this.xPos, this.yPos, map.getTileW(), map.getTileH());
+        return new Rectangle2D(this.xPos, this.yPos, map.getTileW()*3, map.getTileH()*2);
     }
 
     public void trackVehicle(Vehicle v1, Vehicle v2) {
