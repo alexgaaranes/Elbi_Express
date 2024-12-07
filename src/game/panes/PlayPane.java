@@ -35,9 +35,9 @@ public class PlayPane extends Group implements gamePane{
         Scoreboard scoreboard = new Scoreboard();
         Map map = new Map(stage, parentScene, gc, scoreboard);
         Vehicle vehicle1 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
-                xSize*18, ySize*15, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50, 3);
+                xSize*18, ySize*16, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50, 3);
         Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
-        		xSize*22, ySize*15, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
+        		xSize*22, ySize*16, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
         
         GameTimer gameTimer = new GameTimer(stage, gc, map);
 

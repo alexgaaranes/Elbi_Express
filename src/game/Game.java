@@ -18,7 +18,7 @@ public class Game {
     // STATIC Attributes
     // 720 Resolution TODO: Try dynamic scaling for diff viewport
     public static final int WINDOW_WIDTH = 1280;
-    public static final int WINDOW_HEIGHT = 960;
+    public static final int WINDOW_HEIGHT = 1022;
 
     public Game(Stage stage) {
         this.stage = stage;

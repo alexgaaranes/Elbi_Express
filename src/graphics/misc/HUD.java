@@ -18,6 +18,9 @@ public class HUD extends Group {
     private Canvas hudCanvas;
     private GraphicsContext gc;
     private Scoreboard scoreboard;
+    private static String hexCode1 = "#8a1538";
+    private static String hexCode2 = "#00573f";
+    private static String hexCode3 = "#ffb81c";
 
     private final static float BAR_HEIGHT = 30;
     private final static float BAR_WIDTH = 200;
@@ -60,8 +63,8 @@ public class HUD extends Group {
     // TIMER
     private void setUpTimer(){
         timeText = new Text();
-        timeText.setFont(new Font(20));
-        timeText.setFill(Color.BLACK);
+        timeText.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
+        timeText.setFill(Color.web(hexCode3.trim()));
         timeText.setX((double) Game.WINDOW_WIDTH /2 - timeText.getBoundsInLocal().getWidth()/2 - 25);
         timeText.setY(30);
         this.getChildren().add(timeText);
@@ -78,8 +81,8 @@ public class HUD extends Group {
     // SCORE
     private void setUpScore(){
         scoreText = new Text();
-        scoreText.setFont(new Font(20));
-        scoreText.setFill(Color.BLACK);
+        scoreText.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
+        scoreText.setFill(Color.web(hexCode3.trim()));
         scoreText.setX(30);
         scoreText.setY(30);
         this.getChildren().add(scoreText);
@@ -94,17 +97,17 @@ public class HUD extends Group {
     private void setUpHappiness(){
         happyText = new Text();
         happyText.setText("Happiness Level: ");
-        happyText.setFont(new Font(20));
-        happyText.setFill(Color.BLACK);
-        happyText.setX(Game.WINDOW_WIDTH-BAR_WIDTH*2+10);
+        happyText.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
+        happyText.setFill(Color.web(hexCode3.trim()));
+        happyText.setX(Game.WINDOW_WIDTH-BAR_WIDTH*3+120);
         happyText.setY(30);
         // SETUP BAR
         happinessBar = new Group();
-        redBar = new Rectangle(BAR_WIDTH,BAR_HEIGHT,Color.RED);
-        greenBar = new Rectangle(BAR_WIDTH, BAR_HEIGHT, Color.GREEN);
-        barBorder = new Rectangle(BAR_WIDTH, BAR_HEIGHT, Color.BLUE);
+        redBar = new Rectangle(BAR_WIDTH, BAR_HEIGHT, Color.web(hexCode1.trim()));
+        greenBar = new Rectangle(BAR_WIDTH, BAR_HEIGHT, Color.web(hexCode2.trim()));
+        barBorder = new Rectangle(BAR_WIDTH, BAR_HEIGHT, Color.web(hexCode3.trim()));
         barBorder.setFill(Color.TRANSPARENT);
-        barBorder.setStroke(Color.BLUE);
+        barBorder.setStroke(Color.web(hexCode3.trim()));
         happinessBar.getChildren().addAll(redBar,greenBar,barBorder);
         happinessBar.setTranslateX(Game.WINDOW_WIDTH-BAR_WIDTH-20);
         happinessBar.setTranslateY(10);
