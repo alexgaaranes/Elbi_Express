@@ -91,21 +91,8 @@ public class Map {
         this.tileH = (double) Game.WINDOW_HEIGHT /row;
         this.tileW = (double) Game.WINDOW_WIDTH /col;
 
-        // Apply textures
-    	Graphic tileGraphic = new Graphic(
-    			new Image("file:src/assets/sprites/map.png"), 0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
-    	mapTiles.add(tileGraphic);
         for(int i=0; i<row; i++) {
             for(int j=0; j<col; j++) {
-//                double xPos = j*tileW;
-//                double yPos = i*tileH;
-//                Graphic tileGraphic = new Graphic(
-//                        new Image(
-//                                mapMatrix[i][j]==1?"file:src/assets/sprites/Grass_02_Green_1.png":"file:src/assets/sprites/Cobblestones_01_White_1.png"
-//                        ), xPos, yPos, tileW, tileH);
-//                mapTiles.add(tileGraphic);
-
-                // Create instances of objectives on map
                 if(mapMatrix[i][j] == 2){
                     this.storeList.add(new Store(j, i,Store.STORE_NAMES[storeList.size()], this, this.parentGC));
 
@@ -117,9 +104,13 @@ public class Map {
     }
 
     public void drawMap(GraphicsContext gc){
-        for (Graphic tile : this.mapTiles){
-            tile.render(gc);
-        }
+    	Image map = new Image("file:src/assets/sprites/map.png");
+    	gc.drawImage(map, 0, 0);
+    }
+    
+    public void drawHouse(GraphicsContext gc){
+    	Image map = new Image("file:src/assets/sprites/house.png");
+    	gc.drawImage(map, 0, 0);
     }
 
     // Getter

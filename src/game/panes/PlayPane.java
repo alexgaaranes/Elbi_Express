@@ -39,14 +39,6 @@ public class PlayPane extends Group implements gamePane{
         Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
         		xSize*22, ySize*15, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
         
-        //Might transfer this to other class later
-        Canvas houseCanvas = new Canvas(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
-        GraphicsContext houseGC = houseCanvas.getGraphicsContext2D();
-        Graphic house = new Graphic(new Image("file:src/assets/sprites/house.png"),
-                0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
-        house.render(houseGC);
-        this.getChildren().add(houseCanvas);
-        
         GameTimer gameTimer = new GameTimer(stage, gc, map);
 
         // SETUP DISASTERS
