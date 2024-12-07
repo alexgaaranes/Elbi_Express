@@ -83,6 +83,7 @@ public class Household extends Objective{
 		PlayPane playPane = (PlayPane) this.parentScene.getRoot();
 		playPane.getChildren().addAll(this.timeBar, orderBubbles);
 		
+		//Probably should initialize image imports and employ hashing to make sure every order has designated gif.
 		ImageView order;
 		if(randomOrder == 0) {
 			Image image = new Image("file:src/assets/sprites/jollibee.gif");
