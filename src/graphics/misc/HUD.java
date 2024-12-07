@@ -7,6 +7,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -21,6 +23,7 @@ public class HUD extends Group {
     private static String hexCode1 = "#8a1538";
     private static String hexCode2 = "#00573f";
     private static String hexCode3 = "#ffb81c";
+    private DropShadow dropShadow = new DropShadow();
 
     private final static float BAR_HEIGHT = 30;
     private final static float BAR_WIDTH = 200;
@@ -67,6 +70,14 @@ public class HUD extends Group {
         timeText.setFill(Color.web(hexCode3.trim()));
         timeText.setX((double) Game.WINDOW_WIDTH /2 - timeText.getBoundsInLocal().getWidth()/2 - 25);
         timeText.setY(30);
+        
+        dropShadow.setOffsetX(5);
+        dropShadow.setOffsetY(5);
+        dropShadow.setBlurType(BlurType.ONE_PASS_BOX);
+        dropShadow.setRadius(10);
+        dropShadow.setColor(Color.BLACK);
+        
+        timeText.setEffect(dropShadow);
         this.getChildren().add(timeText);
     }
 
@@ -85,6 +96,8 @@ public class HUD extends Group {
         scoreText.setFill(Color.web(hexCode3.trim()));
         scoreText.setX(30);
         scoreText.setY(30);
+        
+        scoreText.setEffect(dropShadow);
         this.getChildren().add(scoreText);
     }
 
@@ -111,7 +124,8 @@ public class HUD extends Group {
         happinessBar.getChildren().addAll(redBar,greenBar,barBorder);
         happinessBar.setTranslateX(Game.WINDOW_WIDTH-BAR_WIDTH-20);
         happinessBar.setTranslateY(10);
-
+        
+        happyText.setEffect(dropShadow);
         this.getChildren().addAll(happyText,happinessBar);
     }
 
