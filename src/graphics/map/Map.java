@@ -19,6 +19,8 @@ public class Map {
     private int col;
     private double tileH;
     private double tileW;
+    private Image mapImage;
+    private Image houseImage;
 
     /* MAP GRID
     *   0 - Empty (Road)
@@ -101,17 +103,23 @@ public class Map {
                 }
             }
         }
+        
+        initializeAssets();
     }
 
-    public void drawMap(GraphicsContext gc){
-    	Image map = new Image("file:src/assets/sprites/map.png");
-    	gc.drawImage(map, 0, 0);
+    public void initializeAssets() {
+        mapImage = new Image("file:src/assets/sprites/map.png");
+        houseImage = new Image("file:src/assets/sprites/house.png");
     }
-    
-    public void drawHouse(GraphicsContext gc){
-    	Image map = new Image("file:src/assets/sprites/house.png");
-    	gc.drawImage(map, 0, 0);
+
+    public void drawMap(GraphicsContext gc) {
+        gc.drawImage(mapImage, 0, 0);
     }
+
+    public void drawHouse(GraphicsContext gc) {
+        gc.drawImage(houseImage, 0, 0);
+    }
+
 
     // Getter
     public int[][] getMapMatrix(){
