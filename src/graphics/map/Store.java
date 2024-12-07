@@ -2,8 +2,11 @@ package graphics.map;
 
 import graphics.vehicles.Vehicle;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Store extends Objective{
@@ -31,11 +34,11 @@ public class Store extends Objective{
 	protected void doProcess(){
 		this.makeOrder(this.occupiedVehicle);
 	}
-
+	
 	// Special process called by doProcess upon completion of prompts
     private void makeOrder(Vehicle vehicle) {
    		this.currentOrders -= 1;	// Decrement the number of ongoing orders from households
-
+        
    		// Making sure the order is properly labeled
 		HashMap<String, Integer> vehicleStoreOrder = vehicle.getStoreOrder();
 		if(vehicleStoreOrder.containsKey(this.name)) {

@@ -11,6 +11,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -18,9 +20,10 @@ public class Household extends Objective{
 	private String order;
 	private boolean hasActiveOrder = false;
 	private final static int orderInterval = 30;
-
+	
 	// Bar Attributes
 	private Group timeBar = new Group();
+	private Group orderBubbles = new Group();
 	public final static float BAR_HEIGHT = 15f;
 	public final static float BAR_WIDTH = 100f;
 	private Rectangle redBar = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT, Color.valueOf("8a1538"));
@@ -66,15 +69,6 @@ public class Household extends Objective{
 
 	// Will be called when activeOrder is false and at a random time stamp
 	public void setActiveOrder() {
-		// Set Up bar
-		PlayPane playPane = (PlayPane) this.parentScene.getRoot();
-		playPane.getChildren().add(this.timeBar);
-		barBorder.setFill(Color.TRANSPARENT);
-		barBorder.setStroke(Color.valueOf("ffb81c"));
-		timeBar.getChildren().addAll(redBar, greenBar, barBorder);
-		this.timeBar.setTranslateX(this.xPos + map.getTileH()/2 - Household.BAR_WIDTH/2);
-		this.timeBar.setTranslateY(this.yPos + map.getTileH());
-
 		// SetUp Order
 		this.hasActiveOrder = true;
 		Random r = new Random();
@@ -84,6 +78,41 @@ public class Household extends Objective{
 		storeToOrder.addOrder(1);
 
 		System.out.println("Order Set "+this.order+" from "+this);
+		
+		// Set Up bar and bubbles
+		PlayPane playPane = (PlayPane) this.parentScene.getRoot();
+		playPane.getChildren().addAll(this.timeBar, orderBubbles);
+		
+		ImageView order;
+		if(randomOrder == 0) {
+			Image image = new Image("file:src/assets/sprites/jollibee.gif");
+			order = new ImageView(image);
+		}
+		else if(randomOrder == 1) {
+			Image image = new Image("file:src/assets/sprites/domino's.gif");
+			order = new ImageView(image);
+		}
+		else if(randomOrder == 2) {
+			Image image = new Image("file:src/assets/sprites/dq.gif");
+			order = new ImageView(image);
+		}
+		else {
+			Image image = new Image("file:src/assets/sprites/bk.gif");
+			order = new ImageView(image);
+		}
+		
+		orderBubbles.getChildren().add(order);
+		order.setTranslateX(this.xPos - 200);
+		order.setTranslateY(this.yPos - 170);
+		order.setScaleX(0.33);
+		order.setScaleY(0.33);
+		
+		barBorder.setFill(Color.TRANSPARENT);
+		barBorder.setStroke(Color.valueOf("ffb81c"));
+		
+		timeBar.getChildren().addAll(redBar, greenBar, barBorder);
+		this.timeBar.setTranslateX(this.xPos + map.getTileH()/2 - Household.BAR_WIDTH/2);
+		this.timeBar.setTranslateY(this.yPos + map.getTileH());
 
 		// Timer for order
 		Timer orderTimer = new Timer(Household.orderInterval);
@@ -95,7 +124,7 @@ public class Household extends Objective{
 			public void handle(long l) {
 				if(!hasActiveOrder) {
 					timeBar.getChildren().removeAll(redBar, greenBar, barBorder);
-					playPane.getChildren().removeAll(timeBar);
+					playPane.getChildren().removeAll(timeBar, orderBubbles);
 					this.stop();
 				}
 				if(!this.isAngry && !orderTimer.getStatus()){
