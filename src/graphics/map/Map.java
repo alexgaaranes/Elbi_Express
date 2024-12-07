@@ -20,7 +20,7 @@ public class Map {
     private double tileH;
     private double tileW;
     private Image mapImage = new Image("file:src/assets/sprites/map.png");
-    private Image houseImage = new Image("file:src/assets/sprites/house.png");
+    private Image houseImage = new Image("file:src/assets/sprites/building.png");
 
     /* MAP GRID
     *   0 - Empty (Road)
