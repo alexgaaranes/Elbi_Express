@@ -21,11 +21,13 @@ public class GameTimer extends AnimationTimer {
     private Vehicle v1;
     private Vehicle v2;
     private Map map;
+    private Scoreboard scoreboard;
 
-    public GameTimer(Stage stage, GraphicsContext gc, Map map) {
+    public GameTimer(Stage stage, GraphicsContext gc, Map map, Scoreboard scoreboard) {
         this.stage = stage;
         this.gc = gc;
         this.map = map;
+        this.scoreboard = scoreboard;
     }
 
     public void setUpGame(Vehicle v1, Vehicle v2){
@@ -54,6 +56,11 @@ public class GameTimer extends AnimationTimer {
         this.v1.render(this.gc);
         this.v2.render(this.gc);
         this.map.drawHouse(this.gc);
+
+        if(this.scoreboard.checkIfLost()){
+            // run game over logic
+            System.out.println("Game Over!");
+        }
     }
 
     private void randomOrderTimer(){

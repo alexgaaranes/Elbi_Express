@@ -39,7 +39,7 @@ public class PlayPane extends Group implements gamePane{
         Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
         		xSize*22, ySize*16, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
         
-        GameTimer gameTimer = new GameTimer(stage, gc, map);
+        GameTimer gameTimer = new GameTimer(stage, gc, map, scoreboard);
 
         // SETUP DISASTERS
         DisasterManager disasterManager = new DisasterManager(stage, parentScene, vehicle1, vehicle2);

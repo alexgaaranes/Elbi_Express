@@ -35,7 +35,7 @@ public class Household extends Objective{
 
     @Override
     public void openObjective(){
-        System.out.println("In household: "+this.occupiedVehicle);
+        //System.out.println("In household: "+this.occupiedVehicle);
 		if(this.hasActiveOrder && this.occupiedVehicle.getStoreOrder().containsKey(this.order)){
 			this.showPrompt();
 		}

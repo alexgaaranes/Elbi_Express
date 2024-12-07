@@ -21,7 +21,7 @@ public class Store extends Objective{
 
     @Override
     public void openObjective() {
-        System.out.println("In store: "+this.occupiedVehicle);
+        //System.out.println("In store: "+this.occupiedVehicle);
 		if(!occupiedVehicle.isFull() && this.currentOrders!=0){
 			this.showPrompt();
 		}
