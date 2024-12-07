@@ -8,6 +8,8 @@ import graphics.disaster.DisasterManager;
 import graphics.map.Map;
 import graphics.misc.HUD;
 import graphics.vehicles.Vehicle;
+import graphics.vehicles.types.Car;
+import graphics.vehicles.types.Motorcycle;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -34,10 +36,10 @@ public class PlayPane extends Group implements gamePane{
         // SETUP ELEMENTS
         Scoreboard scoreboard = new Scoreboard();
         Map map = new Map(stage, parentScene, gc, scoreboard);
-        Vehicle vehicle1 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
-                xSize*18, ySize*16, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50, 3);
-        Vehicle vehicle2 = new Vehicle(new Image("file:src/assets/sprites/testVehicle.png"),
-        		xSize*22, ySize*16, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50, 3);
+        Vehicle vehicle1 = new Car(new Image("file:src/assets/sprites/testVehicle.png"),
+                xSize*18, ySize*16, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50);
+        Vehicle vehicle2 = new Motorcycle(new Image("file:src/assets/sprites/testVehicle.png"),
+        		xSize*22, ySize*16, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50);
         
         GameTimer gameTimer = new GameTimer(stage, gc, map, scoreboard);
 

@@ -16,29 +16,31 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Vehicle extends Graphic {
-    private final Scene parentScene;
-    private final String playerID;
-    private static Set<KeyCode> activeKeys = new HashSet<>();
-    private HashMap<String, KeyCode> keyBinds = new HashMap<>();
+    protected final Scene parentScene;
+    protected final String playerID;
+    protected static Set<KeyCode> activeKeys = new HashSet<>();
+    protected HashMap<String, KeyCode> keyBinds = new HashMap<>();
 
     public static final String PLAYER_ONE = "P1";
     public static final String PLAYER_TWO = "P2";
 
-    private HashMap<String, Integer> orderPerStore = new HashMap<>();
+    protected HashMap<String, Integer> orderPerStore = new HashMap<>();
 
-    private int score = 0;  // Score tracked per vehicle
-    private int currentLoad = 0;
-    private final int MAX_CAPACITY;
+    protected int score = 0;  // Score tracked per vehicle
+    protected int currentLoad = 0;
+    protected final int MAX_CAPACITY;
 
-    private double angle;
-    private double velocity;
-    private double acceleration = 10;
-    private double maxVelocity = 200;
-    private final double turningSpeed = 200;
-    private final double scale = 0.5;
-    private final Map map;
+    protected double angle;
+    protected double velocity;
 
-    private boolean onEffect = false;
+    protected double acceleration;
+    protected double maxVelocity;
+    protected double turningSpeed;
+
+    protected final double scale = 0.5;
+    protected final Map map;
+
+    protected boolean onEffect = false;
 
     public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height, int capacity) {
         super(image, xPos, yPos, width, height);
@@ -67,7 +69,7 @@ public class Vehicle extends Graphic {
         }
     }
 
-    private void handleKeyOnPress(){
+    protected void handleKeyOnPress(){
         parentScene.setOnKeyPressed(event -> {
             activeKeys.add(event.getCode());
             //System.out.println(event.getCode());
@@ -77,7 +79,7 @@ public class Vehicle extends Graphic {
             //System.out.println("Removed:"+event.getCode());
         });
         new AnimationTimer() {
-            private long prevTime = 0;
+            long prevTime = 0;
             @Override
             public void handle(long nanoTime) {
                 // Added delta as another factor for movement
@@ -104,7 +106,6 @@ public class Vehicle extends Graphic {
                 velocity = Math.min(velocity + acceleration, maxVelocity);
             }
         }
-
         if (activeKeys.contains(keyBinds.get("LEFT"))) {
             angle -= turningSpeed*delta;
         }
@@ -126,7 +127,7 @@ public class Vehicle extends Graphic {
         this.yPos += displaceY;
     }
 
-    private boolean isColliding(double newX, double newY){
+    protected boolean isColliding(double newX, double newY){
         // Get the position on grid (get tile uses the screen size so this is accurate)
         int xGridPos = (int) (newX / map.getTileW());
         int yGridPos = (int) (newY / map.getTileH());
@@ -134,7 +135,7 @@ public class Vehicle extends Graphic {
         // Window bounds
         if(newX >= Game.WINDOW_WIDTH || newX <= 0 || newY >= Game.WINDOW_HEIGHT || newY <= 0) return true;
 
-        return map.getMapMatrix()[yGridPos][xGridPos]==1;
+        return this.map.getMapMatrix()[yGridPos][xGridPos]==1;
     }
 
     // ORDERING METHODS

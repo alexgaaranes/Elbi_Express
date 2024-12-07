@@ -60,6 +60,7 @@ public class GameTimer extends AnimationTimer {
         if(this.scoreboard.checkIfLost()){
             // run game over logic
             System.out.println("Game Over!");
+            this.stop();
         }
     }
 

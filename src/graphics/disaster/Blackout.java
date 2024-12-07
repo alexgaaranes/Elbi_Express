@@ -25,7 +25,7 @@ public class Blackout extends Disaster {
         super(stage, parentScene, v1, v2);
         playPane = (PlayPane) parentScene.getRoot();
         blackOutRect = new Rectangle(Game.WINDOW_WIDTH,Game.WINDOW_HEIGHT);
-        blackOutRect.setFill(Color.valueOf("#0d0d0d"));
+        blackOutRect.setFill(Color.valueOf("#000000"));
         v1Flash = new Circle(50, Color.valueOf("e5e5e5"));
         v2Flash = new Circle(50, Color.valueOf("e5e5e5"));
         layer.getChildren().addAll(blackOutRect,v1Flash,v2Flash);
