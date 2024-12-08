@@ -3,7 +3,6 @@ package game.panes;
 import game.Game;
 import game.GameTimer;
 import game.Scoreboard;
-import graphics.Graphic;
 import graphics.disaster.DisasterManager;
 import graphics.map.Map;
 import graphics.misc.HUD;
@@ -15,7 +14,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class PlayPane extends Group implements gamePane{
@@ -23,6 +21,7 @@ public class PlayPane extends Group implements gamePane{
     private Scene parentScene = null;
     private int xSize = (Game.WINDOW_WIDTH/40);
     private int ySize = (Game.WINDOW_HEIGHT/30);
+    private Vehicle v1, v2;
 
     Canvas playCanvas = new Canvas(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
     GraphicsContext gc;
@@ -33,19 +32,16 @@ public class PlayPane extends Group implements gamePane{
         this.gc = playCanvas.getGraphicsContext2D();
     }
 
-    public void startGame(){
-        // SETUP ELEMENTS
+    public void startGame(int v1Ind, int v2Ind) {
         Scoreboard scoreboard = new Scoreboard();
-        Map map = new Map(stage, parentScene, gc, scoreboard);
-        Vehicle vehicle1 = new Motorcycle(new Image("file:src/assets/sprites/testVehicle.png"),
-                xSize*18, ySize*16, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50);
-        Vehicle vehicle2 = new Truck(new Image("file:src/assets/sprites/testVehicle.png"),
-        		xSize*22, ySize*16, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50);
-        
+        Map map = new Map(stage, parentScene, scoreboard, gc);
+        // SETUP ELEMENTS
+        createVehicle(v1Ind, v2Ind, map);
+
         GameTimer gameTimer = new GameTimer(stage, gc, map, scoreboard);
 
         // SETUP DISASTERS
-        DisasterManager disasterManager = new DisasterManager(stage, parentScene, vehicle1, vehicle2);
+        DisasterManager disasterManager = new DisasterManager(stage, parentScene, v1, v2);
         disasterManager.autoRandomDisaster();
 
         // SETUP HUD
@@ -56,8 +52,33 @@ public class PlayPane extends Group implements gamePane{
         gameHUD.startHUDAutoUpdate();
 
         // PREPARE FOR START
-        gameTimer.setUpGame(vehicle1, vehicle2);
+        gameTimer.setUpGame(v1, v2);
         gameTimer.start();
+    }
+
+    private void createVehicle(int p1Index, int p2Index, Map map) {
+        switch(p1Index){
+            case 0:
+                v1 = new Car(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50);
+                break;
+            case 1:
+                v1 = new Motorcycle(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50);
+                break;
+            case 2:
+                v1 = new Truck(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50);
+                break;
+        }
+        switch (p2Index){
+            case 0:
+                v2 = new Car(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50);
+                break;
+            case 1:
+                v2 = new Motorcycle(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50);
+                break;
+            case 2:
+                v2 = new Truck(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50);
+                break;
+        }
     }
 
     @Override
