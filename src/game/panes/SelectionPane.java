@@ -41,8 +41,6 @@ public class SelectionPane extends Group implements gamePane{
     // UI elements
     private Text p1Text;
     private Text p2Text;
-    private final Text player1Title = new Text("Player 1");
-    private final Text player2Title = new Text("Player 2");
     private Text player1Ready;
     private Text player2Ready;
     private final Image background = new Image("file:src/assets/sprites/selectionBG.png");
@@ -119,16 +117,24 @@ public class SelectionPane extends Group implements gamePane{
                 if(isReady){this.stop();}
                 if(activeKeys.contains(KeyCode.Q)){
                     player1Ready.setText("Ready!");
+                    player1Ready.setX(300);
+                    player1Ready.setY(700);
                     player1Ready.setFill(Color.GREEN);
                 } else {
                     player1Ready.setText("Hold Q to ready");
+                    player1Ready.setX(225);
+                    player1Ready.setY(700);
                     player1Ready.setFill(Color.RED);
                 }
                 if(activeKeys.contains(KeyCode.PERIOD)){
                     player2Ready.setText("Ready!");
+                    player2Ready.setX(890);
+                    player2Ready.setY(700);
                     player2Ready.setFill(Color.GREEN);
                 } else {
                     player2Ready.setText("Hold PERIOD to ready");
+                    player2Ready.setX(765);
+                    player2Ready.setY(700);
                     player2Ready.setFill(Color.RED);
                 }
                 if(activeKeys.contains(KeyCode.Q) && activeKeys.contains(KeyCode.PERIOD)){
@@ -151,36 +157,24 @@ public class SelectionPane extends Group implements gamePane{
 
     // Set Up UI elements
     private void setUpUI(){
-        player1Title.setFill(Color.BLUE);
-        player2Title.setFill(Color.RED);
-        player1Title.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 40));
-        player2Title.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 40));
-        player1Title.setX(180);
-        player1Title.setY(65);
-        player2Title.setX(830);
-        player2Title.setY(65);
         player1Ready = new Text("Hold Q to ready");
         player2Ready = new Text("Hold PERIOD to ready");
         player1Ready.setFill(Color.RED);
         player2Ready.setFill(Color.RED);
         player1Ready.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
         player2Ready.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
-        player1Ready.setX(165);
-        player1Ready.setY(800);
-        player2Ready.setX(800);
-        player2Ready.setY(800);
         p1Text = new Text(vehicles[p1Index]);
         p2Text = new Text(vehicles[p2Index]);
         p1Text.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 30));
         p2Text.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 30));
         p1Text.setFill(Color.valueOf("ffb81c"));
         p2Text.setFill(Color.valueOf("ffb81c"));
-        p1Text.setX(200);
+        p1Text.setX(225);
         p1Text.setY(950);
-        p2Text.setX(800);
+        p2Text.setX(765);
         p2Text.setY(950);
 
-        this.getChildren().addAll(p1Text, p2Text, player1Title, player2Title, player1Ready, player2Ready);
+        this.getChildren().addAll(p1Text, p2Text, player1Ready, player2Ready);
         // Auto Update text content base on the user
         new AnimationTimer(){
             @Override
