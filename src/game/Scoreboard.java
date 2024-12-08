@@ -1,11 +1,6 @@
 package game;
 
-import graphics.map.Store;
-import graphics.vehicles.Vehicle;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-
-import java.util.HashMap;
 
 public class Scoreboard {
     private float happinessLvl;
@@ -25,9 +20,9 @@ public class Scoreboard {
         new AnimationTimer(){
             @Override
             public void handle(long l) {
+                if(isGameOver) {this.stop();}
                 if(happinessLvl <= 0) {
                     isGameOver = true;
-                    this.stop();
                 }
             }
         }.start();
@@ -52,6 +47,11 @@ public class Scoreboard {
 
     public boolean checkIfLost(){
         return isGameOver;
+    }
+
+    public void checkTimeLeft(double timeLeft){
+        if(timeLeft > 0) {return;}
+        this.isGameOver = true;
     }
 
 }

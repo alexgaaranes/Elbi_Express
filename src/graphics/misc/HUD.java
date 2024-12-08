@@ -59,6 +59,7 @@ public class HUD extends Group {
                 updateTimer();
                 updateScore();
                 updateHappinessBar();
+                scoreboard.checkTimeLeft(gameTimer.getTime());
             }
         }.start();
     }
@@ -135,4 +136,5 @@ public class HUD extends Group {
                         Scoreboard.MAX_HAPPINESS_LVL)*BAR_WIDTH
         );
     }
+
 }

@@ -4,12 +4,17 @@
 
 package game;
 
+import game.panes.PlayPane;
 import graphics.map.Household;
 import graphics.map.Map;
 import graphics.map.Store;
 import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -58,10 +63,25 @@ public class GameTimer extends AnimationTimer {
         this.map.drawHouse(this.gc);
 
         if(this.scoreboard.checkIfLost()){
-            // run game over logic
             System.out.println("Game Over!");
+            if(scoreboard.getHappinessLvl() <= 0){
+                System.out.println("You Lost!");
+            } else {
+                System.out.println("You Won!");
+            }
+            // Some score recap logic
+            gameOverScreen();
             this.stop();
         }
+    }
+
+    private void gameOverScreen(){
+        Scene playScene = stage.getScene();
+        PlayPane playPane = (PlayPane) playScene.getRoot();
+        Rectangle darkOverlay = new Rectangle(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        darkOverlay.setFill(Color.BLACK);
+        darkOverlay.setOpacity(0.75);
+        playPane.getChildren().add(darkOverlay);
     }
 
     private void randomOrderTimer(){
