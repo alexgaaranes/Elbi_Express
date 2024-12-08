@@ -89,6 +89,8 @@ public class Household extends Objective{
 		PlayPane playPane = (PlayPane) this.parentScene.getRoot();
 		playPane.getChildren().addAll(this.timeBar, orderBubbles);
 		
+		storeToOrder.openPickUp(playPane);
+		
 		ImageView order;
 		if(randomOrder == 0) {
 			order = new ImageView(jollibee);
