@@ -7,12 +7,15 @@ public class Scoreboard {
     private int totalScore;
     private boolean isGameOver = false;
 
+    public static Scoreboard activeScoreboard;
+
     public static final float MAX_HAPPINESS_LVL = 10F;
 
     public Scoreboard() {
         this.totalScore = 0;
         this.happinessLvl = MAX_HAPPINESS_LVL;
         this.checkHappiness();
+        activeScoreboard = this;
     }
 
     // Methods

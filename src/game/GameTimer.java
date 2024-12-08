@@ -19,6 +19,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -90,8 +92,16 @@ public class GameTimer extends AnimationTimer {
         ImageView restartBtn = new ImageView(new Image("file:src/assets/sprites/restartBtn.png"));
         ImageView mainMenuBtn = new ImageView(new Image("file:src/assets/sprites/sandwichMenu.png"));
         setUpButtons(restartBtn, mainMenuBtn);
+        // Score text Setup
+        Text totalScoreLabel = new Text("Total Score: ");
+        Text totalScore = new Text(STR."\{scoreboard.getTotalScore()+(scoreboard.getTotalScore() * scoreboard.getHappinessLvl())}");
+        Text ordersDeliveredLabel = new Text("Orders Delivered: ");
+        Text player1Label = new Text("Player 1: "+ v1.getScore());
+        Text player2Label = new Text("Player 2: "+ v2.getScore());
+        setUpTexts(totalScoreLabel, totalScore, ordersDeliveredLabel, player1Label, player2Label);
 
-        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn);
+
+        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScoreLabel, totalScore, ordersDeliveredLabel, player1Label, player2Label);
     }
 
     private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn){
@@ -130,11 +140,38 @@ public class GameTimer extends AnimationTimer {
         });
     }
 
+    private void setUpTexts(Text scoreLabel, Text score, Text orderLabel, Text p1, Text p2){
+        String fontPath = "file:src/assets/sprites/pixelFont.ttf";
+        scoreLabel.setX(500);
+        scoreLabel.setY(550);
+        score.setX(500);
+        score.setY(600);
+        orderLabel.setX(500);
+        orderLabel.setY(300);
+        p1.setX(500);
+        p1.setY(350);
+        p2.setX(500);
+        p2.setY(400);
+
+        scoreLabel.setFont(Font.loadFont(fontPath, 30));
+        score.setFont(Font.loadFont(fontPath, 30));
+        orderLabel.setFont(Font.loadFont(fontPath, 30));
+        p1.setFont(Font.loadFont(fontPath, 30));
+        p2.setFont(Font.loadFont(fontPath, 30));
+
+        scoreLabel.setFill(Color.GOLD);
+        score.setFill(Color.GREEN);
+        orderLabel.setFill(Color.GOLD);
+        p1.setFill(Color.BLUE);
+        p2.setFill(Color.RED);
+    }
+
     private void randomOrderTimer(){
         new AnimationTimer() {
             long startTime = System.nanoTime();
             @Override
             public void handle(long l) {
+                if(scoreboard.checkIfLost()){this.stop();}
                 if(l - startTime >=15000000000L){
                     randomOrder();
                     startTime = l;
@@ -151,6 +188,7 @@ public class GameTimer extends AnimationTimer {
                 Household house;
                 @Override
                 public void handle(long l) {
+                    if(scoreboard.checkIfLost()){this.stop();}
                     house = houses.get(r.nextInt(houses.size()));
                     if(house.getHasActiveOrder()){return;}
 

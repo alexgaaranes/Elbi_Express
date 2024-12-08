@@ -1,5 +1,6 @@
 package graphics.disaster;
 
+import game.Scoreboard;
 import game.Timer;
 import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
@@ -30,6 +31,7 @@ public class DisasterManager {
             long startTime = System.nanoTime();
             @Override
             public void handle(long l) {
+                if(Scoreboard.activeScoreboard.checkIfLost()){this.stop();}
                 if(!spawnTimer.getStatus()) spawnTimer.start();
                 if(spawnTimer.getElapsedTimeInSec() > Disaster.minRandTime && l-startTime >= 1000000000L){
                     int spawnChance = r.nextInt(10);
