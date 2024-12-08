@@ -61,7 +61,6 @@ public class Store extends Objective{
     
     public void openPickUp(PlayPane playPane) {
     	if(this.currentOrders == 1) {
-    		System.out.println("openPickUp called");
     		this.bagPane = playPane;
     		bagPane.getChildren().add(orderBags);
     		
