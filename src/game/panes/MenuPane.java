@@ -11,7 +11,7 @@ public class MenuPane extends VBox implements gamePane{
     private Scene parentScene = null;
     private Scene developerScene = null;
     private Scene aboutScene = null;
-    private Scene playScene = null;
+    private Scene selectionScene = null;
 
     public MenuPane(Stage stage, double spacing) {
         super(spacing);
@@ -26,10 +26,10 @@ public class MenuPane extends VBox implements gamePane{
         this.parentScene = scene;
     }
 
-    public void setButtonScenes(Scene devScene, Scene abScene, Scene playScene){
+    public void setButtonScenes(Scene devScene, Scene abScene, Scene selectionScene) {
         this.developerScene = devScene;
         this.aboutScene = abScene;
-        this.playScene = playScene;
+        this.selectionScene = selectionScene;
     }
 
     private void setUpButtons(){
@@ -38,9 +38,9 @@ public class MenuPane extends VBox implements gamePane{
         Button aboutBtn = new Button("About");
 
         playBtn.setOnAction(event ->{
-            stage.setScene(playScene);
-            PlayPane passedPlayPane = (PlayPane) playScene.getRoot();
-            passedPlayPane.startGame();
+            stage.setScene(selectionScene);
+            SelectionPane selectionPane  = (SelectionPane) selectionScene.getRoot();
+            selectionPane.setUpSelection();
         });
 
         developerBtn.setOnAction(event ->{

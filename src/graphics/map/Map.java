@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Map {
     private final Stage stage;
     private final Scene parentScene;
-    private final GraphicsContext parentGC;
+    private GraphicsContext parentGC;
     private Scoreboard scoreboard;
     private int row;
     private int col;
@@ -66,11 +66,11 @@ public class Map {
     ArrayList<Store> storeList = new ArrayList<>();
     ArrayList<Household> houseList = new ArrayList<>();
 
-    public Map(Stage stage, Scene parentScene, GraphicsContext parentGC, Scoreboard scoreboard) {
+    public Map(Stage stage, Scene parentScene, Scoreboard scoreboard, GraphicsContext gc) {
         this.stage = stage;
         this.parentScene = parentScene;
-        this.parentGC = parentGC;
         this.scoreboard = scoreboard;
+        this.parentGC = gc;
         this.row = mapMatrix.length;
         this.col = mapMatrix[0].length;
         
