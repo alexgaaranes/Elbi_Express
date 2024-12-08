@@ -27,7 +27,7 @@ public class Game {
 
         // SETUP OTHER SCENES
         setUpScenes();
-        menuPane.setButtonScenes(this.developerScene, this.aboutScene, this.selectionScene);
+        menuPane.setButtonScenes(this.developerScene, this.aboutScene);
     }
 
     // Methods
@@ -54,8 +54,5 @@ public class Game {
         this.developerScene = new Scene(developerPane, WINDOW_WIDTH, WINDOW_HEIGHT);
         developerPane.setParentScene(this.developerScene);
 
-        SelectionPane selectionPane = new SelectionPane(this.stage);
-        this.selectionScene = new Scene(selectionPane, WINDOW_WIDTH, WINDOW_HEIGHT);
-        selectionPane.setParentScene(this.selectionScene);
     }
 }
