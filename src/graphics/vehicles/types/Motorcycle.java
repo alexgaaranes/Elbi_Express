@@ -10,7 +10,7 @@ public class Motorcycle extends Vehicle {
     public Motorcycle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height) {
         super(image, xPos, yPos, id, parentScene, map, width, height, 1);
         this.acceleration = 5;
-        this.maxVelocity = 250;
+        this.maxVelocity = 175;
         this.turningSpeed = 300;
     }
 }

@@ -9,8 +9,8 @@ public class Car extends Vehicle {
 
     public Car(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height) {
         super(image, xPos, yPos, id, parentScene, map, width, height, 2);
-        this.acceleration = 5;
-        this.maxVelocity = 200;
+        this.acceleration = 1;
+        this.maxVelocity = 225;
         this.turningSpeed = 250;
     }
 }

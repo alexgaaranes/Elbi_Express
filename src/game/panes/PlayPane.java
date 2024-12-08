@@ -10,6 +10,7 @@ import graphics.misc.HUD;
 import graphics.vehicles.Vehicle;
 import graphics.vehicles.types.Car;
 import graphics.vehicles.types.Motorcycle;
+import graphics.vehicles.types.Truck;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -36,9 +37,9 @@ public class PlayPane extends Group implements gamePane{
         // SETUP ELEMENTS
         Scoreboard scoreboard = new Scoreboard();
         Map map = new Map(stage, parentScene, gc, scoreboard);
-        Vehicle vehicle1 = new Car(new Image("file:src/assets/sprites/testVehicle.png"),
+        Vehicle vehicle1 = new Motorcycle(new Image("file:src/assets/sprites/testVehicle.png"),
                 xSize*18, ySize*16, Vehicle.PLAYER_TWO,this.parentScene, map, 50, 50);
-        Vehicle vehicle2 = new Motorcycle(new Image("file:src/assets/sprites/testVehicle.png"),
+        Vehicle vehicle2 = new Truck(new Image("file:src/assets/sprites/testVehicle.png"),
         		xSize*22, ySize*16, Vehicle.PLAYER_ONE,this.parentScene, map, 50, 50);
         
         GameTimer gameTimer = new GameTimer(stage, gc, map, scoreboard);
