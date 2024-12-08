@@ -30,6 +30,12 @@ public class Household extends Objective{
 	private Rectangle greenBar = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT,Color.valueOf("00573f"));
 	private Rectangle barBorder = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT);
 	private Scene parentScene;
+	private static Image jollibee = new Image("file:src/assets/sprites/jollibee.gif");
+	private static Image dominos = new Image("file:src/assets/sprites/domino's.gif");
+	private static Image dq = new Image("file:src/assets/sprites/dq.gif");
+	private static Image bk = new Image("file:src/assets/sprites/bk.gif");
+	
+	
 
     Household(int xGridPos, int yGridPos, Map map, GraphicsContext gc) {
 		super(xGridPos, yGridPos, map, gc);
@@ -85,20 +91,16 @@ public class Household extends Objective{
 		
 		ImageView order;
 		if(randomOrder == 0) {
-			Image image = new Image("file:src/assets/sprites/jollibee.gif");
-			order = new ImageView(image);
+			order = new ImageView(jollibee);
 		}
 		else if(randomOrder == 1) {
-			Image image = new Image("file:src/assets/sprites/domino's.gif");
-			order = new ImageView(image);
+			order = new ImageView(dominos);
 		}
 		else if(randomOrder == 2) {
-			Image image = new Image("file:src/assets/sprites/dq.gif");
-			order = new ImageView(image);
+			order = new ImageView(dq);
 		}
 		else {
-			Image image = new Image("file:src/assets/sprites/bk.gif");
-			order = new ImageView(image);
+			order = new ImageView(bk);
 		}
 		
 		orderBubbles.getChildren().add(order);
