@@ -21,7 +21,7 @@ public class Game {
         this.stage = stage;
         
         // SETUP MAIN MENU SCENE
-        MenuPane menuPane = new MenuPane(this.stage, 10);
+        MenuPane menuPane = new MenuPane(this.stage);
         this.menuScene = new Scene(menuPane, WINDOW_WIDTH, WINDOW_HEIGHT);
         menuPane.setParentScene(this.menuScene);
 
