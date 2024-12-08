@@ -4,6 +4,7 @@
 
 package game;
 
+import game.panes.MenuPane;
 import game.panes.PlayPane;
 import graphics.map.Household;
 import graphics.map.Map;
@@ -104,10 +105,10 @@ public class GameTimer extends AnimationTimer {
 
         // Click Events
         restartBtn.setOnMouseClicked(event -> {
-            // Restart Logic
+            MenuPane.activeMenuPane.setSelection();
         });
         mainMenuBtn.setOnMouseClicked(event -> {
-            // Back to mainMenuBtn
+            stage.setScene(MenuPane.activeMenuPane.getScene());
         });
 
         // Hover Effects

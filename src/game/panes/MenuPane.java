@@ -1,5 +1,6 @@
 package game.panes;
 
+import game.Game;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -11,7 +12,8 @@ public class MenuPane extends Pane implements gamePane {
     private Scene parentScene = null;
     private Scene developerScene = null;
     private Scene aboutScene = null;
-    private Scene selectionScene = null;
+
+    public static MenuPane activeMenuPane;
 
     public MenuPane(Stage stage) {
         this.stage = stage;
@@ -24,7 +26,7 @@ public class MenuPane extends Pane implements gamePane {
         );
 
         Font pixelFont = Font.loadFont("file:src/assets/sprites/pixelFont.ttf", 20);
-
+        activeMenuPane = this;
         setUpButtons(pixelFont);
     }
 
@@ -33,10 +35,9 @@ public class MenuPane extends Pane implements gamePane {
         this.parentScene = scene;
     }
 
-    public void setButtonScenes(Scene devScene, Scene abScene, Scene selectionScene) {
+    public void setButtonScenes(Scene devScene, Scene abScene) {
         this.developerScene = devScene;
         this.aboutScene = abScene;
-        this.selectionScene = selectionScene;
     }
 
     private void setUpButtons(Font font) {
@@ -57,9 +58,7 @@ public class MenuPane extends Pane implements gamePane {
 
         // Set button actions
         playBtn.setOnAction(event -> {
-            stage.setScene(selectionScene);
-            SelectionPane selectionPane = (SelectionPane) selectionScene.getRoot();
-            selectionPane.setUpSelection();
+            this.setSelection();
         });
 
         developerBtn.setOnAction(event -> {
@@ -72,6 +71,15 @@ public class MenuPane extends Pane implements gamePane {
 
         // Add buttons to the Pane
         this.getChildren().addAll(playBtn, developerBtn, aboutBtn);
+    }
+
+    public void setSelection(){
+        SelectionPane selectionPane = new SelectionPane(this.stage);
+        Scene selectionScene = new Scene(selectionPane, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        selectionPane.setParentScene(selectionScene);
+
+        stage.setScene(selectionScene);
+        selectionPane.setUpSelection();
     }
 
     private Button createStyledButton(String text, Font font) {

@@ -27,7 +27,7 @@ public class SelectionPane extends Group implements gamePane{
     private Scene parentScene = null;
     private Scene playScene = null;
     private static HashSet<KeyCode> activeKeys = new HashSet<>();
-    private boolean isReady = false;
+    private boolean isReady;
 
     private String vehicles[] = {"Car", "Motorcycle", "Truck"};
     private Vehicle p1, p2;
@@ -50,6 +50,7 @@ public class SelectionPane extends Group implements gamePane{
         this.selectionCanvas = new Canvas(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         this.getChildren().add(selectionCanvas);
         this.gc = selectionCanvas.getGraphicsContext2D();
+        this.isReady = false;
     }
 
     public void setUpSelection(){
@@ -86,7 +87,10 @@ public class SelectionPane extends Group implements gamePane{
             KeyCode p2LastKey = null;
             @Override
             public void handle(long l) {
-                if(isReady){this.stop();}
+                if(isReady){
+                    activeKeys.clear();
+                    this.stop();
+                }
                 if(p1LastKey != null && !activeKeys.contains(p1LastKey)){p1LastKey = null;}
                 if(p1LastKey == null && activeKeys.contains(KeyCode.D)){
                     p1LastKey = KeyCode.D;
