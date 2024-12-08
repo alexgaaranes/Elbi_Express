@@ -12,7 +12,10 @@ import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -75,13 +78,55 @@ public class GameTimer extends AnimationTimer {
         }
     }
 
+    // GAME OVER SETUP
     private void gameOverScreen(){
         Scene playScene = stage.getScene();
         PlayPane playPane = (PlayPane) playScene.getRoot();
         Rectangle darkOverlay = new Rectangle(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         darkOverlay.setFill(Color.BLACK);
         darkOverlay.setOpacity(0.75);
-        playPane.getChildren().add(darkOverlay);
+        // Button Setup
+        ImageView restartBtn = new ImageView(new Image("file:src/assets/sprites/restartBtn.png"));
+        ImageView mainMenuBtn = new ImageView(new Image("file:src/assets/sprites/sandwichMenu.png"));
+        setUpButtons(restartBtn, mainMenuBtn);
+
+        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn);
+    }
+
+    private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn){
+        // Buttons
+        restartBtn.setPickOnBounds(true);
+        mainMenuBtn.setPickOnBounds(true);
+        restartBtn.setX(Game.WINDOW_WIDTH/2 - restartBtn.getBoundsInLocal().getWidth() - 75);
+        restartBtn.setY(650);
+        mainMenuBtn.setX(Game.WINDOW_WIDTH/2 + 75);
+        mainMenuBtn.setY(650);
+
+        // Click Events
+        restartBtn.setOnMouseClicked(event -> {
+            // Restart Logic
+        });
+        mainMenuBtn.setOnMouseClicked(event -> {
+            // Back to mainMenuBtn
+        });
+
+        // Hover Effects
+        restartBtn.setOnMouseEntered(event -> {
+            restartBtn.setScaleX(1.2);
+            restartBtn.setScaleY(1.2);
+        });
+        mainMenuBtn.setOnMouseEntered(event -> {
+            mainMenuBtn.setScaleX(1.2);
+            mainMenuBtn.setScaleY(1.2);
+        });
+        restartBtn.setOnMouseExited(event -> {
+            restartBtn.setScaleX(1.0);
+            restartBtn.setScaleY(1.0);
+        });
+        mainMenuBtn.setOnMouseExited(event -> {
+            mainMenuBtn.setScaleX(1.0);
+            mainMenuBtn.setScaleY(1.0);
+        });
     }
 
     private void randomOrderTimer(){
@@ -96,7 +141,6 @@ public class GameTimer extends AnimationTimer {
             }
         }.start();
     }
-
 
     private void randomOrder(){
         Random r = new Random();

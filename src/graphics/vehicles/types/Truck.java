@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 public class Truck extends Vehicle {
 
     public Truck(double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height) {
-        super(new Image("file:src/assets/sprites/testVehicle.png"),
+        super(new Image("file:src/assets/sprites/vehicle-sheets/motorcycle/red-motor.png"),
                 xPos, yPos, id, parentScene, map, width, height, 3);
         this.acceleration = 0.75;
         this.maxVelocity = 300;
