@@ -94,7 +94,9 @@ public class GameTimer extends AnimationTimer {
         setUpButtons(restartBtn, mainMenuBtn);
         // Score text Setup
         Text totalScoreLabel = new Text("Total Score: ");
-        Text totalScore = new Text(STR."\{scoreboard.getTotalScore()+(scoreboard.getTotalScore() * scoreboard.getHappinessLvl())}");
+        Text totalScore = new Text(
+        	    "Total Score: " + (scoreboard.getTotalScore() + (scoreboard.getTotalScore() * scoreboard.getHappinessLvl()))
+        	);
         Text ordersDeliveredLabel = new Text("Orders Delivered: ");
         Text player1Label = new Text("Player 1: "+ v1.getScore());
         Text player2Label = new Text("Player 2: "+ v2.getScore());
