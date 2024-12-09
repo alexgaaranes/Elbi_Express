@@ -33,6 +33,7 @@ public class GameTimer extends AnimationTimer {
     private Vehicle v2;
     private Map map;
     private Scoreboard scoreboard;
+    private static Image gameOver= new Image("file:src/assets/sprites/gameover.png");
 
     public GameTimer(Stage stage, GraphicsContext gc, Map map, Scoreboard scoreboard) {
         this.stage = stage;
@@ -89,6 +90,7 @@ public class GameTimer extends AnimationTimer {
         darkOverlay.setFill(Color.BLACK);
         darkOverlay.setOpacity(0.75);
         // Button Setup
+        ImageView gOver = new ImageView(gameOver);
         ImageView restartBtn = new ImageView(new Image("file:src/assets/sprites/restartBtn.png"));
         ImageView mainMenuBtn = new ImageView(new Image("file:src/assets/sprites/sandwichMenu.png"));
         setUpButtons(restartBtn, mainMenuBtn);
@@ -103,7 +105,7 @@ public class GameTimer extends AnimationTimer {
         setUpTexts(totalScore, ordersDeliveredLabel, player1Label, player2Label);
 
 
-        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, ordersDeliveredLabel, player1Label, player2Label);
+        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, ordersDeliveredLabel, player1Label, player2Label, gOver);
     }
 
     private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn){
@@ -148,10 +150,10 @@ public class GameTimer extends AnimationTimer {
         score.setY(600);
         orderLabel.setX(500);
         orderLabel.setY(300);
-        p1.setX(500);
-        p1.setY(350);
-        p2.setX(500);
-        p2.setY(400);
+        p1.setX(745);
+        p1.setY(500);
+        p2.setX(345);
+        p2.setY(500);
 
         score.setFont(Font.loadFont(fontPath, 30));
         orderLabel.setFont(Font.loadFont(fontPath, 30));
