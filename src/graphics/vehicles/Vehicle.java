@@ -44,7 +44,7 @@ public class Vehicle extends Graphic {
     protected double maxVelocity;
     protected double turningSpeed;
 
-    protected final double scale = 0.5;
+    protected final double scale = 0.35;
     protected final Map map;
 
     protected boolean onEffect = false;
@@ -207,10 +207,14 @@ public class Vehicle extends Graphic {
     public void thunderstormToggleEffect(){
         if(onEffect){
             onEffect = false;
+            this.acceleration *= 10;
             this.maxVelocity /= 4;
+            this.turningSpeed *= 10;
             return;
         }
+        this.acceleration /= 10;
         this.maxVelocity *= 4;
+        this.turningSpeed /= 10;
         onEffect = true;
     }
 
