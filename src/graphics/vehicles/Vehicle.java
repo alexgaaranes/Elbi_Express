@@ -1,6 +1,8 @@
 package graphics.vehicles;
 
 import game.Game;
+import game.Scoreboard;
+import game.panes.PlayPane;
 import graphics.Graphic;
 import graphics.map.Map;
 import javafx.animation.AnimationTimer;
@@ -9,6 +11,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 
 import java.util.HashMap;
@@ -18,6 +23,7 @@ import java.util.Set;
 public class Vehicle extends Graphic {
     protected final Scene parentScene;
     protected final String playerID;
+    protected final PlayPane playPane;
     protected static Set<KeyCode> activeKeys = new HashSet<>();
     protected HashMap<String, KeyCode> keyBinds = new HashMap<>();
 
@@ -29,6 +35,7 @@ public class Vehicle extends Graphic {
     protected int score = 0;  // Score tracked per vehicle
     protected int currentLoad = 0;
     protected final int MAX_CAPACITY;
+    protected Text capText;
 
     protected double angle;
     protected double velocity;
@@ -50,8 +57,11 @@ public class Vehicle extends Graphic {
         this.angle = 0;
         this.MAX_CAPACITY = capacity;
 
+        this.playPane = (PlayPane) parentScene.getRoot();
+
         this.defaultKeyBinds();
         this.handleKeyOnPress();
+        this.updateCapText();
     }
 
     // MOVEMENT METHODS
@@ -211,6 +221,24 @@ public class Vehicle extends Graphic {
     public double getyPos() {
         return yPos;
     }
+
+    private void updateCapText(){
+        this.capText = new Text(String.format("%d/%d", currentLoad, MAX_CAPACITY));
+        this.capText.setFill(Color.WHITE);
+        this.capText.setFont(Font.loadFont("file:src/assets/sprites/pixelFont.ttf", 10));
+        this.playPane.getChildren().add(capText);
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                if(Scoreboard.activeScoreboard.checkIfLost()){this.stop();}
+                capText.setText(String.format("%d/%d", currentLoad, MAX_CAPACITY));
+                capText.setX(xPos-20);
+                capText.setY(yPos-20);
+            }
+        }.start();
+    }
+
     // VISUAL AND BOUNDS
     @Override
     public void render(GraphicsContext gc) {

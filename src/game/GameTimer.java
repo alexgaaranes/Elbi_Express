@@ -93,17 +93,17 @@ public class GameTimer extends AnimationTimer {
         ImageView mainMenuBtn = new ImageView(new Image("file:src/assets/sprites/sandwichMenu.png"));
         setUpButtons(restartBtn, mainMenuBtn);
         // Score text Setup
-        Text totalScoreLabel = new Text("Total Score: ");
         Text totalScore = new Text(
-        	    "Total Score: " + (scoreboard.getTotalScore() + (scoreboard.getTotalScore() * scoreboard.getHappinessLvl()))
+        	    String.format("Total Score: %.2f", (scoreboard.getTotalScore() +
+                        (scoreboard.getTotalScore() * scoreboard.getHappinessLvl())))
         	);
         Text ordersDeliveredLabel = new Text("Orders Delivered: ");
         Text player1Label = new Text("Player 1: "+ v1.getScore());
         Text player2Label = new Text("Player 2: "+ v2.getScore());
-        setUpTexts(totalScoreLabel, totalScore, ordersDeliveredLabel, player1Label, player2Label);
+        setUpTexts(totalScore, ordersDeliveredLabel, player1Label, player2Label);
 
 
-        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScoreLabel, totalScore, ordersDeliveredLabel, player1Label, player2Label);
+        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, ordersDeliveredLabel, player1Label, player2Label);
     }
 
     private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn){
@@ -142,10 +142,8 @@ public class GameTimer extends AnimationTimer {
         });
     }
 
-    private void setUpTexts(Text scoreLabel, Text score, Text orderLabel, Text p1, Text p2){
+    private void setUpTexts(Text score, Text orderLabel, Text p1, Text p2){
         String fontPath = "file:src/assets/sprites/pixelFont.ttf";
-        scoreLabel.setX(500);
-        scoreLabel.setY(550);
         score.setX(500);
         score.setY(600);
         orderLabel.setX(500);
@@ -155,14 +153,12 @@ public class GameTimer extends AnimationTimer {
         p2.setX(500);
         p2.setY(400);
 
-        scoreLabel.setFont(Font.loadFont(fontPath, 30));
         score.setFont(Font.loadFont(fontPath, 30));
         orderLabel.setFont(Font.loadFont(fontPath, 30));
         p1.setFont(Font.loadFont(fontPath, 30));
         p2.setFont(Font.loadFont(fontPath, 30));
 
-        scoreLabel.setFill(Color.GOLD);
-        score.setFill(Color.GREEN);
+        score.setFill(Color.GOLD);
         orderLabel.setFill(Color.GOLD);
         p1.setFill(Color.BLUE);
         p2.setFill(Color.RED);

@@ -19,9 +19,9 @@ public class DisasterManager {
     public DisasterManager(Stage stage, Scene ParentScene, Vehicle v1, Vehicle v2) {
         spawnTimer = new Timer(Disaster.maxRandTime);
         disasterList = new Disaster[3];
-        disasterList[0] = new Thunderstorm(stage, ParentScene, v1, v2);
+        disasterList[0] = new Earthquake(stage, ParentScene, v1, v2);
         disasterList[1] = new Thunderstorm(stage, ParentScene, v1, v2);
-        disasterList[2] = new Thunderstorm(stage, ParentScene, v1, v2);
+        disasterList[2] = new Blackout(stage, ParentScene, v1, v2);
     }
 
     public void autoRandomDisaster() {
