@@ -7,9 +7,9 @@ import javafx.stage.Stage;
 
 public class Game {
     private final Stage stage;
-    private final Scene menuScene;
-    private Scene developerScene;
-    private Scene aboutScene;
+    private static Scene menuScene;
+    private static Scene developerScene;
+    private static Scene aboutScene;
     private Scene selectionScene;
 
     // STATIC Attributes
@@ -22,18 +22,19 @@ public class Game {
         
         // SETUP MAIN MENU SCENE
         MenuPane menuPane = new MenuPane(this.stage);
-        this.menuScene = new Scene(menuPane, WINDOW_WIDTH, WINDOW_HEIGHT);
-        menuPane.setParentScene(this.menuScene);
+        menuScene = new Scene(menuPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        menuPane.setParentScene(menuScene);
 
         // SETUP OTHER SCENES
         setUpScenes();
-        menuPane.setButtonScenes(this.developerScene, this.aboutScene);
+        
+        menuPane.setButtonScenes(developerScene, aboutScene);
     }
 
     // Methods
     public void start(){
         stage.setTitle("Elbi Express");
-        stage.setScene(this.menuScene);
+        stage.setScene(menuScene);
         stage.setResizable(false);
 
         stage.show();
@@ -47,12 +48,17 @@ public class Game {
 
     private void setUpScenes(){
         AboutPane aboutPane = new AboutPane(this.stage);
-        this.aboutScene = new Scene(aboutPane, WINDOW_WIDTH, WINDOW_HEIGHT);
-        aboutPane.setParentScene(this.aboutScene);
+        aboutScene = new Scene(aboutPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        aboutPane.setParentScene(aboutScene);
 
         DeveloperPane developerPane = new DeveloperPane(this.stage);
-        this.developerScene = new Scene(developerPane, WINDOW_WIDTH, WINDOW_HEIGHT);
-        developerPane.setParentScene(this.developerScene);
+        developerScene = new Scene(developerPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        developerPane.setParentScene(developerScene);
+        developerPane.setButtonScenes(menuScene);
 
     }
+
+	public static Scene getMenuScene() {
+		return menuScene;
+	}
 }
