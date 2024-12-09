@@ -13,16 +13,16 @@ import java.util.Random;
 public class Earthquake extends Disaster {
 
 	private static final int SHAKE_DISTANCE = 3;
+	private static Image overlay = new Image("file:src/assets/sprites/earthquake.png");
 	private final ImageView earthquake;
 	private final Random random = new Random();
 	private final Group overlayGroup = new Group();
 	
 	public Earthquake(Stage stage, Scene parentScene, Vehicle v1, Vehicle v2) {
 	    super(stage, parentScene, v1, v2);
-	    Image overlay = new Image("file:src/assets/sprites/earthquake.png");
-	earthquake = new ImageView(overlay);
-	
-	overlayGroup.getChildren().add(earthquake);
+		earthquake = new ImageView(overlay);
+		
+		overlayGroup.getChildren().add(earthquake);
 	}
 
 	@Override
@@ -50,12 +50,12 @@ public class Earthquake extends Disaster {
 				if (now - startTime >= 3_000_000_000L) {
 				    root.setTranslateX(0);
 				    root.setTranslateY(0);
-				    this.stop();
-				
+				    
 				    // Disable earthquake effects on vehicles
 					v1.earthquakeToggleEffect();
 					v2.earthquakeToggleEffect();
 					((Group) root).getChildren().remove(overlayGroup);
+				    this.stop();
 		        }
 		    }
 		}.start();
