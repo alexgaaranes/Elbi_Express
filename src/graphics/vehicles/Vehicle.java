@@ -44,7 +44,7 @@ public class Vehicle extends Graphic {
     protected double maxVelocity;
     protected double turningSpeed;
 
-    protected final double scale = 0.5;
+    protected final double scale = 1;
     protected final Map map;
 
     protected boolean onEffect = false;
@@ -122,6 +122,9 @@ public class Vehicle extends Graphic {
         if (activeKeys.contains(keyBinds.get("RIGHT"))) {
             angle += turningSpeed*delta;
         }
+
+        if(angle < 0) angle += 360;
+        if(angle > 360) angle -= 360;
 
         double radAngle = Math.toRadians(angle);
         double displaceX = velocity * Math.cos(radAngle)*delta;
@@ -207,10 +210,14 @@ public class Vehicle extends Graphic {
     public void thunderstormToggleEffect(){
         if(onEffect){
             onEffect = false;
+            this.acceleration *= 4;
             this.maxVelocity /= 4;
+            this.turningSpeed *= 4;
             return;
         }
+        this.acceleration /= 4;
         this.maxVelocity *= 4;
+        this.turningSpeed /= 4;
         onEffect = true;
     }
 
@@ -244,16 +251,26 @@ public class Vehicle extends Graphic {
     public void render(GraphicsContext gc) {
         gc.save();
         // Get Rotation and draw image
-        Rotate r = new Rotate(this.angle, this.xPos, this.yPos);
-        gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
-        gc.drawImage(this.image,
-                xPos - (this.image.getWidth()*this.scale) / 2,
-                yPos - (this.image.getHeight()*this.scale) / 2,
-                this.image.getWidth()*this.scale,
-                this.image.getHeight()*this.scale
+        //Rotate r = new Rotate(this.angle, this.xPos, this.yPos);
+        //gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
+        int frame = getFrame(this.angle);
+        int col = frame % 4;
+        int row = frame / 4;
+        int frameWidth = 49;
+        int frameHeight = 35;
+        gc.drawImage(this.image, col*frameWidth, row*frameHeight,
+                frameWidth, frameHeight,
+                xPos - (frameWidth*this.scale) / 2,
+                yPos - (frameHeight*this.scale) / 2,
+                frameWidth*this.scale,
+                frameHeight*this.scale
                 );
 
         gc.restore();
+    }
+
+    private int getFrame(double angle){
+        return (int) (angle/45) % 8;
     }
 
     @Override
