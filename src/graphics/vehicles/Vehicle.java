@@ -251,8 +251,6 @@ public class Vehicle extends Graphic {
     public void render(GraphicsContext gc) {
         gc.save();
         // Get Rotation and draw image
-        //Rotate r = new Rotate(this.angle, this.xPos, this.yPos);
-        //gc.setTransform(r.getMxx(),r.getMyx(),r.getMxy(),r.getMyy(),r.getTx(),r.getTy());
         int frame = getFrame(this.angle);
         int col = frame % 4;
         int row = frame / 4;
@@ -278,5 +276,4 @@ public class Vehicle extends Graphic {
         return new Rectangle2D(this.xPos, this.yPos, this.image.getWidth()*scale/2, this.image.getHeight()*scale/2);
     }
 
-    /*Rotation reference: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#setTransform-double-double-double-double-double-double-*/
 }
