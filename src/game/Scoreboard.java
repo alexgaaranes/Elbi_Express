@@ -9,7 +9,7 @@ public class Scoreboard {
 
     public static Scoreboard activeScoreboard;
 
-    public static final float MAX_HAPPINESS_LVL = 10F;
+    public static final int MAX_HAPPINESS_LVL = 100;
 
     public Scoreboard() {
         this.totalScore = 0;
@@ -35,7 +35,7 @@ public class Scoreboard {
         this.totalScore += score;
     }
 
-    public void reduceHappiness(float val) {
+    public synchronized void reduceHappiness(int val) {
         if(this.happinessLvl <= val) {this.happinessLvl = 0; return;}
         this.happinessLvl -= val;
     }
