@@ -50,6 +50,8 @@ public class Game {
         AboutPane aboutPane = new AboutPane(this.stage);
         aboutScene = new Scene(aboutPane, WINDOW_WIDTH, WINDOW_HEIGHT);
         aboutPane.setParentScene(aboutScene);
+        aboutPane.setButtonScenes(menuScene);
+        
 
         DeveloperPane developerPane = new DeveloperPane(this.stage);
         developerScene = new Scene(developerPane, WINDOW_WIDTH, WINDOW_HEIGHT);
