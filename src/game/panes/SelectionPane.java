@@ -33,6 +33,8 @@ public class SelectionPane extends Group implements gamePane{
     private Vehicle p1, p2;
     private int p1Index = 0;
     private int p2Index = 0;
+    private int p1ColorIndex = 0;
+    private int p2ColorIndex = 0;
 
     Canvas selectionCanvas;
     GraphicsContext gc;
@@ -74,7 +76,7 @@ public class SelectionPane extends Group implements gamePane{
             public void handle(long l) {
                 if(isReady){
                     PlayPane playPane = (PlayPane) playScene.getRoot();
-                    playPane.startGame(p1Index, p2Index);
+                    playPane.startGame(p1Index, p2Index, p1ColorIndex, p2ColorIndex);
                     stage.setScene(playScene);
                     this.stop();
                 }
@@ -111,6 +113,40 @@ public class SelectionPane extends Group implements gamePane{
                     --p2Index;
                     if(p2Index < 0){p2Index = vehicles.length-1;}
                 }
+            }
+        }.start();
+
+        // Detect when changing skins
+        new AnimationTimer(){
+            KeyCode p1LastKey = null;
+            KeyCode p2LastKey = null;
+            @Override
+            public void handle(long l) {
+                if(isReady){
+                    activeKeys.clear();
+                    this.stop();
+                }
+                if(p1LastKey != null && !activeKeys.contains(p1LastKey)){p1LastKey = null;}
+                if(p1LastKey == null && activeKeys.contains(KeyCode.W)){
+                    p1LastKey = KeyCode.W;
+                    p1ColorIndex = ++p1ColorIndex % 7;
+                }
+                if(p1LastKey == null && activeKeys.contains(KeyCode.S)){
+                    p1LastKey = KeyCode.S;
+                    --p1ColorIndex;
+                    if(p1ColorIndex < 0){p1ColorIndex = 6;}
+                }
+                if(p2LastKey != null && !activeKeys.contains(p2LastKey)){p2LastKey = null;}
+                if(p2LastKey == null && activeKeys.contains(KeyCode.UP)){
+                    p2LastKey = KeyCode.UP;
+                    p2ColorIndex = ++p2ColorIndex % 7;
+                }
+                if(p2LastKey == null && activeKeys.contains(KeyCode.DOWN)){
+                    p2LastKey = KeyCode.DOWN;
+                    --p2ColorIndex;
+                    if(p2ColorIndex < 0){p2ColorIndex = 6;}
+                }
+
             }
         }.start();
 
@@ -188,7 +224,6 @@ public class SelectionPane extends Group implements gamePane{
             }
         }.start();
     }
-
 
 
     @Override

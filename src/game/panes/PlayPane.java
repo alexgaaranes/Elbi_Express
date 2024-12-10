@@ -32,11 +32,11 @@ public class PlayPane extends Group implements gamePane{
         this.gc = playCanvas.getGraphicsContext2D();
     }
 
-    public void startGame(int v1Ind, int v2Ind) {
+    public void startGame(int v1Ind, int v2Ind, int v1ColorInd, int v2ColorInd) {
         Scoreboard scoreboard = new Scoreboard();
         Map map = new Map(stage, parentScene, scoreboard, gc);
         // SETUP ELEMENTS
-        createVehicle(v1Ind, v2Ind, map);
+        createVehicle(v1Ind, v2Ind, v1ColorInd, v2ColorInd, map);
 
         GameTimer gameTimer = new GameTimer(stage, gc, map, scoreboard);
 
@@ -56,27 +56,27 @@ public class PlayPane extends Group implements gamePane{
         gameTimer.start();
     }
 
-    private void createVehicle(int p1Index, int p2Index, Map map) {
+    private void createVehicle(int p1Index, int p2Index, int p1ColorInd, int p2ColorInd, Map map) {
         switch(p1Index){
             case 0:
-                v1 = new Car(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50);
+                v1 = new Car(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, p1ColorInd);
                 break;
             case 1:
-                v1 = new Motorcycle(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50);
+                v1 = new Motorcycle(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, p1ColorInd);
                 break;
             case 2:
-                v1 = new Truck(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50);
+                v1 = new Truck(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, p1ColorInd);
                 break;
         }
         switch (p2Index){
             case 0:
-                v2 = new Car(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50);
+                v2 = new Car(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, p2ColorInd);
                 break;
             case 1:
-                v2 = new Motorcycle(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50);
+                v2 = new Motorcycle(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, p2ColorInd);
                 break;
             case 2:
-                v2 = new Truck(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50);
+                v2 = new Truck(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, p2ColorInd);
                 break;
         }
     }
