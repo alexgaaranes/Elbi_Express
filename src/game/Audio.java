@@ -16,7 +16,7 @@ public class Audio {
             MediaPlayer mediaPlayer = new MediaPlayer(new Media("file:src/assets/audio/keyHit.wav"));
             mediaPlayer.play();
         } catch (Exception e){
-            e.printStackTrace();
+            System.out.println("cannot create media player");
         }
     }
 }

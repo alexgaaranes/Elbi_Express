@@ -45,6 +45,7 @@ public class MenuPane extends Pane implements gamePane {
         Button playBtn = createStyledButton("PLAY", font);
         Button developerBtn = createStyledButton("DEVELOPERS", font);
         Button aboutBtn = createStyledButton("INSTRUCTIONS", font);
+        Button quitBtn = createStyledButton("QUIT", font);
 
         // Set positions for buttons
         playBtn.setLayoutX(590);
@@ -55,6 +56,9 @@ public class MenuPane extends Pane implements gamePane {
 
         aboutBtn.setLayoutX(780);
         aboutBtn.setLayoutY(750);
+
+        quitBtn.setLayoutX(590);
+        quitBtn.setLayoutY(850);
 
         // Set button actions
         playBtn.setOnAction(event -> {
@@ -69,8 +73,14 @@ public class MenuPane extends Pane implements gamePane {
             stage.setScene(aboutScene);
         });
 
+        quitBtn.setOnAction(event -> {
+            System.out.println("Exiting game...");
+            stage.close();
+            System.exit(0);
+        });
+
         // Add buttons to the Pane
-        this.getChildren().addAll(playBtn, developerBtn, aboutBtn);
+        this.getChildren().addAll(playBtn, developerBtn, aboutBtn, quitBtn);
     }
 
     public void setSelection(){

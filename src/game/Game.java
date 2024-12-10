@@ -42,6 +42,7 @@ public class Game {
         // Handle the closing of all process on closing of window on some circumstances
         stage.setOnCloseRequest(e ->{
             System.out.println("Window closed: Ending all processes...");
+            stage.close();
             System.exit(0);
         });
     }
