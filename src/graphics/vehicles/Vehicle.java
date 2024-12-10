@@ -215,12 +215,12 @@ public class Vehicle extends Graphic {
             onEffect = false;
             this.acceleration *= 4;
             this.maxVelocity /= 4;
-            this.turningSpeed /= 4;
+            this.turningSpeed /= 2;
             return;
         }
         this.acceleration /= 4;
         this.maxVelocity *= 4;
-        this.turningSpeed *= 4;
+        this.turningSpeed *= 2;
         onEffect = true;
     }
 
