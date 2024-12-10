@@ -44,20 +44,21 @@ public class Vehicle extends Graphic {
     protected double maxVelocity;
     protected double turningSpeed;
 
-    protected final double scale = 0.55;
+    protected double scale;
     protected int frameWidth;
     protected int frameHeight;
     protected final Map map;
 
     protected boolean onEffect = false;
 
-    public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height, int capacity) {
+    public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height, int capacity, double scale) {
         super(image, xPos, yPos, width, height);
         this.parentScene = parentScene;
         this.playerID = id;
         this.map = map;
         this.angle = 0;
         this.MAX_CAPACITY = capacity;
+        this.scale = scale;
 
         this.playPane = (PlayPane) parentScene.getRoot();
 
@@ -214,12 +215,12 @@ public class Vehicle extends Graphic {
             onEffect = false;
             this.acceleration *= 4;
             this.maxVelocity /= 4;
-            this.turningSpeed *= 4;
+            this.turningSpeed /= 4;
             return;
         }
         this.acceleration /= 4;
         this.maxVelocity *= 4;
-        this.turningSpeed /= 4;
+        this.turningSpeed *= 4;
         onEffect = true;
     }
 
