@@ -57,7 +57,7 @@ public class MenuPane extends Pane implements gamePane {
         aboutBtn.setLayoutX(780);
         aboutBtn.setLayoutY(750);
 
-        quitBtn.setLayoutX(590);
+        quitBtn.setLayoutX(595);
         quitBtn.setLayoutY(850);
 
         // Set button actions

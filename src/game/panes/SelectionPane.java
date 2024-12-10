@@ -223,7 +223,7 @@ public class SelectionPane extends Group implements gamePane{
         p2Text.setStroke(Color.BLACK);
         p1Text.setStrokeWidth(2);
         p2Text.setStrokeWidth(2);
-        p1Text.setX(275);
+        p1Text.setX(300);
         p1Text.setY(950);
         p2Text.setX(900);
         p2Text.setY(950);
@@ -242,7 +242,35 @@ public class SelectionPane extends Group implements gamePane{
         p2Preview.setX(900);
         p2Preview.setY(400);
 
-        this.getChildren().addAll(p1Text, p2Text, player1Ready, player2Ready ,p1Preview, p2Preview);
+        // ImageView Setup for Key Hints on Selection
+        ImageView keyW = new ImageView(new Image("file:src/assets/sprites/keys/keyW.png"));
+        ImageView keyS = new ImageView(new Image("file:src/assets/sprites/keys/keyS.png"));
+        ImageView keyA = new ImageView(new Image("file:src/assets/sprites/keys/keyA.png"));
+        ImageView keyD = new ImageView(new Image("file:src/assets/sprites/keys/keyD.png"));
+        ImageView keyUP = new ImageView(new Image("file:src/assets/sprites/keys/keyUP.png"));
+        ImageView keyDOWN = new ImageView(new Image("file:src/assets/sprites/keys/keyDOWN.png"));
+        ImageView keyLEFT = new ImageView(new Image("file:src/assets/sprites/keys/keyLEFT.png"));
+        ImageView keyRIGHT = new ImageView(new Image("file:src/assets/sprites/keys/keyRIGHT.png"));
+        double scale = 0.15;
+        setScale(keyW, scale);
+        setScale(keyA, scale);
+        setScale(keyD, scale);
+        setScale(keyS, scale);
+        setScale(keyUP, scale);
+        setScale(keyDOWN, scale);
+        setScale(keyLEFT, scale);
+        setScale(keyRIGHT, scale);
+        setXY(keyW, 205, 180);
+        setXY(keyS, 205, 460);
+        setXY(keyA, 100, 805);
+        setXY(keyD, 350, 805);
+        setXY(keyUP, 795, 180);
+        setXY(keyDOWN, 795, 460);
+        setXY(keyLEFT, 700, 805);
+        setXY(keyRIGHT, 950, 805);
+
+
+        this.getChildren().addAll(p1Text, p2Text, player1Ready, player2Ready ,p1Preview, p2Preview, keyW, keyA, keyS, keyD, keyUP, keyDOWN, keyLEFT, keyRIGHT);
         // Auto Update text content base on the user
         new AnimationTimer(){
             @Override
@@ -283,6 +311,16 @@ public class SelectionPane extends Group implements gamePane{
                 }
             }
         }.start();
+    }
+
+    private void setScale(ImageView imageView, double scale){
+        imageView.setScaleX(scale);
+        imageView.setScaleY(scale);
+    }
+
+    private void setXY(ImageView imageView, double x, double y){
+        imageView.setX(x);
+        imageView.setY(y);
     }
 
 

@@ -55,7 +55,7 @@ public class GameTimer extends AnimationTimer {
 
         // Initial Order
         randomOrder();
-        this.randomOrderTimer(); // Send order every 15 sec (Can be changed to random)
+        this.randomOrderTimer(); // get a random household to take order
     }
 
     @Override
@@ -161,13 +161,14 @@ public class GameTimer extends AnimationTimer {
         p2.setFill(Color.RED);
     }
 
+    // Set order on random household after given interval
     private void randomOrderTimer(){
         new AnimationTimer() {
             long startTime = System.nanoTime();
             @Override
             public void handle(long l) {
                 if(scoreboard.checkIfLost()){this.stop();}
-                if(l - startTime >=15000000000L){
+                if(l - startTime >=15000000000L){ // order every 15sec
                     randomOrder();
                     startTime = l;
                 };
@@ -175,6 +176,7 @@ public class GameTimer extends AnimationTimer {
         }.start();
     }
 
+    // Set an order
     private void randomOrder(){
         Random r = new Random();
         ArrayList<Household> houses = map.getHouseList();
@@ -185,7 +187,7 @@ public class GameTimer extends AnimationTimer {
                 public void handle(long l) {
                     if(scoreboard.checkIfLost()){this.stop();}
                     house = houses.get(r.nextInt(houses.size()));
-                    if(house.getHasActiveOrder()){return;}
+                    if(house.getHasActiveOrder()){return;} // never stop until there's a household who can order
 
                     house.setActiveOrder();
                     this.stop();
