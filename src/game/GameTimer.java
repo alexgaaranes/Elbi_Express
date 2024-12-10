@@ -34,6 +34,7 @@ public class GameTimer extends AnimationTimer {
     private Map map;
     private Scoreboard scoreboard;
     private static Image gameOver= new Image("file:src/assets/sprites/gameover.png");
+    private Text resultText;
 
     public GameTimer(Stage stage, GraphicsContext gc, Map map, Scoreboard scoreboard) {
         this.stage = stage;
@@ -57,7 +58,7 @@ public class GameTimer extends AnimationTimer {
 
         // Initial Order
         randomOrder();
-        this.randomOrderTimer(); // Send order every 15 sec TODO: Can be changed to random
+        this.randomOrderTimer(); // Send order every 15 sec (Can be changed to random)
     }
 
     @Override
@@ -73,8 +74,10 @@ public class GameTimer extends AnimationTimer {
             System.out.println("Game Over!");
             if(scoreboard.getHappinessLvl() <= 0){
                 System.out.println("You Lost!");
+                resultText = new Text("You Lost!");
             } else {
                 System.out.println("You Won!");
+                resultText = new Text("You Won!");
             }
             // Some score recap logic
             gameOverScreen();
@@ -99,13 +102,12 @@ public class GameTimer extends AnimationTimer {
         	    String.format("Total Score: %.2f", (scoreboard.getTotalScore() +
                         (scoreboard.getTotalScore() * scoreboard.getHappinessLvl())))
         	);
-        Text ordersDeliveredLabel = new Text("Orders Delivered: ");
         Text player1Label = new Text("Player 1: "+ v1.getScore());
         Text player2Label = new Text("Player 2: "+ v2.getScore());
-        setUpTexts(totalScore, ordersDeliveredLabel, player1Label, player2Label);
+        setUpTexts(totalScore, player1Label, player2Label, resultText);
 
 
-        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, ordersDeliveredLabel, player1Label, player2Label, gOver);
+        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, player1Label, player2Label, gOver, resultText);
     }
 
     private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn){
@@ -113,9 +115,9 @@ public class GameTimer extends AnimationTimer {
         restartBtn.setPickOnBounds(true);
         mainMenuBtn.setPickOnBounds(true);
         restartBtn.setX(Game.WINDOW_WIDTH/2 - restartBtn.getBoundsInLocal().getWidth() - 75);
-        restartBtn.setY(650);
+        restartBtn.setY(800);
         mainMenuBtn.setX(Game.WINDOW_WIDTH/2 + 75);
-        mainMenuBtn.setY(650);
+        mainMenuBtn.setY(800);
 
         // Click Events
         restartBtn.setOnMouseClicked(event -> {
@@ -144,26 +146,26 @@ public class GameTimer extends AnimationTimer {
         });
     }
 
-    private void setUpTexts(Text score, Text orderLabel, Text p1, Text p2){
+    private void setUpTexts(Text score, Text p1, Text p2, Text result){
         String fontPath = "file:src/assets/sprites/pixelFont.ttf";
         score.setX(500);
         score.setY(600);
-        orderLabel.setX(500);
-        orderLabel.setY(300);
         p1.setX(745);
         p1.setY(500);
         p2.setX(345);
         p2.setY(500);
+        result.setX(Game.WINDOW_WIDTH/2  - 70);
+        result.setY(700);
 
         score.setFont(Font.loadFont(fontPath, 30));
-        orderLabel.setFont(Font.loadFont(fontPath, 30));
         p1.setFont(Font.loadFont(fontPath, 30));
         p2.setFont(Font.loadFont(fontPath, 30));
+        result.setFont(Font.loadFont(fontPath, 30));
 
         score.setFill(Color.GOLD);
-        orderLabel.setFill(Color.GOLD);
         p1.setFill(Color.BLUE);
         p2.setFill(Color.RED);
+        result.setFill(result.getText().equals("You Lost!")?Color.RED:Color.GREEN);
     }
 
     private void randomOrderTimer(){
