@@ -95,6 +95,15 @@ public class MenuPane extends Pane implements gamePane {
             "-fx-padding: 8 15;" +
             "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0.5, 2, 2);"
         );
+        
+        button.setOnMouseEntered(event -> {
+            button.setScaleX(1.2);
+            button.setScaleY(1.2);
+        });
+        button.setOnMouseExited(event -> {
+            button.setScaleX(1.0);
+            button.setScaleY(1.0);
+        });
         return button;
     }
 }
