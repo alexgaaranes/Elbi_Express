@@ -8,11 +8,13 @@ import graphics.vehicles.types.Car;
 import graphics.vehicles.types.Motorcycle;
 import graphics.vehicles.types.Truck;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,12 +31,15 @@ public class SelectionPane extends Group implements gamePane{
     private static HashSet<KeyCode> activeKeys = new HashSet<>();
     private boolean isReady;
 
-    private String vehicles[] = {"Car", "Motorcycle", "Truck"};
+    private String vehicles[] = {"Car", "Motor", "Truck"};
     private Vehicle p1, p2;
     private int p1Index = 0;
     private int p2Index = 0;
     private int p1ColorIndex = 0;
     private int p2ColorIndex = 0;
+    private int spinFrame = 0;
+    private ImageView p1Preview;
+    private ImageView p2Preview;
 
     Canvas selectionCanvas;
     GraphicsContext gc;
@@ -59,6 +64,7 @@ public class SelectionPane extends Group implements gamePane{
         this.setUpPlayScene();
         this.setUp();
         this.setUpUI();
+        this.loadSpinFrame();
     }
 
     // Setup selection scene
@@ -209,18 +215,64 @@ public class SelectionPane extends Group implements gamePane{
         p2Text.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 30));
         p1Text.setFill(Color.valueOf("ffb81c"));
         p2Text.setFill(Color.valueOf("ffb81c"));
-        p1Text.setX(225);
+        p1Text.setX(275);
         p1Text.setY(950);
-        p2Text.setX(765);
+        p2Text.setX(900);
         p2Text.setY(950);
 
-        this.getChildren().addAll(p1Text, p2Text, player1Ready, player2Ready);
+        // Preview Setup
+        p1Preview = new ImageView(new Image("file:src/assets/sprites/vehicle-sheets/"
+                +vehicles[p1Index].toLowerCase()+"/"+this.p1ColorIndex+"-"+vehicles[p1Index].toLowerCase()+".png"));
+        p2Preview = new ImageView(new Image("file:src/assets/sprites/vehicle-sheets/"
+                +vehicles[p2Index].toLowerCase()+"/"+this.p2ColorIndex+"-"+vehicles[p2Index].toLowerCase()+".png"));
+        p1Preview.setScaleX(1.75);
+        p1Preview.setScaleY(1.75);
+        p2Preview.setScaleX(1.75);
+        p2Preview.setScaleY(1.75);
+        p1Preview.setX(300);
+        p1Preview.setY(400);
+        p2Preview.setX(900);
+        p2Preview.setY(400);
+
+        this.getChildren().addAll(p1Text, p2Text, player1Ready, player2Ready ,p1Preview, p2Preview);
         // Auto Update text content base on the user
         new AnimationTimer(){
             @Override
             public void handle(long l) {
+                if(isReady){this.stop();}
                 p1Text.setText(vehicles[p1Index]);
                 p2Text.setText(vehicles[p2Index]);
+                p1Preview.setImage(new Image("file:src/assets/sprites/vehicle-sheets/"
+                        +vehicles[p1Index].toLowerCase()+"/"+p1ColorIndex+"-"+vehicles[p1Index].toLowerCase()+".png"));
+                p2Preview.setImage(new Image("file:src/assets/sprites/vehicle-sheets/"
+                        +vehicles[p2Index].toLowerCase()+"/"+p2ColorIndex+"-"+vehicles[p2Index].toLowerCase()+".png"));
+            }
+        }.start();
+
+        // Auto update imagePreview rotation
+        new AnimationTimer() {
+            float side = 96;
+            @Override
+            public void handle(long l) {
+                if(isReady){this.stop();}
+                int col = spinFrame % 4;
+                int row = spinFrame / 4;
+                p1Preview.setViewport(new Rectangle2D(col*side, row*side, side, side));
+                p2Preview.setViewport(new Rectangle2D(col*side, row*side, side, side));
+            }
+        }.start();
+    }
+
+    private void loadSpinFrame(){
+        new AnimationTimer(){
+            long startTime = System.nanoTime();
+            @Override
+            public void handle(long l) {
+                if(isReady){this.stop();}
+                if(l - startTime > 350000000L){ // Get new frame every 0.25 sec
+                    spinFrame = ++spinFrame % 8;
+                    startTime = l;
+                }
             }
         }.start();
     }
