@@ -13,8 +13,6 @@ import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -33,8 +31,7 @@ public class GameTimer extends AnimationTimer {
     private Vehicle v2;
     private Map map;
     private Scoreboard scoreboard;
-    private static Image gameOver= new Image("file:src/assets/sprites/gameover.png");
-    private Text resultText;
+    private static Image gameOver= new Image("file:src/assets/sprites/won.png");
 
     public GameTimer(Stage stage, GraphicsContext gc, Map map, Scoreboard scoreboard) {
         this.stage = stage;
@@ -74,10 +71,10 @@ public class GameTimer extends AnimationTimer {
             System.out.println("Game Over!");
             if(scoreboard.getHappinessLvl() <= 0){
                 System.out.println("You Lost!");
-                resultText = new Text("You Lost!");
+                gameOver= new Image("file:src/assets/sprites/lose.png");
             } else {
                 System.out.println("You Won!");
-                resultText = new Text("You Won!");
+                gameOver= new Image("file:src/assets/sprites/won.png");
             }
             // Some score recap logic
             gameOverScreen();
@@ -104,10 +101,10 @@ public class GameTimer extends AnimationTimer {
         	);
         Text player1Label = new Text("Player 1: "+ v1.getScore());
         Text player2Label = new Text("Player 2: "+ v2.getScore());
-        setUpTexts(totalScore, player1Label, player2Label, resultText);
+        setUpTexts(totalScore, player1Label, player2Label);
 
 
-        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, player1Label, player2Label, gOver, resultText);
+        playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, player1Label, player2Label, gOver);
     }
 
     private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn){
@@ -146,7 +143,7 @@ public class GameTimer extends AnimationTimer {
         });
     }
 
-    private void setUpTexts(Text score, Text p1, Text p2, Text result){
+    private void setUpTexts(Text score, Text p1, Text p2){
         String fontPath = "file:src/assets/sprites/pixelFont.ttf";
         score.setX(500);
         score.setY(600);
@@ -154,18 +151,14 @@ public class GameTimer extends AnimationTimer {
         p1.setY(500);
         p2.setX(345);
         p2.setY(500);
-        result.setX(Game.WINDOW_WIDTH/2  - 70);
-        result.setY(700);
 
         score.setFont(Font.loadFont(fontPath, 30));
         p1.setFont(Font.loadFont(fontPath, 30));
         p2.setFont(Font.loadFont(fontPath, 30));
-        result.setFont(Font.loadFont(fontPath, 30));
 
         score.setFill(Color.GOLD);
         p1.setFill(Color.BLUE);
         p2.setFill(Color.RED);
-        result.setFill(result.getText().equals("You Lost!")?Color.RED:Color.GREEN);
     }
 
     private void randomOrderTimer(){
