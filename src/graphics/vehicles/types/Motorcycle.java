@@ -12,7 +12,7 @@ public class Motorcycle extends Vehicle {
                 xPos, yPos, id, parentScene, map, width, height, 1, 0.55);
         this.setFrameSize(96,96);
         this.acceleration = 5;
-        this.maxVelocity = 175;
+        this.maxVelocity = 200;
         this.turningSpeed = 300;
     }
 }

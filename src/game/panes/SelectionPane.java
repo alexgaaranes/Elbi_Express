@@ -269,7 +269,7 @@ public class SelectionPane extends Group implements gamePane{
             @Override
             public void handle(long l) {
                 if(isReady){this.stop();}
-                if(l - startTime > 350000000L){ // Get new frame every 0.25 sec
+                if(l - startTime > 500000000L){ // Get new frame every 0.5 sec
                     spinFrame = ++spinFrame % 8;
                     startTime = l;
                 }

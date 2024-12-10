@@ -12,7 +12,7 @@ public class Car extends Vehicle {
                 xPos, yPos, id, parentScene, map, width, height, 2, 0.75);
         this.setFrameSize(96,96);
         this.acceleration = 1;
-        this.maxVelocity = 225;
+        this.maxVelocity = 250;
         this.turningSpeed = 250;
     }
 }
