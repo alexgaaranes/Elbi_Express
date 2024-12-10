@@ -44,7 +44,9 @@ public class Vehicle extends Graphic {
     protected double maxVelocity;
     protected double turningSpeed;
 
-    protected final double scale = 1;
+    protected final double scale = 0.55;
+    protected int frameWidth;
+    protected int frameHeight;
     protected final Map map;
 
     protected boolean onEffect = false;
@@ -254,8 +256,6 @@ public class Vehicle extends Graphic {
         int frame = getFrame(this.angle);
         int col = frame % 4;
         int row = frame / 4;
-        int frameWidth = 49;
-        int frameHeight = 35;
         gc.drawImage(this.image, col*frameWidth, row*frameHeight,
                 frameWidth, frameHeight,
                 xPos - (frameWidth*this.scale) / 2,
@@ -271,9 +271,14 @@ public class Vehicle extends Graphic {
         return (int) (angle/45) % 8;
     }
 
+    protected void setFrameSize(int w, int h){
+        this.frameWidth = w;
+        this.frameHeight = h;
+    }
+
     @Override
     public Rectangle2D getBounds() {
-        return new Rectangle2D(this.xPos, this.yPos, this.image.getWidth()*scale/2, this.image.getHeight()*scale/2);
+        return new Rectangle2D(this.xPos, this.yPos, frameWidth*scale/2, frameHeight*scale/2);
     }
 
 }
