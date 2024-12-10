@@ -207,6 +207,10 @@ public class SelectionPane extends Group implements gamePane{
         player2Ready = new Text("Hold PERIOD to ready");
         player1Ready.setFill(Color.RED);
         player2Ready.setFill(Color.RED);
+        player1Ready.setStroke(Color.BLACK);
+        player2Ready.setStroke(Color.BLACK);
+        player1Ready.setStrokeWidth(1);
+        player2Ready.setStrokeWidth(1);
         player1Ready.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
         player2Ready.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
         p1Text = new Text(vehicles[p1Index]);
@@ -215,6 +219,10 @@ public class SelectionPane extends Group implements gamePane{
         p2Text.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 30));
         p1Text.setFill(Color.valueOf("ffb81c"));
         p2Text.setFill(Color.valueOf("ffb81c"));
+        p1Text.setStroke(Color.BLACK);
+        p2Text.setStroke(Color.BLACK);
+        p1Text.setStrokeWidth(2);
+        p2Text.setStrokeWidth(2);
         p1Text.setX(275);
         p1Text.setY(950);
         p2Text.setX(900);
