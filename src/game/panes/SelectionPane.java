@@ -50,7 +50,7 @@ public class SelectionPane extends Group implements gamePane{
     private Text p2Text;
     private Text player1Ready;
     private Text player2Ready;
-    private final Image background = new Image(getClass().getResource("/assets/sprites/selectionBG").toExternalForm());
+    private final Image background = new Image(Map.class.getResource("/assets/sprites/selectionBG").toExternalForm());
 
     public SelectionPane(Stage stage) {
         this.stage = stage;
