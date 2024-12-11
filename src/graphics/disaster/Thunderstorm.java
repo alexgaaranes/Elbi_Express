@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 public class Thunderstorm extends Disaster {
 
-	private static Image overlay1 = new Image("file:src/assets/sprites/fog.png");
-	private static Image overlay2 = new Image("file:src/assets/sprites/rain.gif");
+	private static Image overlay1 = new Image(Thunderstorm.class.getResource("/assets/sprites/fog.png").toExternalForm());
+	private static Image overlay2 = new Image(Thunderstorm.class.getResource("/assets/sprites/rain.gif").toExternalForm());
 	private final ImageView fog;
 	private final ImageView rain;
 	private final Group overlayGroup = new Group();

@@ -3,6 +3,8 @@ package game.panes;
 import game.Game;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -12,14 +14,17 @@ public class MenuPane extends Pane implements gamePane {
     private Scene parentScene = null;
     private Scene developerScene = null;
     private Scene aboutScene = null;
+    ImageView background;
 
     public static MenuPane activeMenuPane;
 
     public MenuPane(Stage stage) {
         this.stage = stage;
-        this.getStylesheets().add(getClass().getResource("/assets/styles/menuStyle.css").toExternalForm());
-        this.getStyleClass().add("menuPane");
         // Set the background
+        background = new ImageView(new Image(
+                getClass().getResource("/assets/sprites/menu.png").toExternalForm()
+        ));
+        this.getChildren().add(background);
 
         Font pixelFont = Font.loadFont(getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm(), 20);
         activeMenuPane = this;

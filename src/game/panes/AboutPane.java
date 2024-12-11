@@ -2,6 +2,8 @@ package game.panes;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -16,14 +18,19 @@ public class AboutPane extends Pane implements gamePane {
 
     private Button leftArrowBtn;
     private Button rightArrowBtn;
+    private ImageView background;
 
     public AboutPane(Stage stage) {
         this.stage = stage;
 
         // Set the initial background
+        background = new ImageView(
+                new Image(getClass().getResource("/assets/sprites/instruction" + currentInstructionIndex + ".png").toExternalForm())
+        );
+        this.getChildren().add(background);
         updateBackground();
 
-        Font pixelFont = Font.loadFont("file:src/assets/sprites/pixelFont.ttf", 20);
+        Font pixelFont = Font.loadFont(getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm(), 20);
         setUpButtons(pixelFont);
     }
 
@@ -71,11 +78,7 @@ public class AboutPane extends Pane implements gamePane {
     }
 
     private void updateBackground() {
-        this.setStyle(
-            "-fx-background-image: url('file:src/assets/sprites/instruction" + currentInstructionIndex + ".png');" +
-            "-fx-background-size: cover;" +
-            "-fx-background-position: center;"
-        );
+        background.setImage(new Image(getClass().getResource("/assets/sprites/instruction" + currentInstructionIndex + ".png").toExternalForm()));
     }
 
     private void updateArrowButtons() {

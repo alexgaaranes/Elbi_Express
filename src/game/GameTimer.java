@@ -31,7 +31,7 @@ public class GameTimer extends AnimationTimer {
     private Vehicle v2;
     private Map map;
     private Scoreboard scoreboard;
-    private static Image gameOver= new Image("file:src/assets/sprites/won.png");
+    private static Image gameOver= new Image(GameTimer.class.getResource("/assets/sprites/won.png").toExternalForm());
 
     public GameTimer(Stage stage, GraphicsContext gc, Map map, Scoreboard scoreboard) {
         this.stage = stage;
@@ -71,10 +71,10 @@ public class GameTimer extends AnimationTimer {
             System.out.println("Game Over!");
             if(scoreboard.getHappinessLvl() <= 0){
                 System.out.println("You Lost!");
-                gameOver= new Image("file:src/assets/sprites/lose.png");
+                gameOver= new Image(getClass().getResource("/assets/sprites/lose.png").toExternalForm());
             } else {
                 System.out.println("You Won!");
-                gameOver= new Image("file:src/assets/sprites/won.png");
+                gameOver= new Image(getClass().getResource("/assets/sprites/won.png").toExternalForm());
             }
             // Some score recap logic
             gameOverScreen();
@@ -91,8 +91,8 @@ public class GameTimer extends AnimationTimer {
         darkOverlay.setOpacity(0.75);
         // Button Setup
         ImageView gOver = new ImageView(gameOver);
-        ImageView restartBtn = new ImageView(new Image("file:src/assets/sprites/restartBtn.png"));
-        ImageView mainMenuBtn = new ImageView(new Image("file:src/assets/sprites/sandwichMenu.png"));
+        ImageView restartBtn = new ImageView(new Image(getClass().getResource("/assets/sprites/restartBtn.png").toExternalForm()));
+        ImageView mainMenuBtn = new ImageView(new Image(getClass().getResource("/assets/sprites/sandwichMenu.png").toExternalForm()));
         setUpButtons(restartBtn, mainMenuBtn);
         // Score text Setup
         Text totalScore = new Text(
@@ -144,7 +144,7 @@ public class GameTimer extends AnimationTimer {
     }
 
     private void setUpTexts(Text score, Text p1, Text p2){
-        String fontPath = "file:src/assets/sprites/pixelFont.ttf";
+        String fontPath = getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm();
         score.setX(500);
         score.setY(600);
         p1.setX(745);

@@ -33,7 +33,7 @@ public class Game {
 
     // Methods
     public void start(){
-        stage.setTitle("Elbi Express");
+        stage.setTitle("Bite Rush: Elbi Edition");
         stage.setScene(menuScene);
         stage.setResizable(false);
 

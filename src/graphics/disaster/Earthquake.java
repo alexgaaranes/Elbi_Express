@@ -13,7 +13,7 @@ import java.util.Random;
 public class Earthquake extends Disaster {
 
 	private static final int SHAKE_DISTANCE = 3;
-	private static Image overlay = new Image("file:src/assets/sprites/earthquake.png");
+	private static Image overlay = new Image(Earthquake.class.getResource("/assets/sprites/earthquake.png").toExternalForm());
 	private final ImageView earthquake;
 	private final Random random = new Random();
 	private final Group overlayGroup = new Group();

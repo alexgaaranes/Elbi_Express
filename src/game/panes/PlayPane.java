@@ -57,26 +57,33 @@ public class PlayPane extends Group implements gamePane{
     }
 
     private void createVehicle(int p1Index, int p2Index, int p1ColorInd, int p2ColorInd, Map map) {
+        String path;
         switch(p1Index){
             case 0:
-                v1 = new Car(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, p1ColorInd);
+                path = getClass().getResource("/assets/sprites/vehicle-sheets/car/"+p1ColorInd+"-car.png").toExternalForm();
+                v1 = new Car(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, path);
                 break;
             case 1:
-                v1 = new Motorcycle(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, p1ColorInd);
+                path = getClass().getResource("/assets/sprites/vehicle-sheets/motor/"+p1ColorInd+"-motor.png").toExternalForm();
+                v1 = new Motorcycle(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, path);
                 break;
             case 2:
-                v1 = new Truck(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, p1ColorInd);
+                path = getClass().getResource("/assets/sprites/vehicle-sheets/truck/"+p1ColorInd+"-truck.png").toExternalForm();
+                v1 = new Truck(xSize*18, ySize*16, Vehicle.PLAYER_ONE, parentScene, map, 50, 50, path);
                 break;
         }
         switch (p2Index){
             case 0:
-                v2 = new Car(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, p2ColorInd);
+                path = getClass().getResource("/assets/sprites/vehicle-sheets/car/"+p2ColorInd+"-car.png").toExternalForm();
+                v2 = new Car(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, path);
                 break;
             case 1:
-                v2 = new Motorcycle(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, p2ColorInd);
+                path = getClass().getResource("/assets/sprites/vehicle-sheets/motor/"+p2ColorInd+"-motor.png").toExternalForm();
+                v2 = new Motorcycle(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, path);
                 break;
             case 2:
-                v2 = new Truck(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, p2ColorInd);
+                path = getClass().getResource("/assets/sprites/vehicle-sheets/truck/"+p2ColorInd+"-truck.png").toExternalForm();
+                v2 = new Truck(xSize*22, ySize*16, Vehicle.PLAYER_TWO, parentScene, map, 50, 50, path);
                 break;
         }
     }

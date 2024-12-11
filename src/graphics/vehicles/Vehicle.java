@@ -235,7 +235,7 @@ public class Vehicle extends Graphic {
     private void updateCapText(){
         this.capText = new Text(String.format("%d/%d", currentLoad, MAX_CAPACITY));
         this.capText.setFill(Color.WHITE);
-        this.capText.setFont(Font.loadFont("file:src/assets/sprites/pixelFont.ttf", 10));
+        this.capText.setFont(Font.loadFont(getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm(), 10));
         this.playPane.getChildren().add(capText);
 
         new AnimationTimer() {
