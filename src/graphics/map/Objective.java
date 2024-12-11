@@ -112,7 +112,7 @@ abstract public class Objective {
                 if(occupiedVehicle == null){this.stop();}
                 for(int i=0; i<promptKeys.size(); i++){
                     Image keyImage = new Image(
-                    		getClass().getResource("file:src/assets/sprites/keys/key"+promptKeys.get(i).getName().toUpperCase()+".png").toExternalForm(
+                    		getClass().getResource("/assets/sprites/keys/key"+promptKeys.get(i).getName().toUpperCase()+".png").toExternalForm(
                     ));
                     gc.drawImage(keyImage,
                             xPos-(map.getTileW()/2)

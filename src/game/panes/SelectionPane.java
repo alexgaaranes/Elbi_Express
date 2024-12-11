@@ -4,9 +4,6 @@ import game.Game;
 import game.Scoreboard;
 import graphics.map.Map;
 import graphics.vehicles.Vehicle;
-import graphics.vehicles.types.Car;
-import graphics.vehicles.types.Motorcycle;
-import graphics.vehicles.types.Truck;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -21,7 +18,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class SelectionPane extends Group implements gamePane{
