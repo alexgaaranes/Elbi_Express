@@ -67,7 +67,7 @@ public class HUD extends Group {
     // TIMER
     private void setUpTimer(){
         timeText = new Text();
-        timeText.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
+        timeText.setFont(Font.loadFont(getClass().getResource("/assets/sprites/bitFont.TTF").toExternalForm(), 20));
         timeText.setFill(Color.web(hexCode3.trim()));
         timeText.setX((double) Game.WINDOW_WIDTH /2 - timeText.getBoundsInLocal().getWidth()/2 - 25);
         timeText.setY(30);
@@ -93,7 +93,7 @@ public class HUD extends Group {
     // SCORE
     private void setUpScore(){
         scoreText = new Text();
-        scoreText.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
+        scoreText.setFont(Font.loadFont(getClass().getResource("/assets/sprites/bitFont.TTF").toExternalForm(), 20));
         scoreText.setFill(Color.web(hexCode3.trim()));
         scoreText.setX(30);
         scoreText.setY(30);
@@ -111,7 +111,7 @@ public class HUD extends Group {
     private void setUpHappiness(){
         happyText = new Text();
         happyText.setText("Happiness Level: ");
-        happyText.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
+        happyText.setFont(Font.loadFont(getClass().getResource("/assets/sprites/bitFont.TTF").toExternalForm(), 20));
         happyText.setFill(Color.web(hexCode3.trim()));
         happyText.setX(Game.WINDOW_WIDTH-BAR_WIDTH*3+120);
         happyText.setY(30);

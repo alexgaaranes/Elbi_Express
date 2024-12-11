@@ -168,7 +168,7 @@ public class GameTimer extends AnimationTimer {
             @Override
             public void handle(long l) {
                 if(scoreboard.checkIfLost()){this.stop();}
-                if(l - startTime >=15000000000L){ // order every 15sec
+                if(l - startTime >=10000000000L){ // order every 10sec
                     randomOrder();
                     startTime = l;
                 };
