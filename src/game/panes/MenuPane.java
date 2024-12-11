@@ -17,15 +17,11 @@ public class MenuPane extends Pane implements gamePane {
 
     public MenuPane(Stage stage) {
         this.stage = stage;
-
+        this.getStylesheets().add(getClass().getResource("/assets/styles/menuStyle.css").toExternalForm());
+        this.getStyleClass().add("menuPane");
         // Set the background
-        this.setStyle(
-            "-fx-background-image: url('file:src/assets/sprites/menu.png');" +
-            "-fx-background-size: cover;" +
-            "-fx-background-position: center;"
-        );
 
-        Font pixelFont = Font.loadFont("file:src/assets/sprites/pixelFont.ttf", 20);
+        Font pixelFont = Font.loadFont(getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm(), 20);
         activeMenuPane = this;
         setUpButtons(pixelFont);
     }

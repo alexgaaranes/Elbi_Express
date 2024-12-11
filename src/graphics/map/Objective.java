@@ -1,18 +1,14 @@
 package graphics.map;
 
-import game.Audio;
 import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 abstract public class Objective {
     protected final Map map;
@@ -105,7 +101,6 @@ abstract public class Objective {
                 if(lastKey != null && !Vehicle.getActiveKeys().contains(lastKey)){lastKey = null;}
                 if(lastKey == null && Vehicle.getActiveKeys().contains(promptKeys.getFirst())){
                     lastKey = promptKeys.removeFirst();
-                    Audio.play("key_pressed");
                 }
             }
         }.start();
