@@ -50,7 +50,7 @@ public class SelectionPane extends Group implements gamePane{
     private Text p2Text;
     private Text player1Ready;
     private Text player2Ready;
-    private final Image background = new Image(Map.class.getResource("/assets/sprites/selectionBG").toExternalForm());
+    private Image background = new Image(getClass().getResource("/assets/sprites/selectionBG.png").toExternalForm());
 
     public SelectionPane(Stage stage) {
         this.stage = stage;
@@ -243,14 +243,14 @@ public class SelectionPane extends Group implements gamePane{
         p2Preview.setY(400);
 
         // ImageView Setup for Key Hints on Selection
-        ImageView keyW = new ImageView(new Image(getClass().getResource("/assets/sprites/keyW.png").toExternalForm()));
-        ImageView keyS = new ImageView(new Image(getClass().getResource("/assets/sprites/keyS.png").toExternalForm()));
-        ImageView keyA = new ImageView(new Image(getClass().getResource("/assets/sprites/keyA.png").toExternalForm()));
-        ImageView keyD = new ImageView(new Image(getClass().getResource("/assets/sprites/keyD.png").toExternalForm()));
-        ImageView keyUP = new ImageView(new Image(getClass().getResource("/assets/sprites/keyUP.png").toExternalForm()));
-        ImageView keyDOWN = new ImageView(new Image(getClass().getResource("/assets/sprites/keyDOWN.png").toExternalForm()));
-        ImageView keyLEFT = new ImageView(new Image(getClass().getResource("/assets/sprites/keyLEFT.png").toExternalForm()));
-        ImageView keyRIGHT = new ImageView(new Image(getClass().getResource("/assets/sprites/keyRIGHT.png").toExternalForm()));
+        ImageView keyW = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyW.png").toExternalForm()));
+        ImageView keyS = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyS.png").toExternalForm()));
+        ImageView keyA = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyA.png").toExternalForm()));
+        ImageView keyD = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyD.png").toExternalForm()));
+        ImageView keyUP = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyUP.png").toExternalForm()));
+        ImageView keyDOWN = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyDOWadwdN.png").toExternalForm()));
+        ImageView keyLEFT = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyLEFT.png").toExternalForm()));
+        ImageView keyRIGHT = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyRIGHT.png").toExternalForm()));
         double scale = 0.15;
         setScale(keyW, scale);
         setScale(keyA, scale);
