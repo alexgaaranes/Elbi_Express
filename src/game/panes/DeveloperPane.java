@@ -2,6 +2,8 @@ package game.panes;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -10,16 +12,16 @@ public class DeveloperPane extends Pane implements gamePane {
     private final Stage stage;
     private Scene parentScene = null;
     private Scene menuScene = null;
+    private ImageView background;
 
     public DeveloperPane(Stage stage) {
         this.stage = stage;
 
-        // Set the background
-        this.setStyle(
-            "-fx-background-image: url('file:src/assets/sprites/devs.png');" +
-            "-fx-background-size: cover;" +
-            "-fx-background-position: center;"
+     // Set the initial background
+        background = new ImageView(
+                new Image(getClass().getResource("/assets/sprites/devs.png").toExternalForm())
         );
+        this.getChildren().add(background);
 
         Font pixelFont = Font.loadFont("file:src/assets/sprites/pixelFont.ttf", 20);
         setUpButtons(pixelFont);
