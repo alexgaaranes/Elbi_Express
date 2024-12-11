@@ -248,7 +248,7 @@ public class SelectionPane extends Group implements gamePane{
         ImageView keyA = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyA.png").toExternalForm()));
         ImageView keyD = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyD.png").toExternalForm()));
         ImageView keyUP = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyUP.png").toExternalForm()));
-        ImageView keyDOWN = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyDOWadwdN.png").toExternalForm()));
+        ImageView keyDOWN = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyDOWN.png").toExternalForm()));
         ImageView keyLEFT = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyLEFT.png").toExternalForm()));
         ImageView keyRIGHT = new ImageView(new Image(getClass().getResource("/assets/sprites/keys/keyRIGHT.png").toExternalForm()));
         double scale = 0.15;
