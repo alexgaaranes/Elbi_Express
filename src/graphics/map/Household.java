@@ -30,10 +30,10 @@ public class Household extends Objective{
 	private Rectangle greenBar = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT,Color.valueOf("00573f"));
 	private Rectangle barBorder = new Rectangle(Household.BAR_WIDTH,Household.BAR_HEIGHT);
 	private Scene parentScene;
-	private static Image jollibee = new Image("file:src/assets/sprites/jollibee.gif");
-	private static Image dominos = new Image("file:src/assets/sprites/domino's.gif");
-	private static Image dq = new Image("file:src/assets/sprites/dq.gif");
-	private static Image bk = new Image("file:src/assets/sprites/bk.gif");
+	private static Image jollibee = new Image(Household.class.getResource("file:src/assets/sprites/jollibee.gif").toExternalForm());
+	private static Image dominos = new Image(Household.class.getResource("file:src/assets/sprites/domino's.gif").toExternalForm());
+	private static Image dq = new Image(Household.class.getResource("file:src/assets/sprites/dq.gif").toExternalForm());
+	private static Image bk = new Image(Household.class.getResource("file:src/assets/sprites/bk.gif").toExternalForm());
 	
 	
 

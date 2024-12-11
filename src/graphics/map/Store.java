@@ -21,7 +21,7 @@ public class Store extends Objective{
 	// STATIC CLASS ATTRIBUTES
 	public static final int NUM_OF_STORES = 4;
 	public static final String[] STORE_NAMES = {"Jollibee", "Domino's Pizza", "Dairy Queen", "Burger King"};
-	private static Image bag = new Image("file:src/assets/sprites/order.gif");
+	private static Image bag = new Image(Store.class.getResource("file:src/assets/sprites/order.gif").toExternalForm());
 
     public Store(int xGridPos, int yGridPos, String name, Map map, GraphicsContext gc) {
         super(xGridPos, yGridPos, map, gc);
