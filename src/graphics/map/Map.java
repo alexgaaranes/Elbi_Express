@@ -19,8 +19,8 @@ public class Map {
     private int col;
     private double tileH;
     private double tileW;
-    private Image mapImage = new Image("file:src/assets/sprites/map.png");
-    private Image houseImage = new Image("file:src/assets/sprites/building.png");
+    private Image mapImage = new Image(getClass().getResource("/assets/sprites/map.png").toExternalForm());
+    private Image houseImage = new Image(getClass().getResource("/assets/sprites/building.png").toExternalForm());
 
     /* MAP GRID
     *   0 - Empty (Road)

@@ -50,7 +50,7 @@ public class SelectionPane extends Group implements gamePane{
     private Text p2Text;
     private Text player1Ready;
     private Text player2Ready;
-    private final Image background = new Image("file:src/assets/sprites/selectionBG.png");
+    private final Image background = new Image(getClass().getResource("/assets/sprites/selectionBG").toExternalForm());
 
     public SelectionPane(Stage stage) {
         this.stage = stage;
@@ -211,12 +211,12 @@ public class SelectionPane extends Group implements gamePane{
         player2Ready.setStroke(Color.BLACK);
         player1Ready.setStrokeWidth(1);
         player2Ready.setStrokeWidth(1);
-        player1Ready.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
-        player2Ready.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 20));
+        player1Ready.setFont(Font.loadFont(getClass().getResource("/assets/sprites/bitFont.TTF").toExternalForm(), 20));
+        player2Ready.setFont(Font.loadFont(getClass().getResource("/assets/sprites/bitFont.TTF").toExternalForm(), 20));
         p1Text = new Text(vehicles[p1Index]);
         p2Text = new Text(vehicles[p2Index]);
-        p1Text.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 30));
-        p2Text.setFont(Font.loadFont("file:src/assets/sprites/bitFont.TTF", 30));
+        p1Text.setFont(Font.loadFont(getClass().getResource("/assets/sprites/bitFont.TTF").toExternalForm(), 30));
+        p2Text.setFont(Font.loadFont(getClass().getResource("/assets/sprites/bitFont.TTF").toExternalForm(), 30));
         p1Text.setFill(Color.valueOf("ffb81c"));
         p2Text.setFill(Color.valueOf("ffb81c"));
         p1Text.setStroke(Color.BLACK);
@@ -229,10 +229,10 @@ public class SelectionPane extends Group implements gamePane{
         p2Text.setY(950);
 
         // Preview Setup
-        p1Preview = new ImageView(new Image("file:src/assets/sprites/vehicle-sheets/"
-                +vehicles[p1Index].toLowerCase()+"/"+this.p1ColorIndex+"-"+vehicles[p1Index].toLowerCase()+".png"));
-        p2Preview = new ImageView(new Image("file:src/assets/sprites/vehicle-sheets/"
-                +vehicles[p2Index].toLowerCase()+"/"+this.p2ColorIndex+"-"+vehicles[p2Index].toLowerCase()+".png"));
+        p1Preview = new ImageView(new Image(getClass().getResource("/assets/sprites/vehicle-sheets/"+vehicles[p1Index].toLowerCase()+"/"
+                +p1ColorIndex+"-"+vehicles[p1Index].toLowerCase()+".png").toExternalForm()));
+        p2Preview = new ImageView(new Image(getClass().getResource("/assets/sprites/vehicle-sheets/"+vehicles[p2Index].toLowerCase()+"/"
+                +p2ColorIndex+"-"+vehicles[p2Index].toLowerCase()+".png").toExternalForm()));
         p1Preview.setScaleX(1.75);
         p1Preview.setScaleY(1.75);
         p2Preview.setScaleX(1.75);
@@ -243,14 +243,14 @@ public class SelectionPane extends Group implements gamePane{
         p2Preview.setY(400);
 
         // ImageView Setup for Key Hints on Selection
-        ImageView keyW = new ImageView(new Image("file:src/assets/sprites/keys/keyW.png"));
-        ImageView keyS = new ImageView(new Image("file:src/assets/sprites/keys/keyS.png"));
-        ImageView keyA = new ImageView(new Image("file:src/assets/sprites/keys/keyA.png"));
-        ImageView keyD = new ImageView(new Image("file:src/assets/sprites/keys/keyD.png"));
-        ImageView keyUP = new ImageView(new Image("file:src/assets/sprites/keys/keyUP.png"));
-        ImageView keyDOWN = new ImageView(new Image("file:src/assets/sprites/keys/keyDOWN.png"));
-        ImageView keyLEFT = new ImageView(new Image("file:src/assets/sprites/keys/keyLEFT.png"));
-        ImageView keyRIGHT = new ImageView(new Image("file:src/assets/sprites/keys/keyRIGHT.png"));
+        ImageView keyW = new ImageView(new Image(getClass().getResource("/assets/sprites/keyW.png").toExternalForm()));
+        ImageView keyS = new ImageView(new Image(getClass().getResource("/assets/sprites/keyS.png").toExternalForm()));
+        ImageView keyA = new ImageView(new Image(getClass().getResource("/assets/sprites/keyA.png").toExternalForm()));
+        ImageView keyD = new ImageView(new Image(getClass().getResource("/assets/sprites/keyD.png").toExternalForm()));
+        ImageView keyUP = new ImageView(new Image(getClass().getResource("/assets/sprites/keyUP.png").toExternalForm()));
+        ImageView keyDOWN = new ImageView(new Image(getClass().getResource("/assets/sprites/keyDOWN.png").toExternalForm()));
+        ImageView keyLEFT = new ImageView(new Image(getClass().getResource("/assets/sprites/keyLEFT.png").toExternalForm()));
+        ImageView keyRIGHT = new ImageView(new Image(getClass().getResource("/assets/sprites/keyRIGHT.png").toExternalForm()));
         double scale = 0.15;
         setScale(keyW, scale);
         setScale(keyA, scale);
@@ -278,10 +278,10 @@ public class SelectionPane extends Group implements gamePane{
                 if(isReady){this.stop();}
                 p1Text.setText(vehicles[p1Index]);
                 p2Text.setText(vehicles[p2Index]);
-                p1Preview.setImage(new Image("file:src/assets/sprites/vehicle-sheets/"
-                        +vehicles[p1Index].toLowerCase()+"/"+p1ColorIndex+"-"+vehicles[p1Index].toLowerCase()+".png"));
-                p2Preview.setImage(new Image("file:src/assets/sprites/vehicle-sheets/"
-                        +vehicles[p2Index].toLowerCase()+"/"+p2ColorIndex+"-"+vehicles[p2Index].toLowerCase()+".png"));
+                p1Preview.setImage(new Image(getClass().getResource("/assets/sprites/vehicle-sheets/"+vehicles[p1Index].toLowerCase()+"/"
+                +p1ColorIndex+"-"+vehicles[p1Index].toLowerCase()+".png").toExternalForm()));
+                p2Preview.setImage(new Image(getClass().getResource("/assets/sprites/vehicle-sheets/"+vehicles[p2Index].toLowerCase()+"/"
+                        +p2ColorIndex+"-"+vehicles[p2Index].toLowerCase()+".png").toExternalForm()));
             }
         }.start();
 
