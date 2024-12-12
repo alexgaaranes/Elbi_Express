@@ -1,5 +1,6 @@
 package graphics.map;
 
+import game.Audio;
 import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
@@ -100,6 +101,7 @@ abstract public class Objective {
                 }
                 if(lastKey != null && !Vehicle.getActiveKeys().contains(lastKey)){lastKey = null;}
                 if(lastKey == null && Vehicle.getActiveKeys().contains(promptKeys.getFirst())){
+                    Audio.playSound("key_hit");
                     lastKey = promptKeys.removeFirst();
                 }
             }

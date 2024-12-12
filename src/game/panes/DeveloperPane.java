@@ -23,7 +23,7 @@ public class DeveloperPane extends Pane implements gamePane {
         );
         this.getChildren().add(background);
 
-        Font pixelFont = Font.loadFont("file:src/assets/sprites/pixelFont.ttf", 20);
+        Font pixelFont = Font.loadFont(getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm(), 20);
         setUpButtons(pixelFont);
     }
 

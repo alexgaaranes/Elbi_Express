@@ -1,5 +1,6 @@
 package game.panes;
 
+import game.Audio;
 import game.Game;
 import game.Scoreboard;
 import graphics.map.Map;
@@ -80,6 +81,7 @@ public class SelectionPane extends Group implements gamePane{
                     PlayPane playPane = (PlayPane) playScene.getRoot();
                     playPane.startGame(p1Index, p2Index, p1ColorIndex, p2ColorIndex);
                     stage.setScene(playScene);
+                    Audio.playSound("in_game", 0.5);
                     this.stop();
                 }
             }
