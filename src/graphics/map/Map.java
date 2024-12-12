@@ -1,8 +1,13 @@
+/**
+ * The Map class represents a map configuration in the game.
+ * It handles the it handles the coordinates of roads, walls, buildings,
+ * and objectives(household and stores).
+ * and managing time-based bar indicators for order completion.
+ */
 package graphics.map;
 
 import game.Game;
 import game.Scoreboard;
-import graphics.Graphic;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -22,7 +27,7 @@ public class Map {
     private Image mapImage = new Image(Map.class.getResource("/assets/sprites/map.png").toExternalForm());
     private Image houseImage = new Image(Map.class.getResource("/assets/sprites/building.png").toExternalForm());
 
-    /* MAP GRID
+    /* MAP GRID LEGENDS
     *   0 - Empty (Road)
     *   1 - Wall/Building
     *   2 - Store
@@ -62,10 +67,19 @@ public class Map {
     		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
     		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
     };
-    ArrayList<Graphic> mapTiles = new ArrayList<>();
+    
+    //ArrayList for stores and households
     ArrayList<Store> storeList = new ArrayList<>();
     ArrayList<Household> houseList = new ArrayList<>();
 
+    /**
+     * Constructor to initialize the map.
+     *
+     * @param stage The primary game stage.
+     * @param ParentScene The current game scene.
+     * @param scoreboard The scoreboard where the player's score and happiness level during the game are managed.
+     * @param gc The graphics context used for rendering.
+     */
     public Map(Stage stage, Scene parentScene, Scoreboard scoreboard, GraphicsContext gc) {
         this.stage = stage;
         this.parentScene = parentScene;
@@ -89,15 +103,23 @@ public class Map {
         }
     }
 
+    /**
+     * Displays the map image in the scene.
+     */
     public void drawMap(GraphicsContext gc){
     	gc.drawImage(this.mapImage, 0, 0);
     }
     
+    /**
+     * Displays the household image in the scene.
+     */
     public void drawHouse(GraphicsContext gc){
     	gc.drawImage(this.houseImage, 0, 0);
     }
 
-    // Getter
+    /**
+     * Getters of the private attributes...
+     */
     public int[][] getMapMatrix(){
         return this.mapMatrix;
     }
@@ -125,6 +147,14 @@ public class Map {
     public Scoreboard getScoreboard(){
         return this.scoreboard;
     }
+
+	public Stage getStage() {
+		return stage;
+	}
+    
+    /**
+     * ...until here.
+     */
 
 }
 

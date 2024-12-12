@@ -1,52 +1,88 @@
+/**
+ * The Timer class is a flexible standalone timer that tracks elapsed time and provides
+ * functionality to manage timing-related tasks within the game.
+ */
+
 package game;
 
 import javafx.animation.AnimationTimer;
 
-public class Timer extends AnimationTimer{
+public class Timer extends AnimationTimer {
     private long startTime;
     private long elapsedTime;
     private final long endTime;
     private boolean isRunning = false;
 
-    public Timer(long endTimeInSec){
-        this.endTime = endTimeInSec*1000000000L;
+    /**
+     * Constructs a Timer with a specified duration.
+     *
+     * @param endTimeInSec The duration of the timer in seconds.
+     */
+    public Timer(long endTimeInSec) {
+        this.endTime = endTimeInSec * 1_000_000_000L;
     }
 
+    /**
+     * Handles the main animation timer logic. Starts the timer, tracks elapsed time,
+     * and stops the timer when the end time is reached.
+     *
+     * @param now The current timestamp in nanoseconds.
+     */
     @Override
-    public void handle(long l) {
+    public void handle(long now) {
         if(!isRunning){
             this.startTime = System.nanoTime();
             this.isRunning = true;
         }
 
-        if(elapsedTime >= endTime){
+        if(elapsedTime >= endTime) {
             this.stop();
             this.isRunning = false;
         }
 
-        this.elapsedTime = l - this.startTime;
+        this.elapsedTime = now - this.startTime;
     }
-    // Standalone timer class that keeps track of time on start (Can be use flexibly)
 
-    // Methods
-    public long getTime(){
+    /**
+     * Retrieves the remaining time in nanoseconds.
+     *
+     * @return The remaining time as a long value in nanoseconds.
+     */
+    public long getTime() {
         return this.endTime - this.elapsedTime;
     }
 
-    public void restart(){
+    /**
+     * Restarts the timer, resetting the start time to the current time.
+     */
+    public void restart() {
         this.startTime = System.nanoTime();
     }
 
-    public long getTimeSec(){
-        return (this.endTime - this.elapsedTime)/1000000000;
+    /**
+     * Retrieves the remaining time in seconds.
+     *
+     * @return The remaining time as a long value in seconds.
+     */
+    public long getTimeSec() {
+        return (this.endTime - this.elapsedTime) / 1_000_000_000;
     }
 
-    public long getElapsedTimeInSec(){
-        return this.elapsedTime/1000000000L;
+    /**
+     * Retrieves the elapsed time in seconds.
+     *
+     * @return The elapsed time as a long value in seconds.
+     */
+    public long getElapsedTimeInSec() {
+        return this.elapsedTime / 1_000_000_000L;
     }
 
-    public boolean getStatus(){
+    /**
+     * Retrieves the running status of the timer.
+     *
+     * @return True if the timer is running, otherwise false.
+     */
+    public boolean getStatus() {
         return this.isRunning;
     }
 }
-

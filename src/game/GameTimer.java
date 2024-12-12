@@ -1,5 +1,8 @@
-/*
- *  MUST CONTAIN MAIN GAME LOOP
+/**
+ * GameTimer.java
+ * This class is responsible for managing the main game loop.
+ * It extends AnimationTimer to handle per-frame updates.
+ * It includes logic for rendering, game state updates, and game-over handling.
  */
 
 package game;
@@ -25,14 +28,28 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameTimer extends AnimationTimer {
+    //Stage reference for scene management
     private final Stage stage;
+
+    //GraphicsContext for rendering objects on the canvas
     GraphicsContext gc;
+
+    //Game components
     private Vehicle v1;
     private Vehicle v2;
     private Map map;
     private Scoreboard scoreboard;
-    private static Image gameOver= new Image(GameTimer.class.getResource("/assets/sprites/won.png").toExternalForm());
 
+    //Game over image
+    private static Image gameOver = new Image(GameTimer.class.getResource("/assets/sprites/won.png").toExternalForm());
+
+    /**
+     * Constructor to initialize the GameTimer.
+     * @param stage The main stage for the game.
+     * @param gc The GraphicsContext for rendering.
+     * @param map The game map.
+     * @param scoreboard The scoreboard to track game progress.
+     */
     public GameTimer(Stage stage, GraphicsContext gc, Map map, Scoreboard scoreboard) {
         this.stage = stage;
         this.gc = gc;
@@ -40,91 +57,111 @@ public class GameTimer extends AnimationTimer {
         this.scoreboard = scoreboard;
     }
 
-    public void setUpGame(Vehicle v1, Vehicle v2){
+    /**
+     * Set up the game by initializing vehicles and tracking logic for stores and households.
+     * @param v1 Vehicle controlled by Player 1.
+     * @param v2 Vehicle controlled by Player 2.
+     */
+    public void setUpGame(Vehicle v1, Vehicle v2) {
         this.v1 = v1;
         this.v2 = v2;
 
-        // Setup detection for stores
-        for(Store store: map.getStoreList()){
+        //Setup detection logic for stores
+        for(Store store: map.getStoreList()) {
             store.trackVehicle(v1, v2);
         }
-        // Setup detection for households
-        for(Household house: map.getHouseList()){
-            house.trackVehicle(v1,v2);
+
+        //Setup detection logic for households
+        for(Household house: map.getHouseList()) {
+            house.trackVehicle(v1, v2);
         }
 
-        // Initial Order
+        //Initialize random orders for households
         randomOrder();
-        this.randomOrderTimer(); // get a random household to take order
+        randomOrderTimer();
     }
 
+    /**
+     * Main game loop: Updates rendering and checks game state.
+     * ! Avoid adding slow processes here !
+     * @param l The current timestamp (nanoseconds).
+     */
     @Override
     public void handle(long l) {
-        // Mostly for rendering and game checking only ( Avoid adding slow processes here )
+        //Clear the canvas
         gc.clearRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+
+        //Render map, vehicles, and houses
         this.map.drawMap(gc);
         this.v1.render(this.gc);
         this.v2.render(this.gc);
         this.map.drawHouse(this.gc);
 
-        if(this.scoreboard.checkIfLost()){
+        // Check for game-over conditions
+        if(this.scoreboard.checkIfLost()) {
             System.out.println("Game Over!");
-            if(scoreboard.getHappinessLvl() <= 0){
+            if(scoreboard.getHappinessLvl() <= 0) {
                 System.out.println("You Lost!");
-                gameOver= new Image(getClass().getResource("/assets/sprites/lose.png").toExternalForm());
+                gameOver = new Image(getClass().getResource("/assets/sprites/lose.png").toExternalForm());
             } else {
                 System.out.println("You Won!");
-                gameOver= new Image(getClass().getResource("/assets/sprites/won.png").toExternalForm());
+                gameOver = new Image(getClass().getResource("/assets/sprites/won.png").toExternalForm());
             }
-            // Some score recap logic
+
+            // Display the game-over screen
             gameOverScreen();
             this.stop();
         }
     }
 
-    // GAME OVER SETUP
-    private void gameOverScreen(){
+    /**
+     * Display the game-over screen with score recap and navigation options.
+     */
+    private void gameOverScreen() {
         Scene playScene = stage.getScene();
         PlayPane playPane = (PlayPane) playScene.getRoot();
+
+        //Create a dark overlay
         Rectangle darkOverlay = new Rectangle(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         darkOverlay.setFill(Color.BLACK);
         darkOverlay.setOpacity(0.75);
-        // Button Setup
+
+        //Set up game-over elements
         ImageView gOver = new ImageView(gameOver);
         ImageView restartBtn = new ImageView(new Image(getClass().getResource("/assets/sprites/restartBtn.png").toExternalForm()));
         ImageView mainMenuBtn = new ImageView(new Image(getClass().getResource("/assets/sprites/sandwichMenu.png").toExternalForm()));
+
+        //Configure buttons and texts
         setUpButtons(restartBtn, mainMenuBtn);
-        // Score text Setup
+
         Text totalScore = new Text(
-        	    String.format("Total Score: %.2f", (scoreboard.getTotalScore() +
-                        (scoreboard.getTotalScore() * scoreboard.getHappinessLvl())))
-        	);
-        Text player1Label = new Text("Player 1: "+ v1.getScore());
-        Text player2Label = new Text("Player 2: "+ v2.getScore());
+            String.format("Total Score: %.2f", (scoreboard.getTotalScore() +
+                    (scoreboard.getTotalScore() * scoreboard.getHappinessLvl())))
+        );
+        Text player1Label = new Text("Player 1: " + v1.getScore());
+        Text player2Label = new Text("Player 2: " + v2.getScore());
         setUpTexts(totalScore, player1Label, player2Label);
 
-
+        //Add elements to the play pane
         playPane.getChildren().addAll(darkOverlay, restartBtn, mainMenuBtn, totalScore, player1Label, player2Label, gOver);
     }
 
-    private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn){
-        // Buttons
+    /**
+     * Configure the restart and main menu buttons with click and hover effects.
+     * @param restartBtn The restart button.
+     * @param mainMenuBtn The main menu button.
+     */
+    private void setUpButtons(ImageView restartBtn, ImageView mainMenuBtn) {
         restartBtn.setPickOnBounds(true);
         mainMenuBtn.setPickOnBounds(true);
-        restartBtn.setX(Game.WINDOW_WIDTH/2 - restartBtn.getBoundsInLocal().getWidth() - 75);
+        restartBtn.setX(Game.WINDOW_WIDTH / 2 - restartBtn.getBoundsInLocal().getWidth() - 75);
         restartBtn.setY(800);
-        mainMenuBtn.setX(Game.WINDOW_WIDTH/2 + 75);
+        mainMenuBtn.setX(Game.WINDOW_WIDTH / 2 + 75);
         mainMenuBtn.setY(800);
 
-        // Click Events
-        restartBtn.setOnMouseClicked(event -> {
-            MenuPane.activeMenuPane.setSelection();
-        });
-        mainMenuBtn.setOnMouseClicked(event -> {
-            stage.setScene(MenuPane.activeMenuPane.getScene());
-        });
+        restartBtn.setOnMouseClicked(event -> MenuPane.activeMenuPane.setSelection());
+        mainMenuBtn.setOnMouseClicked(event -> stage.setScene(MenuPane.activeMenuPane.getScene()));
 
-        // Hover Effects
         restartBtn.setOnMouseEntered(event -> {
             restartBtn.setScaleX(1.2);
             restartBtn.setScaleY(1.2);
@@ -133,6 +170,7 @@ public class GameTimer extends AnimationTimer {
             mainMenuBtn.setScaleX(1.2);
             mainMenuBtn.setScaleY(1.2);
         });
+
         restartBtn.setOnMouseExited(event -> {
             restartBtn.setScaleX(1.0);
             restartBtn.setScaleY(1.0);
@@ -143,8 +181,15 @@ public class GameTimer extends AnimationTimer {
         });
     }
 
-    private void setUpTexts(Text score, Text p1, Text p2){
+    /**
+     * Configure the text elements displayed on the game-over screen.
+     * @param score The total score text.
+     * @param p1 Player 1 score text.
+     * @param p2 Player 2 score text.
+     */
+    private void setUpTexts(Text score, Text p1, Text p2) {
         String fontPath = getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm();
+
         score.setX(500);
         score.setY(600);
         p1.setX(745);
@@ -161,38 +206,52 @@ public class GameTimer extends AnimationTimer {
         p2.setFill(Color.RED);
     }
 
-    // Set order on random household after given interval
-    private void randomOrderTimer(){
+    /**
+     * Timer to generate random orders for households at fixed intervals.
+     */
+    private void randomOrderTimer() {
         new AnimationTimer() {
             long startTime = System.nanoTime();
+
             @Override
             public void handle(long l) {
-                if(scoreboard.checkIfLost()){this.stop();}
-                if(l - startTime >=15000000000L){ // order every 10sec
+                if(scoreboard.checkIfLost()) {
+                    this.stop();
+                }
+                if(l - startTime >= 15000000000L) { // Generate an order every 15 seconds
                     randomOrder();
                     startTime = l;
-                };
+                }
             }
         }.start();
     }
 
-    // Set an order
-    private void randomOrder(){
+    /**
+     * Select a random household to place an order.
+     */
+    private void randomOrder() {
         Random r = new Random();
         ArrayList<Household> houses = map.getHouseList();
-        try{
-            new AnimationTimer(){
+        try {
+            new AnimationTimer() {
                 Household house;
+
                 @Override
                 public void handle(long l) {
-                    if(scoreboard.checkIfLost()){this.stop();}
+                    if(scoreboard.checkIfLost()) {
+                        this.stop();
+                    }
                     house = houses.get(r.nextInt(houses.size()));
-                    if(house.getHasActiveOrder()){return;} // never stop until there's a household who can order
+                    if(house.getHasActiveOrder()) {
+                        return; // Skip if the household already has an active order
+                    }
 
                     house.setActiveOrder();
                     this.stop();
                 }
             }.start();
-        } catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,3 +1,9 @@
+/**
+ * SelectionPane class represents a custom pane for displaying the selection phase of the game.
+ * It extends the Group class and implements the gamePane interface.
+ * The pane includes a background image, the skins and vehicles available to the game, and manages scene transitions.
+ */
+
 package game.panes;
 
 import game.Audio;
@@ -22,12 +28,15 @@ import javafx.stage.Stage;
 import java.util.HashSet;
 
 public class SelectionPane extends Group implements gamePane{
+	//Attributes associated in the scene
     private final Stage stage;
     private Scene parentScene = null;
     private Scene playScene = null;
     private static HashSet<KeyCode> activeKeys = new HashSet<>();
+    Canvas selectionCanvas;
     private boolean isReady;
 
+    //Attributes associated with the players' to the vehicles
     private String vehicles[] = {"Car", "Motor", "Truck"};
     private Vehicle p1, p2;
     private int p1Index = 0;
@@ -37,11 +46,12 @@ public class SelectionPane extends Group implements gamePane{
     private int spinFrame = 0;
     private ImageView p1Preview;
     private ImageView p2Preview;
-
-    Canvas selectionCanvas;
+    
+    //Attributes associated to the map generation
     GraphicsContext gc;
     Map map;
     Scoreboard scoreboard;
+    
     // UI elements
     private Text p1Text;
     private Text p2Text;
@@ -49,6 +59,12 @@ public class SelectionPane extends Group implements gamePane{
     private Text player2Ready;
     private Image background = new Image(getClass().getResource("/assets/sprites/selectionBG.png").toExternalForm());
 
+    /**
+     * Constructor to initialize the SelectionPane with the provided stage.
+     * It sets up the background image and initializes the selection boolean.
+     * 
+     * @param stage The main stage for the application.
+     */
     public SelectionPane(Stage stage) {
         this.stage = stage;
         this.selectionCanvas = new Canvas(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
@@ -57,6 +73,10 @@ public class SelectionPane extends Group implements gamePane{
         this.isReady = false;
     }
 
+    
+    /**
+     * Calls the methods to set up the SelectionPane.
+     */
     public void setUpSelection(){
         this.setUpPlayScene();
         this.setUp();
@@ -64,7 +84,9 @@ public class SelectionPane extends Group implements gamePane{
         this.loadSpinFrame();
     }
 
-    // Setup selection scene
+    /**
+     * Sets up the selection prompts and their actions on the selection phase.
+     */
     private void setUp(){
         this.parentScene.setOnKeyPressed(event -> {
             activeKeys.add(event.getCode());
@@ -72,8 +94,8 @@ public class SelectionPane extends Group implements gamePane{
         this.parentScene.setOnKeyReleased(event -> {
             activeKeys.remove(event.getCode());
         });
-
-        // Detect Ready on both players (HOLD Q and PERIOD to start)
+        
+        //Timer to monitor if the players are ready to play
         new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -87,7 +109,7 @@ public class SelectionPane extends Group implements gamePane{
             }
         }.start();
 
-        // Detect when changing options
+        //Timer that monitors changing vehicles
         new AnimationTimer() {
             KeyCode p1LastKey = null;
             KeyCode p2LastKey = null;
@@ -120,7 +142,7 @@ public class SelectionPane extends Group implements gamePane{
             }
         }.start();
 
-        // Detect when changing skins
+        //Timer that monitors changing skins
         new AnimationTimer(){
             KeyCode p1LastKey = null;
             KeyCode p2LastKey = null;
@@ -154,7 +176,9 @@ public class SelectionPane extends Group implements gamePane{
             }
         }.start();
 
-        // Detect ready on both players
+        /**
+         * Timer that monitors changes in the player readiness and updates visual cues.
+         */
         new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -187,19 +211,25 @@ public class SelectionPane extends Group implements gamePane{
             }
         }.start();
 
-        // Draw Background
+        //Displays the background
         gc.drawImage(background, 0, 0);
     }
 
 
-    // SetUp play Scene
+    /**
+     * Prepares play screen where players can get engages in the game.
+     * Creates a new PlayPane, and sets it up.
+     */
     private void setUpPlayScene(){
         PlayPane playPane = new PlayPane(this.stage);
         this.playScene = new Scene(playPane, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         playPane.setParentScene(this.playScene);
     }
 
-    // Set Up UI elements
+    /**
+     * Sets up the text, vehicle, skins, and visual cues.
+     * Text are styled and positioned.
+     */
     private void setUpUI(){
         player1Ready = new Text("Hold Q to ready");
         player2Ready = new Text("Hold PERIOD to ready");
@@ -283,7 +313,7 @@ public class SelectionPane extends Group implements gamePane{
             }
         }.start();
 
-        // Auto update imagePreview rotation
+        //Auto update imagePreview rotation
         new AnimationTimer() {
             float side = 96;
             @Override
@@ -297,13 +327,16 @@ public class SelectionPane extends Group implements gamePane{
         }.start();
     }
 
+    /**
+     * Timer that updates vehicle sprite angle.
+     */
     private void loadSpinFrame(){
         new AnimationTimer(){
             long startTime = System.nanoTime();
             @Override
             public void handle(long l) {
                 if(isReady){this.stop();}
-                if(l - startTime > 500000000L){ // Get new frame every 0.5 sec
+                if(l - startTime > 500000000L){ //Get new frame every 0.5 sec
                     spinFrame = ++spinFrame % 8;
                     startTime = l;
                 }
@@ -311,17 +344,34 @@ public class SelectionPane extends Group implements gamePane{
         }.start();
     }
 
+    /**
+     * Set scale of images.
+     * 
+     * @param imageView The image to be scaled.
+     * @param scale The value to be set as image size.
+     */
     private void setScale(ImageView imageView, double scale){
         imageView.setScaleX(scale);
         imageView.setScaleY(scale);
     }
 
+    /**
+     * Set position of images.
+     * 
+     * @param imageView The image to be positioned.
+     * @param x The x-coordinate in pixel to be set.
+     * @param y The u-coordinate in pixel to be set.
+     */
     private void setXY(ImageView imageView, double x, double y){
         imageView.setX(x);
         imageView.setY(y);
     }
 
-
+    /**
+     * Sets the parent scene for navigation purposes.
+     * 
+     * @param scene The scene to be set as the parent.
+     */
     @Override
     public void setParentScene(Scene scene) {
         this.parentScene = scene;

@@ -1,3 +1,8 @@
+/**
+ * The Vehicle class represents a player the interacts with the map as vehicles.
+ * It handles movement (lateral and rotational) of player vehicles, 
+ * loading and unloading of orders.
+ */
 package graphics.vehicles;
 
 import game.Game;
@@ -14,7 +19,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -50,7 +54,21 @@ public class Vehicle extends Graphic {
     protected final Map map;
 
     protected boolean onEffect = false;
-
+    
+    /**
+     * Constructor to initialize the vehicle.
+     * 
+     * @param image The sprite used for the selected vehicle.
+     * @param xGridPos The x-coordinate of the objective on the grid.
+     * @param yGridPos The y-coordinate of the objective on the grid.
+     * @param id The identification of the player associated to the vehicle.
+     * @param map The game map.
+     * @param width The width of image to be used.
+     * @param height The height of the image to be used.
+     * @param capacity The carrying capacity of the selected vehicle.
+     * @param scale The scale of the image relative to the original resolution.
+     * @param gc The GraphicsContext for rendering.
+     */
     public Vehicle(Image image, double xPos, double yPos, String id, Scene parentScene, Map map, double width, double height, int capacity, double scale) {
         super(image, xPos, yPos, width, height);
         this.parentScene = parentScene;
@@ -67,7 +85,9 @@ public class Vehicle extends Graphic {
         this.updateCapText();
     }
 
-    // MOVEMENT METHODS
+	/**
+	 * Assigns movement controls for each player.
+	 */
     public void defaultKeyBinds(){
         if(this.playerID.equals(PLAYER_ONE)){
             keyBinds.put("UP", KeyCode.W);
@@ -82,22 +102,23 @@ public class Vehicle extends Graphic {
         }
     }
 
+    /**
+	 * Timer that retrieves control from the player.
+	 */
     protected void handleKeyOnPress(){
         parentScene.setOnKeyPressed(event -> {
             activeKeys.add(event.getCode());
-            //System.out.println(event.getCode());
         });
         parentScene.setOnKeyReleased(event -> {
             activeKeys.remove(event.getCode());
-            //System.out.println("Removed:"+event.getCode());
         });
         new AnimationTimer() {
             long prevTime = 0;
             @Override
             public void handle(long nanoTime) {
-                // Added delta as another factor for movement
-                // References: https://en.wikipedia.org/wiki/Delta_timing
-                // https://manual.gamemaker.io/lts/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Date_And_Time/delta_time.htm(Godot also uses delta)
+                //Added delta as another factor for movement which measures the time between frames
+                //References: https://en.wikipedia.org/wiki/Delta_timing
+                //https://manual.gamemaker.io/lts/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Date_And_Time/delta_time.htm(Godot also uses delta)
                 if(prevTime > 0) {
                     double delta = (nanoTime - prevTime)/1000000000.0;
                     moveVehicle(delta);
@@ -107,6 +128,11 @@ public class Vehicle extends Graphic {
         }.start();
     }
 
+    /**
+     * Handles the lateral and rotational movement of the vehicle through key event listeners.
+     * 
+	 * @param delta The delta time that tracks the code-block execution in real-time.
+	 */
     protected void moveVehicle(double delta){
         if(activeKeys.contains(keyBinds.get("UP"))){
             velocity = Math.min(velocity + acceleration, maxVelocity);
@@ -142,7 +168,13 @@ public class Vehicle extends Graphic {
         this.xPos += displaceX;
         this.yPos += displaceY;
     }
-
+    
+    /**
+     * Handles collisions of vehicles relative to map positions
+     * 
+	 * @param newX The current x-coordinate of the vehicle in the map grid
+	 * @param newY The current y-coordinate of the vehicle in the map grid
+	 */
     protected boolean isColliding(double newX, double newY){
         // Get the position on grid (get tile uses the screen size so this is accurate)
         int xGridPos = (int) (newX / map.getTileW());
@@ -154,7 +186,9 @@ public class Vehicle extends Graphic {
         return this.map.getMapMatrix()[yGridPos][xGridPos]==1;
     }
 
-    // ORDERING METHODS
+    /**
+     * Methods that tracks the order values associated with each player...
+	 */
     public boolean isFull() {
         return this.currentLoad == this.MAX_CAPACITY;
     }
@@ -163,6 +197,9 @@ public class Vehicle extends Graphic {
         return this.currentLoad == 0;
     }
 
+    /**
+     * @param val The value that tells either to increment or decrement the current order on hand count.
+     */
     public void updateLoad(int val){
         this.currentLoad += val;
     }
@@ -170,26 +207,50 @@ public class Vehicle extends Graphic {
     public HashMap<String, Integer> getStoreOrder(){
         return this.orderPerStore;
     }
+    
+    /**
+     * ...until here.
+     */
 
-    // Score and Getters
+    /**
+     * Handles the cumulative score tracking.
+     * 
+     * @param val The value of score added to the current score.
+     */
     public void updateScore(int val){
         this.score += val;
     }
 
+    /**
+     * @return Getters of private attributes...
+     */
     public int getScore(){
         return this.score;
     }
 
+    public double getxPos() {
+        return xPos;
+    }
+
+    public double getyPos() {
+        return yPos;
+    }
+    
     public String getPlayerID(){
         return this.playerID;
     }
+    /**
+     * ...until here.
+     */
 
     public static Set<KeyCode> getActiveKeys(){
         return Vehicle.activeKeys;
     }
 
-    // Disaster Effect Methods
-    // EARTHQUAKE
+    /**
+     * Toggles earthquake effects on the vehicles.
+     * Reverses the direction of the controls.
+     */
     public void earthquakeToggleEffect(){
         if(onEffect){
             onEffect = false;
@@ -210,6 +271,10 @@ public class Vehicle extends Graphic {
         onEffect = true;
     }
 
+    /**
+     * Toggles thunderstorm effects on the vehicles.
+     * Increases the acceleration by a factor.
+     */
     public void thunderstormToggleEffect(){
         if(onEffect){
             onEffect = false;
@@ -224,20 +289,17 @@ public class Vehicle extends Graphic {
         onEffect = true;
     }
 
-    public double getxPos() {
-        return xPos;
-    }
-
-    public double getyPos() {
-        return yPos;
-    }
-
+    
+    /**
+     * Handles the tracking of current load of the vehicle.
+     */
     private void updateCapText(){
         this.capText = new Text(String.format("%d/%d", currentLoad, MAX_CAPACITY));
         this.capText.setFill(Color.WHITE);
         this.capText.setFont(Font.loadFont(getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm(), 10));
         this.playPane.getChildren().add(capText);
-
+        
+        //Timer that updates capacity indicator position of a vehicle.
         new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -249,7 +311,10 @@ public class Vehicle extends Graphic {
         }.start();
     }
 
-    // VISUAL AND BOUNDS
+    /**
+     * Handles the visual representation of the vehicle and its movement.
+     * @param gc The GraphicsContext for rendering.
+     */
     @Override
     public void render(GraphicsContext gc) {
         gc.save();
@@ -267,11 +332,22 @@ public class Vehicle extends Graphic {
 
         gc.restore();
     }
-
+    
+    /**
+     * Retrieves the current angle of image to be used in a specific frame.
+     * 
+     * @param angle The angle of which the vehicle is oriented.
+     * @return The index of the of frame to be used.
+     */
     private int getFrame(double angle){
         return (int) (angle/45) % 8;
     }
-
+    
+    /**
+     * Handles the update in bounds relative to the current orientation of the vehicle.
+     * @param w The width
+     * @param h The height
+     */
     protected void setFrameSize(int w, int h){
         this.frameWidth = w;
         this.frameHeight = h;

@@ -1,3 +1,8 @@
+/**
+ * AboutPane is responsible for displaying instructional content to the user.
+ * It includes navigation controls to browse through instruction pages and a back button to return to the main menu.
+ */
+
 package game.panes;
 
 import javafx.scene.Scene;
@@ -9,47 +14,73 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class AboutPane extends Pane implements gamePane {
+    //Stage reference to switch between scenes
     private final Stage stage;
+
+    //References to other scenes for navigation
     private Scene parentScene = null;
     private Scene menuScene = null;
 
-    private int currentInstructionIndex = 1; // Track current instruction page
-    private final int maxInstructionIndex = 4; // Total number of instructions
+    //Instruction page tracking
+    private int currentInstructionIndex = 1; //Tracks the current instruction page index
+    private final int maxInstructionIndex = 4; //Total number of instruction pages available
 
-    private Button leftArrowBtn;
-    private Button rightArrowBtn;
-    private ImageView background;
+    //UI Components
+    private Button leftArrowBtn; //Button to navigate to the previous instruction page
+    private Button rightArrowBtn; //Button to navigate to the next instruction page
+    private ImageView background; //Background image displaying the current instruction
 
+    /**
+     * Constructs an AboutPane instance with a reference to the main application stage.
+     * 
+     * @param stage The main application stage.
+     */
     public AboutPane(Stage stage) {
         this.stage = stage;
 
-        // Set the initial background
+        //Initialize the background with the first instruction page
         background = new ImageView(
                 new Image(getClass().getResource("/assets/sprites/instruction" + currentInstructionIndex + ".png").toExternalForm())
         );
         this.getChildren().add(background);
         updateBackground();
 
+        //Load and set up a pixel font for UI elements
         Font pixelFont = Font.loadFont(getClass().getResource("/assets/sprites/pixelFont.ttf").toExternalForm(), 20);
         setUpButtons(pixelFont);
     }
 
+    /**
+     * Sets the parent scene for this pane.
+     * 
+     * @param scene The parent scene to be set.
+     */
     @Override
     public void setParentScene(Scene scene) {
         this.parentScene = scene;
     }
 
+    /**
+     * Configures the scene to be loaded when the back button is clicked.
+     * 
+     * @param menu The menu scene to navigate back to.
+     */
     public void setButtonScenes(Scene menu) {
         this.menuScene = menu;
     }
 
+    /**
+     * Sets up the UI buttons for navigation and assigns their actions.
+     * 
+     * @param font The font to be used for button text.
+     */
     private void setUpButtons(Font font) {
         // Create buttons
         Button backBtn = createStyledButton("BACK", font);
         leftArrowBtn = createStyledButton("<", font);
         rightArrowBtn = createStyledButton(">", font);
 
-        // Set positions for buttons
+        // Position buttons on the pane
         backBtn.setLayoutX(50);
         backBtn.setLayoutY(50);
 
@@ -59,33 +90,51 @@ public class AboutPane extends Pane implements gamePane {
         rightArrowBtn.setLayoutX(1200);
         rightArrowBtn.setLayoutY(511);
 
-        // Set button actions
+        // Assign actions to buttons
         backBtn.setOnAction(event -> stage.setScene(menuScene));
         leftArrowBtn.setOnAction(event -> changeInstruction(-1));
         rightArrowBtn.setOnAction(event -> changeInstruction(1));
 
-        // Add buttons to the Pane
+        // Add buttons to the pane
         this.getChildren().addAll(backBtn, leftArrowBtn, rightArrowBtn);
 
         // Update button visibility initially
         updateArrowButtons();
     }
 
+    /**
+     * Changes the current instruction page by a specified direction.
+     * 
+     * @param direction -1 to navigate backward, 1 to navigate forward.
+     */
     private void changeInstruction(int direction) {
         currentInstructionIndex += direction;
         updateBackground();
         updateArrowButtons();
     }
 
+    /**
+     * Updates the background image to reflect the current instruction page.
+     */
     private void updateBackground() {
         background.setImage(new Image(getClass().getResource("/assets/sprites/instruction" + currentInstructionIndex + ".png").toExternalForm()));
     }
 
+    /**
+     * Updates the visibility of the navigation buttons based on the current instruction page.
+     */
     private void updateArrowButtons() {
         leftArrowBtn.setVisible(currentInstructionIndex > 1);
         rightArrowBtn.setVisible(currentInstructionIndex < maxInstructionIndex);
     }
 
+    /**
+     * Creates a styled button with a consistent appearance and hover effect.
+     * 
+     * @param text The text to display on the button.
+     * @param font The font to use for the button text.
+     * @return A styled Button instance.
+     */
     private Button createStyledButton(String text, Font font) {
         Button button = new Button(text);
         button.setFont(font);
@@ -100,7 +149,7 @@ public class AboutPane extends Pane implements gamePane {
             "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0.5, 2, 2);"
         );
 
-        // Add hover effect: scale up on hover
+        //Add hover effect: scale up on hover
         button.setOnMouseEntered(event -> {
             button.setScaleX(1.2);
             button.setScaleY(1.2);
