@@ -5,6 +5,7 @@
  */
 package graphics.vehicles;
 
+import game.Audio;
 import game.Game;
 import game.Scoreboard;
 import game.panes.PlayPane;
@@ -57,10 +58,10 @@ public class Vehicle extends Graphic {
     
     /**
      * Constructor to initialize the vehicle.
-     * 
+     *
      * @param image The sprite used for the selected vehicle.
-     * @param xGridPos The x-coordinate of the objective on the grid.
-     * @param yGridPos The y-coordinate of the objective on the grid.
+     * @param xPos The x-coordinate of the objective on the grid.
+     * @param yPos The y-coordinate of the objective on the grid.
      * @param id The identification of the player associated to the vehicle.
      * @param map The game map.
      * @param width The width of image to be used.
@@ -164,6 +165,8 @@ public class Vehicle extends Graphic {
         }
         if(isColliding(this.xPos, this.yPos+displaceY)){
             displaceY = 0;
+        }
+        if(displaceX != 0 || displaceY !=0){
         }
         this.xPos += displaceX;
         this.yPos += displaceY;

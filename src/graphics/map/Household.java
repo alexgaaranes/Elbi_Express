@@ -9,6 +9,7 @@ package graphics.map;
 import java.util.HashMap;
 import java.util.Random;
 
+import game.Audio;
 import game.Scoreboard;
 import game.Timer;
 import game.panes.PlayPane;
@@ -36,7 +37,7 @@ public class Household extends Objective {
     private Rectangle greenBar = new Rectangle(Household.BAR_WIDTH, Household.BAR_HEIGHT, Color.valueOf("00573f")); // Progress bar.
     private Rectangle barBorder = new Rectangle(Household.BAR_WIDTH, Household.BAR_HEIGHT); // Border for the bar.
     private Scene parentScene; // The parent scene that holds the HUD elements.
-    
+
     // Images representing different stores
     private static Image jollibee = new Image(Household.class.getResource("/assets/sprites/jollibee.gif").toExternalForm());
     private static Image dominos = new Image(Household.class.getResource("/assets/sprites/domino's.gif").toExternalForm());
@@ -92,6 +93,7 @@ public class Household extends Objective {
             vehicle.updateLoad(-1);
             vehicle.updateScore(1);
             map.getScoreboard().updateScore(1);
+			Audio.playClip("deliver", 0.25);
             System.out.println("Order Delivered by " + vehicle);
         }
         this.hasActiveOrder = false; // No active order after delivery.

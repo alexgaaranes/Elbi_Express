@@ -2,13 +2,14 @@
  * The Store class represents a store that processes orders from households
  * and allows vehicles to pick up the orders. It tracks the number of orders,
  * the store's name, and handles the visual representation of orders on the map.
- * 
+ *
  * In the game, the Store can hold a certain number of orders and vehicles can
  * interact with the store to pick up orders for delivery.
  */
 
 package graphics.map;
 
+import game.Audio;
 import graphics.vehicles.Vehicle;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,8 +20,8 @@ import java.util.HashMap;
 import game.panes.PlayPane;
 
 public class Store extends Objective {
-    
-    private String name; 
+
+    private String name;
     private int currentOrders = 0; //Keeps track of orders from households to the store
     private Group orderBags = new Group(); //Holds the visual representation of the order bags
     private PlayPane bagPane; //The pane to display the orders in the play scene
@@ -28,11 +29,11 @@ public class Store extends Objective {
     //STATIC CLASS ATTRIBUTES
     public static final int NUM_OF_STORES = 4;
     public static final String[] STORE_NAMES = {"Jollibee", "Domino's Pizza", "Dairy Queen", "Burger King"};
-    private static Image bag = new Image(Store.class.getResource("/assets/sprites/order.gif").toExternalForm()); 
+    private static Image bag = new Image(Store.class.getResource("/assets/sprites/order.gif").toExternalForm());
 
     /**
      * Constructs a Store object at a specific position in the map.
-     * 
+     *
      * @param xGridPos the x-coordinate position on the grid
      * @param yGridPos the y-coordinate position on the grid
      * @param name the name of the store
@@ -64,11 +65,11 @@ public class Store extends Objective {
     protected void doProcess() {
         this.makeOrder(this.occupiedVehicle); //Completes the order for the vehicle
     }
-    
+
     /**
      * Completes an order by decrementing the number of ongoing orders and
      * adding the order to the vehicle's order list. Also updates the vehicle's load.
-     * 
+     *
      * @param vehicle the vehicle picking up the order
      */
     private void makeOrder(Vehicle vehicle) {
@@ -84,28 +85,28 @@ public class Store extends Objective {
 
         vehicle.updateLoad(1); //Update the vehicle's load by 1
         closePickUp(); //Closes the pickup visual
-
+		Audio.playClip("pickUP", 1.0);
         System.out.println("Order from " + this.name + " was picked up by " + vehicle);
     }
     
     /**
-     * Opens the pickup interface, allowing the vehicle to collect the order if 
+     * Opens the pickup interface, allowing the vehicle to collect the order if
      * there is at least one current order. Displays the order bag in the play pane.
-     * 
+     *
      * @param playPane the play pane where the order bag is displayed
      */
     public void openPickUp(PlayPane playPane) {
         if (this.currentOrders == 1) {
-            this.bagPane = playPane; 
-            bagPane.getChildren().add(orderBags); 
-            
+            this.bagPane = playPane;
+            bagPane.getChildren().add(orderBags);
+
             // Create an image view for the order bag and add it to the order bags group
             ImageView orderBag = new ImageView(bag);
             orderBags.getChildren().add(orderBag);
-            orderBag.setTranslateX(this.xPos - 95); 
-            orderBag.setTranslateY(this.yPos - 10); 
-            orderBag.setScaleX(0.33); 
-            orderBag.setScaleY(0.33); 
+            orderBag.setTranslateX(this.xPos - 95);
+            orderBag.setTranslateY(this.yPos - 10);
+            orderBag.setScaleX(0.33);
+            orderBag.setScaleY(0.33);
         }
     }
     
@@ -120,7 +121,7 @@ public class Store extends Objective {
 
     /**
      * Gets the current number of orders at the store.
-     * 
+     *
      * @return the number of current orders
      */
     public int getCurrentOrders() {
@@ -129,7 +130,7 @@ public class Store extends Objective {
 
     /**
      * Adds orders to the store's order queue.
-     * 
+     *
      * @param order the number of orders to add
      */
     public void addOrder(int order) {
@@ -138,7 +139,7 @@ public class Store extends Objective {
 
     /**
      * Gets the name of the store.
-     * 
+     *
      * @return the name of the store
      */
     public String getName() {
@@ -147,7 +148,7 @@ public class Store extends Objective {
 
     /**
      * Sets the name of the store.
-     * 
+     *
      * @param name the name to set for the store
      */
     public void setName(String name) {

@@ -76,7 +76,7 @@ public class Map {
      * Constructor to initialize the map.
      *
      * @param stage The primary game stage.
-     * @param ParentScene The current game scene.
+     * @param parentScene The current game scene.
      * @param scoreboard The scoreboard where the player's score and happiness level during the game are managed.
      * @param gc The graphics context used for rendering.
      */

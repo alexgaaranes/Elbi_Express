@@ -1,6 +1,6 @@
 /**
  * Abstract class representing an objective on the map that vehicles can interact with.
- * The Objective class handles tracking player vehicles, rendering interaction prompts, 
+ * The Objective class handles tracking player vehicles, rendering interaction prompts,
  * and processing the objective logic when a vehicle interacts with it.
  */
 
@@ -18,25 +18,26 @@ import java.util.ArrayList;
 import java.util.Random;
 
 abstract public class Objective {
-    
+
     //Reference to the game map and graphics context for drawing
     protected final Map map;
     protected final GraphicsContext gc;
-    
+
     //Grid position of the objective
     protected int xGridPos, yGridPos;
-    
+
     //Position in pixels based on grid
     protected double xPos, yPos;
-    
+
     //Player vehicles
     protected Vehicle p1, p2;
-    
+
     //Vehicle currently interacting with the objective
     protected Vehicle occupiedVehicle = null;
-    
+
     //Scale factor for the prompt images
     protected final float PROMPT_SCALE = 0.15F;
+    protected Random r = new Random();
 
     /**
      * Constructor to initialize an Objective with its grid position, map, and graphics context.
@@ -73,7 +74,7 @@ abstract public class Objective {
     public void trackVehicle(Vehicle v1, Vehicle v2) {
         this.p1 = v1;
         this.p2 = v2;
-        
+
         new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -162,7 +163,7 @@ abstract public class Objective {
                     lastKey = null;  //Reset last key if it is no longer active
                 }
                 if (lastKey == null && Vehicle.getActiveKeys().contains(promptKeys.get(0))) {
-                    Audio.playSound("key_hit");  //Play sound when the correct key is pressed
+                    Audio.playClip("keyHit", 5.0);  //Play sound when the correct key is pressed
                     lastKey = promptKeys.remove(0);  //Remove the pressed key from the prompt
                 }
             }

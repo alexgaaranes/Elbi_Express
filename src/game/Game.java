@@ -40,6 +40,7 @@ public class Game {
         MenuPane menuPane = new MenuPane(this.stage);
         menuScene = new Scene(menuPane, WINDOW_WIDTH, WINDOW_HEIGHT);
         menuPane.setParentScene(menuScene);
+        Audio.playSound("menu", 0.25, true);
 
         //Setup other scenes
         setUpScenes();

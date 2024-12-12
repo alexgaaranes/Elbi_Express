@@ -5,6 +5,7 @@
 
 package game.panes;
 
+import game.Audio;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -31,7 +32,7 @@ public class AboutPane extends Pane implements gamePane {
 
     /**
      * Constructs an AboutPane instance with a reference to the main application stage.
-     * 
+     *
      * @param stage The main application stage.
      */
     public AboutPane(Stage stage) {
@@ -51,7 +52,7 @@ public class AboutPane extends Pane implements gamePane {
 
     /**
      * Sets the parent scene for this pane.
-     * 
+     *
      * @param scene The parent scene to be set.
      */
     @Override
@@ -60,8 +61,14 @@ public class AboutPane extends Pane implements gamePane {
     }
 
     /**
+     * Configures the scene to be loaded when the back button is clicked.
+     *
+     * @param menu The menu scene to navigate back to.
+     */
+
+    /**
      * Sets up the UI buttons for navigation and assigns their actions.
-     * 
+     *
      * @param font The font to be used for button text.
      */
     private void setUpButtons(Font font) {
@@ -70,7 +77,7 @@ public class AboutPane extends Pane implements gamePane {
         leftArrowBtn = createStyledButton("<", font);
         rightArrowBtn = createStyledButton(">", font);
 
-        // Position buttons on the pane
+        // Set positions for buttons
         backBtn.setLayoutX(50);
         backBtn.setLayoutY(50);
 
@@ -80,10 +87,20 @@ public class AboutPane extends Pane implements gamePane {
         rightArrowBtn.setLayoutX(1200);
         rightArrowBtn.setLayoutY(511);
 
-        // Assign actions to buttons
-        backBtn.setOnAction(event -> stage.setScene(parentScene));
-        leftArrowBtn.setOnAction(event -> changeInstruction(-1));
-        rightArrowBtn.setOnAction(event -> changeInstruction(1));
+        // Set button actions
+        backBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
+            stage.setScene(parentScene);
+        });
+        leftArrowBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
+            changeInstruction(-1);
+        }
+        );
+        rightArrowBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
+            changeInstruction(1);
+        });
 
         // Add buttons to the pane
         this.getChildren().addAll(backBtn, leftArrowBtn, rightArrowBtn);
@@ -94,7 +111,7 @@ public class AboutPane extends Pane implements gamePane {
 
     /**
      * Changes the current instruction page by a specified direction.
-     * 
+     *
      * @param direction -1 to navigate backward, 1 to navigate forward.
      */
     private void changeInstruction(int direction) {
@@ -120,7 +137,7 @@ public class AboutPane extends Pane implements gamePane {
 
     /**
      * Creates a styled button with a consistent appearance and hover effect.
-     * 
+     *
      * @param text The text to display on the button.
      * @param font The font to use for the button text.
      * @return A styled Button instance.

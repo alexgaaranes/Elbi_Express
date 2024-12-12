@@ -6,6 +6,7 @@
 
 package game.panes;
 
+import game.Audio;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -22,7 +23,7 @@ public class DeveloperPane extends Pane implements gamePane {
     /**
      * Constructor to initialize the DeveloperPane with the provided stage.
      * It sets up the background image and initializes the buttons.
-     * 
+     *
      * @param stage The main stage for the application.
      */
     public DeveloperPane(Stage stage) {
@@ -41,7 +42,7 @@ public class DeveloperPane extends Pane implements gamePane {
 
     /**
      * Sets the parent scene for navigation purposes.
-     * 
+     *
      * @param scene The scene to be set as the parent.
      */
     @Override
@@ -49,11 +50,16 @@ public class DeveloperPane extends Pane implements gamePane {
         this.parentScene = scene;
     }
 
+    /**
+     * Sets the menu scene to be used when navigating back.
+     *
+     * @param menu The menu scene to navigate to.
+     */
 
     /**
      * Sets up the buttons and their actions on the DeveloperPane.
      * Buttons are styled and positioned, and actions are assigned to them.
-     * 
+     *
      * @param font The font used for button text.
      */
     private void setUpButtons(Font font) {
@@ -66,6 +72,7 @@ public class DeveloperPane extends Pane implements gamePane {
 
         // Set the action to switch to the menu scene when the button is clicked
         backBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
             stage.setScene(parentScene);  //Set the menu scene as the current scene on the stage.
         });
 
@@ -77,7 +84,7 @@ public class DeveloperPane extends Pane implements gamePane {
      * Creates and styles a button with the given text and font.
      * The button is styled with a gradient background, border, padding, and a shadow effect.
      * Additionally, it includes hover effects to scale the button on mouse enter and reset on mouse exit.
-     * 
+     *
      * @param text The text to display on the button.
      * @param font The font used for the button text.
      * @return The created button with styling and effects applied.

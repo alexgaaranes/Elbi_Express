@@ -18,7 +18,7 @@ import java.util.Random;
 public class DisasterManager {
     // Array of possible disasters
     private Disaster[] disasterList;
-    
+
     // Timer for managing spawn intervals
     private Timer spawnTimer;
 
@@ -63,7 +63,7 @@ public class DisasterManager {
                 //Check if enough time has passed and the random time condition is met
                 if (spawnTimer.getElapsedTimeInSec() > Disaster.minRandTime && l - startTime >= 1_000_000_000L) {
                     int spawnChance = r.nextInt(10);  // Generate a random spawn chance (0-9)
-                    
+
                     //If the spawn chance is divisible by 4, spawn a disaster
                     if (spawnChance % 4 == 0) {
                         int index = r.nextInt(disasterList.length);  //Randomly select a disaster from the list

@@ -100,10 +100,13 @@ public class GameTimer extends AnimationTimer {
         // Check for game-over conditions
         if(this.scoreboard.checkIfLost()) {
             System.out.println("Game Over!");
+            Audio.stopSound();
             if(scoreboard.getHappinessLvl() <= 0) {
+                Audio.playSound("lose", 0.25, true);
                 System.out.println("You Lost!");
                 gameOver = new Image(getClass().getResource("/assets/sprites/lose.png").toExternalForm());
             } else {
+                Audio.playSound("win", 0.25, true);
                 System.out.println("You Won!");
                 gameOver = new Image(getClass().getResource("/assets/sprites/won.png").toExternalForm());
             }
@@ -159,8 +162,16 @@ public class GameTimer extends AnimationTimer {
         mainMenuBtn.setX(Game.WINDOW_WIDTH / 2 + 75);
         mainMenuBtn.setY(800);
 
-        restartBtn.setOnMouseClicked(event -> MenuPane.activeMenuPane.setSelection());
-        mainMenuBtn.setOnMouseClicked(event -> stage.setScene(MenuPane.activeMenuPane.getScene()));
+        // Click Events
+        restartBtn.setOnMouseClicked(event -> {
+            Audio.playClip("menuButton", 1.5);
+            MenuPane.activeMenuPane.setSelection();
+        });
+        mainMenuBtn.setOnMouseClicked(event -> {
+            Audio.playClip("menuButton", 1.5);
+            stage.setScene(MenuPane.activeMenuPane.getScene());
+            Audio.playSound("menu", 0.25, true);
+        });
 
         restartBtn.setOnMouseEntered(event -> {
             restartBtn.setScaleX(1.2);
@@ -192,9 +203,9 @@ public class GameTimer extends AnimationTimer {
 
         score.setX(500);
         score.setY(600);
-        p1.setX(745);
+        p1.setX(345);
         p1.setY(500);
-        p2.setX(345);
+        p2.setX(745);
         p2.setY(500);
 
         score.setFont(Font.loadFont(fontPath, 30));
@@ -218,7 +229,7 @@ public class GameTimer extends AnimationTimer {
                 if(scoreboard.checkIfLost()) {
                     this.stop();
                 }
-                if(l - startTime >= 15000000000L) { // Generate an order every 15 seconds
+                if(l - startTime >= 10000000000L) { // Generate an order every 10 seconds
                     randomOrder();
                     startTime = l;
                 }

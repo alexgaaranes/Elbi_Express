@@ -6,6 +6,7 @@
 
 package graphics.disaster;
 
+import game.Audio;
 import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -24,7 +25,7 @@ public class Thunderstorm extends Disaster {
     //ImageViews for displaying the fog and rain effects
     private final ImageView fog;
     private final ImageView rain;
-    
+
     //Group that contains the overlay images
     private final Group overlayGroup = new Group();
 
@@ -37,11 +38,11 @@ public class Thunderstorm extends Disaster {
      */
     protected Thunderstorm(Stage stage, Scene parentScene, Vehicle v1, Vehicle v2) {
         super(stage, parentScene, v1, v2);
-        
+
         //Initialize fog and rain ImageViews with their respective images
         fog = new ImageView(overlay1);
         rain = new ImageView(overlay2);
-        
+
         //Add both fog and rain effects to the overlay group
         overlayGroup.getChildren().addAll(fog, rain);
     }
@@ -53,28 +54,35 @@ public class Thunderstorm extends Disaster {
      */
     @Override
     protected void spawnDisaster() {
+        Audio.playClip("rain", 3.0);
         System.out.println("Thunderstorm spawned");
-        
+
         //Track the start time for the storm duration
         long startTime = System.nanoTime();
         
         //Get the root of the scene and add the overlay group
         Node root = parentScene.getRoot();
         ((Group) root).getChildren().add(overlayGroup);
-        
+
         //Toggle the thunderstorm effect for both vehicles
         this.v1.thunderstormToggleEffect();
         this.v2.thunderstormToggleEffect();
-        
+
         //AnimationTimer to remove the thunderstorm effects after 5 seconds (5 billion nanoseconds)
         new AnimationTimer(){
+            long rainSoundStart = System.nanoTime();
             @Override
             public void handle(long l) {
-                if(l - startTime >= 5000000000L){
+                // Play rain sound over time
+                if(l-rainSoundStart >= 1000000000L){
+                    Audio.playClip("rain", 3.0);
+                    rainSoundStart = l;
+                }
+                if(l-startTime >= 5000000000L){
                     //Toggle off the thunderstorm effect for both vehicles
                     v1.thunderstormToggleEffect();
                     v2.thunderstormToggleEffect();
-                    
+
                     //Remove the thunderstorm overlay from the scene
                     ((Group) root).getChildren().remove(overlayGroup);
                     this.stop(); //Stop the timer

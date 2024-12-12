@@ -101,7 +101,7 @@ public class SelectionPane extends Group implements gamePane{
                     PlayPane playPane = (PlayPane) playScene.getRoot();
                     playPane.startGame(p1Index, p2Index, p1ColorIndex, p2ColorIndex);
                     stage.setScene(playScene);
-                    Audio.playSound("in_game", 0.5);
+                    Audio.playSound("in_game", 0.25, true);
                     this.stop();
                 }
             }
@@ -119,20 +119,24 @@ public class SelectionPane extends Group implements gamePane{
                 }
                 if(p1LastKey != null && !activeKeys.contains(p1LastKey)){p1LastKey = null;}
                 if(p1LastKey == null && activeKeys.contains(KeyCode.D)){
+                    Audio.playClip("button", 3.0);
                     p1LastKey = KeyCode.D;
                     p1Index = ++p1Index % vehicles.length;
                 }
                 if(p1LastKey == null && activeKeys.contains(KeyCode.A)){
+                    Audio.playClip("button", 3.0);
                     p1LastKey = KeyCode.A;
                     --p1Index;
                     if(p1Index < 0){p1Index = vehicles.length-1;}
                 }
                 if(p2LastKey != null && !activeKeys.contains(p2LastKey)){p2LastKey = null;}
                 if(p2LastKey == null && activeKeys.contains(KeyCode.RIGHT)){
+                    Audio.playClip("button", 3.0);
                     p2LastKey = KeyCode.RIGHT;
                     p2Index = ++p2Index % vehicles.length;
                 }
                 if(p2LastKey == null && activeKeys.contains(KeyCode.LEFT)){
+                    Audio.playClip("button", 3.0);
                     p2LastKey = KeyCode.LEFT;
                     --p2Index;
                     if(p2Index < 0){p2Index = vehicles.length-1;}
@@ -152,20 +156,24 @@ public class SelectionPane extends Group implements gamePane{
                 }
                 if(p1LastKey != null && !activeKeys.contains(p1LastKey)){p1LastKey = null;}
                 if(p1LastKey == null && activeKeys.contains(KeyCode.W)){
+                    Audio.playClip("button", 3.0);
                     p1LastKey = KeyCode.W;
                     p1ColorIndex = ++p1ColorIndex % 7;
                 }
                 if(p1LastKey == null && activeKeys.contains(KeyCode.S)){
+                    Audio.playClip("button", 3.0);
                     p1LastKey = KeyCode.S;
                     --p1ColorIndex;
                     if(p1ColorIndex < 0){p1ColorIndex = 6;}
                 }
                 if(p2LastKey != null && !activeKeys.contains(p2LastKey)){p2LastKey = null;}
                 if(p2LastKey == null && activeKeys.contains(KeyCode.UP)){
+                    Audio.playClip("button", 3.0);
                     p2LastKey = KeyCode.UP;
                     p2ColorIndex = ++p2ColorIndex % 7;
                 }
                 if(p2LastKey == null && activeKeys.contains(KeyCode.DOWN)){
+                    Audio.playClip("button", 3.0);
                     p2LastKey = KeyCode.DOWN;
                     --p2ColorIndex;
                     if(p2ColorIndex < 0){p2ColorIndex = 6;}
@@ -178,26 +186,38 @@ public class SelectionPane extends Group implements gamePane{
          * Timer that monitors changes in the player readiness and updates visual cues.
          */
         new AnimationTimer() {
+            boolean p1PlayedAudio = false;
+            boolean p2PlayedAudio = false;
             @Override
             public void handle(long l) {
                 if(isReady){this.stop();}
                 if(activeKeys.contains(KeyCode.Q)){
+                    if(!p1PlayedAudio){
+                        Audio.playClip("ready", 1.0);
+                        p1PlayedAudio = true;
+                    }
                     player1Ready.setText("Ready!");
                     player1Ready.setX(300);
                     player1Ready.setY(700);
                     player1Ready.setFill(Color.GREEN);
                 } else {
+                    p1PlayedAudio = false;
                     player1Ready.setText("Hold Q to ready");
                     player1Ready.setX(225);
                     player1Ready.setY(700);
                     player1Ready.setFill(Color.RED);
                 }
                 if(activeKeys.contains(KeyCode.PERIOD)){
+                    if(!p2PlayedAudio){
+                        Audio.playClip("ready", 1.0);
+                        p2PlayedAudio = true;
+                    }
                     player2Ready.setText("Ready!");
                     player2Ready.setX(890);
                     player2Ready.setY(700);
                     player2Ready.setFill(Color.GREEN);
                 } else {
+                    p2PlayedAudio = false;
                     player2Ready.setText("Hold PERIOD to ready");
                     player2Ready.setX(765);
                     player2Ready.setY(700);

@@ -5,6 +5,7 @@
  */
 package game.panes;
 
+import game.Audio;
 import game.Game;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,12 +16,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class MenuPane extends Pane implements gamePane {
-    private final Stage stage; 
-    @SuppressWarnings("unused")
-	private Scene parentScene = null;
-    private Scene developerScene = null; 
-    private Scene aboutScene = null; 
-    private ImageView background; 
+    private final Stage stage;
+    private Scene parentScene = null;
+    private Scene developerScene = null;
+    private Scene aboutScene = null;
+    private ImageView background;
 
     //Static reference to the active menu pane (used for global access).
     public static MenuPane activeMenuPane;
@@ -28,7 +28,7 @@ public class MenuPane extends Pane implements gamePane {
     /**
      * Constructor to initialize the MenuPane with the provided stage.
      * It sets up the background, loads the font, and initializes buttons.
-     * 
+     *
      * @param stage The main stage for the application.
      */
     public MenuPane(Stage stage) {
@@ -48,7 +48,7 @@ public class MenuPane extends Pane implements gamePane {
 
     /**
      * Sets the parent scene for navigation purposes.
-     * 
+     *
      * @param scene The scene to be set as the parent.
      */
     @Override
@@ -58,7 +58,7 @@ public class MenuPane extends Pane implements gamePane {
 
     /**
      * Sets the scenes for the developer and about sections.
-     * 
+     *
      * @param devScene The scene to navigate to for developer information.
      * @param abScene The scene to navigate to for instructions.
      */
@@ -70,7 +70,7 @@ public class MenuPane extends Pane implements gamePane {
     /**
      * Sets up the buttons and their actions on the MenuPane.
      * Buttons are styled, positioned, and linked to corresponding actions for navigation or game exit.
-     * 
+     *
      * @param font The font used for button text.
      */
     private void setUpButtons(Font font) {
@@ -95,18 +95,22 @@ public class MenuPane extends Pane implements gamePane {
 
         //Define actions for the buttons
         playBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
             this.setSelection();  //Navigate to the selection screen.
         });
 
         developerBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
             stage.setScene(developerScene);  //Switch to the developer scene.
         });
 
         aboutBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
             stage.setScene(aboutScene);  //Switch to the about/instructions scene.
         });
 
         quitBtn.setOnAction(event -> {
+            Audio.playClip("menuButton", 1.5);
             System.out.println("Exiting game...");  //Print exit message to console.
             stage.close();  //Close the application window.
             System.exit(0);  //Exit the application.
@@ -125,6 +129,7 @@ public class MenuPane extends Pane implements gamePane {
         Scene selectionScene = new Scene(selectionPane, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         selectionPane.setParentScene(selectionScene);
 
+        Audio.playSound("selection", 0.25, true);
         stage.setScene(selectionScene);  //Switch to the selection scene.
         selectionPane.setUpSelection();  //Set up the selection interface.
     }
@@ -133,7 +138,7 @@ public class MenuPane extends Pane implements gamePane {
      * Creates and styles a button with the given text and font.
      * The button is styled with a gradient background, border, padding, and a shadow effect.
      * Additionally, it includes hover effects to scale the button on mouse enter and reset on mouse exit.
-     * 
+     *
      * @param text The text to display on the button.
      * @param font The font used for the button text.
      * @return The created button with styling and effects applied.
@@ -154,16 +159,16 @@ public class MenuPane extends Pane implements gamePane {
         
         //Add hover effect: scale up the button when the mouse enters
         button.setOnMouseEntered(event -> {
-            button.setScaleX(1.2); 
-            button.setScaleY(1.2); 
+            button.setScaleX(1.2);
+            button.setScaleY(1.2);
         });
-        
+
         //Reset the button size when the mouse exits
         button.setOnMouseExited(event -> {
             button.setScaleX(1.0);
             button.setScaleY(1.0);
         });
-        
+
         return button;  //Return the styled button.
     }
 }

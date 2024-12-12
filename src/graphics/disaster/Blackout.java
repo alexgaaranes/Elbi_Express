@@ -6,6 +6,7 @@
 
 package graphics.disaster;
 
+import game.Audio;
 import game.Game;
 import game.panes.PlayPane;
 import graphics.vehicles.Vehicle;
@@ -70,6 +71,7 @@ public class Blackout extends Disaster {
      */
     @Override
     protected void spawnDisaster() {
+        Audio.playClip("blackout", 3.0);
         System.out.println("Blackout Spawned");
         
         //Add the blackout effect layer to the PlayPane
