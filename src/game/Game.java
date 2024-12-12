@@ -30,6 +30,7 @@ public class Game {
     /**
      * Constructor for the Game class.
      * Sets up the primary stage and initializes the main menu and other scenes.
+     * Sets up background music for MenuPane.
      *
      * @param stage The primary stage for the JavaFX application.
      */

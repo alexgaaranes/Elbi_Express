@@ -17,7 +17,8 @@ import javafx.stage.Stage;
 
 public class MenuPane extends Pane implements gamePane {
     private final Stage stage;
-    private Scene parentScene = null;
+    @SuppressWarnings("unused")
+	private Scene parentScene = null;
     private Scene developerScene = null;
     private Scene aboutScene = null;
     private ImageView background;
@@ -69,7 +70,7 @@ public class MenuPane extends Pane implements gamePane {
 
     /**
      * Sets up the buttons and their actions on the MenuPane.
-     * Buttons are styled, positioned, and linked to corresponding actions for navigation or game exit.
+     * Buttons are styled, positioned, given an audio cue and linked to corresponding actions for navigation or game exit.
      *
      * @param font The font used for button text.
      */
@@ -129,7 +130,7 @@ public class MenuPane extends Pane implements gamePane {
         Scene selectionScene = new Scene(selectionPane, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         selectionPane.setParentScene(selectionScene);
 
-        Audio.playSound("selection", 0.25, true);
+        Audio.playSound("selection", 0.25, true); //Sets up background music for SelectionPane
         stage.setScene(selectionScene);  //Switch to the selection scene.
         selectionPane.setUpSelection();  //Set up the selection interface.
     }

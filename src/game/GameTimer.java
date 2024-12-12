@@ -102,12 +102,12 @@ public class GameTimer extends AnimationTimer {
             System.out.println("Game Over!");
             Audio.stopSound();
             if(scoreboard.getHappinessLvl() <= 0) {
-                Audio.playSound("lose", 0.25, true);
+                Audio.playSound("lose", 0.25, true); //Sound cue for losing the game
                 System.out.println("You Lost!");
                 gameOver = new Image(getClass().getResource("/assets/sprites/lose.png").toExternalForm());
             } else {
                 Audio.playSound("win", 0.25, true);
-                System.out.println("You Won!");
+                System.out.println("You Won!"); //Sound cue for winning the game
                 gameOver = new Image(getClass().getResource("/assets/sprites/won.png").toExternalForm());
             }
 
@@ -151,6 +151,7 @@ public class GameTimer extends AnimationTimer {
 
     /**
      * Configure the restart and main menu buttons with click and hover effects.
+     * Sets up audio cue for button events without interruption of background track
      * @param restartBtn The restart button.
      * @param mainMenuBtn The main menu button.
      */

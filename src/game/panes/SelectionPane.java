@@ -101,7 +101,7 @@ public class SelectionPane extends Group implements gamePane{
                     PlayPane playPane = (PlayPane) playScene.getRoot();
                     playPane.startGame(p1Index, p2Index, p1ColorIndex, p2ColorIndex);
                     stage.setScene(playScene);
-                    Audio.playSound("in_game", 0.25, true);
+                    Audio.playSound("in_game", 0.25, true); //Set up game proper background music
                     this.stop();
                 }
             }

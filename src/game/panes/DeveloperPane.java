@@ -58,7 +58,7 @@ public class DeveloperPane extends Pane implements gamePane {
 
     /**
      * Sets up the buttons and their actions on the DeveloperPane.
-     * Buttons are styled and positioned, and actions are assigned to them.
+     * Buttons are styled and positioned, given an audio cue, and actions are assigned to them.
      *
      * @param font The font used for button text.
      */

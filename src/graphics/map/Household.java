@@ -93,7 +93,7 @@ public class Household extends Objective {
             vehicle.updateLoad(-1);
             vehicle.updateScore(1);
             map.getScoreboard().updateScore(1);
-			Audio.playClip("deliver", 0.25);
+			Audio.playClip("deliver", 0.25); //Audio cue for successful delivery
             System.out.println("Order Delivered by " + vehicle);
         }
         this.hasActiveOrder = false; // No active order after delivery.

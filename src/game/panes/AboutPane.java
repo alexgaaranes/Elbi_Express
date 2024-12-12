@@ -68,6 +68,7 @@ public class AboutPane extends Pane implements gamePane {
 
     /**
      * Sets up the UI buttons for navigation and assigns their actions.
+     * Buttons are styled, positioned, given an audio cue and linked to corresponding actions for navigation.
      *
      * @param font The font to be used for button text.
      */

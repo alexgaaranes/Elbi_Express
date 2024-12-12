@@ -85,7 +85,7 @@ public class Store extends Objective {
 
         vehicle.updateLoad(1); //Update the vehicle's load by 1
         closePickUp(); //Closes the pickup visual
-		Audio.playClip("pickUP", 1.0);
+		Audio.playClip("pickUP", 1.0); //Audio cue for successful pick up
         System.out.println("Order from " + this.name + " was picked up by " + vehicle);
     }
     
