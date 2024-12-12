@@ -16,10 +16,6 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 public class DisasterManager {
-    private Stage stage;
-    private Scene ParentScene;
-    private Vehicle v1, v2;
-    
     // Array of possible disasters
     private Disaster[] disasterList;
     

@@ -7,7 +7,8 @@ import java.util.HashMap;
 
 public class Audio {
     private static MediaPlayer mediaPlayer;
-    private static HashMap<String, Media> audioCollection = new HashMap<>(){{
+    @SuppressWarnings("serial")
+	private static HashMap<String, Media> audioCollection = new HashMap<>(){{
         put("key_hit", new Media(Audio.class.getResource("/assets/audio/keyHit.wav").toExternalForm()));
         put("in_game", new Media(Audio.class.getResource("/assets/audio/inGame.wav").toExternalForm()));
     }};

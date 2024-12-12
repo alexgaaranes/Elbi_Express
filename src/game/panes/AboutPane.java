@@ -19,7 +19,6 @@ public class AboutPane extends Pane implements gamePane {
 
     //References to other scenes for navigation
     private Scene parentScene = null;
-    private Scene menuScene = null;
 
     //Instruction page tracking
     private int currentInstructionIndex = 1; //Tracks the current instruction page index
@@ -61,15 +60,6 @@ public class AboutPane extends Pane implements gamePane {
     }
 
     /**
-     * Configures the scene to be loaded when the back button is clicked.
-     * 
-     * @param menu The menu scene to navigate back to.
-     */
-    public void setButtonScenes(Scene menu) {
-        this.menuScene = menu;
-    }
-
-    /**
      * Sets up the UI buttons for navigation and assigns their actions.
      * 
      * @param font The font to be used for button text.
@@ -91,7 +81,7 @@ public class AboutPane extends Pane implements gamePane {
         rightArrowBtn.setLayoutY(511);
 
         // Assign actions to buttons
-        backBtn.setOnAction(event -> stage.setScene(menuScene));
+        backBtn.setOnAction(event -> stage.setScene(parentScene));
         leftArrowBtn.setOnAction(event -> changeInstruction(-1));
         rightArrowBtn.setOnAction(event -> changeInstruction(1));
 

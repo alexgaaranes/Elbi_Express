@@ -10,7 +10,6 @@ import game.Audio;
 import game.Game;
 import game.Scoreboard;
 import graphics.map.Map;
-import graphics.vehicles.Vehicle;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -38,7 +37,6 @@ public class SelectionPane extends Group implements gamePane{
 
     //Attributes associated with the players' to the vehicles
     private String vehicles[] = {"Car", "Motor", "Truck"};
-    private Vehicle p1, p2;
     private int p1Index = 0;
     private int p2Index = 0;
     private int p1ColorIndex = 0;

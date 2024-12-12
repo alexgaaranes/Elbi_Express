@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 public class DeveloperPane extends Pane implements gamePane {
     private final Stage stage;
     private Scene parentScene = null;
-    private Scene menuScene = null;
     private ImageView background;
 
     /**
@@ -50,14 +49,6 @@ public class DeveloperPane extends Pane implements gamePane {
         this.parentScene = scene;
     }
 
-    /**
-     * Sets the menu scene to be used when navigating back.
-     * 
-     * @param menu The menu scene to navigate to.
-     */
-    public void setButtonScenes(Scene menu) {
-        this.menuScene = menu;
-    }
 
     /**
      * Sets up the buttons and their actions on the DeveloperPane.
@@ -75,7 +66,7 @@ public class DeveloperPane extends Pane implements gamePane {
 
         // Set the action to switch to the menu scene when the button is clicked
         backBtn.setOnAction(event -> {
-            stage.setScene(menuScene);  //Set the menu scene as the current scene on the stage.
+            stage.setScene(parentScene);  //Set the menu scene as the current scene on the stage.
         });
 
         //Add the button to the pane

@@ -19,7 +19,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -28,7 +27,8 @@ import javafx.scene.text.Text;
 public class HUD extends Group {
     private Timer gameTimer;
     private Canvas hudCanvas; 
-    private GraphicsContext gc; 
+    @SuppressWarnings("unused")
+	private GraphicsContext gc; 
     private Scoreboard scoreboard; 
     private static String hexCode1 = "#8a1538"; //Hex color code for the red bar
     private static String hexCode2 = "#00573f"; //Hex color code for the green bar

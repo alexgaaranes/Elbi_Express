@@ -16,7 +16,8 @@ import javafx.stage.Stage;
 
 public class MenuPane extends Pane implements gamePane {
     private final Stage stage; 
-    private Scene parentScene = null;
+    @SuppressWarnings("unused")
+	private Scene parentScene = null;
     private Scene developerScene = null; 
     private Scene aboutScene = null; 
     private ImageView background; 

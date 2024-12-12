@@ -76,13 +76,11 @@ public class Game {
         AboutPane aboutPane = new AboutPane(this.stage);
         aboutScene = new Scene(aboutPane, WINDOW_WIDTH, WINDOW_HEIGHT);
         aboutPane.setParentScene(menuScene);
-        aboutPane.setButtonScenes(menuScene);
 
         // Setup Developer Scene
         DeveloperPane developerPane = new DeveloperPane(this.stage);
         developerScene = new Scene(developerPane, WINDOW_WIDTH, WINDOW_HEIGHT);
         developerPane.setParentScene(menuScene);
-        developerPane.setButtonScenes(menuScene);
     }
 
     /**
@@ -94,4 +92,12 @@ public class Game {
     public static Scene getMenuScene() {
         return menuScene;
     }
+
+	public Scene getSelectionScene() {
+		return selectionScene;
+	}
+
+	public void setSelectionScene(Scene selectionScene) {
+		this.selectionScene = selectionScene;
+	}
 }
